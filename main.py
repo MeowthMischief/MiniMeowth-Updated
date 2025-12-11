@@ -63,7 +63,7 @@ async def on_ready():
     # Set streaming activity
     try:
         activity = discord.Streaming(
-            name="MeowthMischief★'s Adventures",
+            name="Team Rocket's Adventures",
             url="https://www.twitch.tv/discord"
         )
         await bot.change_presence(activity=activity, status=discord.Status.online)
