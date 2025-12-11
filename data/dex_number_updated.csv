@@ -1,0 +1,1386 @@
+Number,Name,HasGenderDifference
+0,MissingNo.,No
+1,Bulbasaur,No
+2,Ivysaur,No
+3,Venusaur,Yes
+3,Mega Venusaur,No
+3,Gigantamax Venusaur,No
+4,Charmander,No
+5,Charmeleon,No
+6,Charizard,No
+6,Mega Charizard X,No
+6,Mega Charizard Y,No
+6,Gigantamax Charizard,No
+7,Squirtle,No
+8,Wartortle,No
+9,Blastoise,No
+9,Mega Blastoise,No
+9,Gigantamax Blastoise,No
+10,Caterpie,No
+11,Metapod,No
+12,Butterfree,Yes
+12,Gigantamax Butterfree,No
+13,Weedle,No
+14,Kakuna,No
+15,Beedrill,No
+15,Mega Beedrill,No
+16,Pidgey,No
+17,Pidgeotto,No
+18,Pidgeot,No
+18,Mega Pidgeot,No
+19,Rattata,Yes
+19,Alolan Rattata,No
+20,Raticate,Yes
+20,Alolan Raticate,No
+21,Spearow,No
+22,Fearow,No
+23,Ekans,No
+24,Arbok,No
+25,Pikachu,Yes
+25,Gigantamax Pikachu,No
+25,Partner Pikachu,No
+26,Raichu,Yes
+26,Alolan Raichu,No
+27,Sandshrew,No
+27,Alolan Sandshrew,No
+28,Sandslash,No
+28,Alolan Sandslash,No
+29,Nidoran♀️,No
+30,Nidorina,No
+31,Nidoqueen,No
+32,Nidoran♂️,No
+33,Nidorino,No
+34,Nidoking,No
+35,Clefairy,No
+36,Clefable,No
+37,Vulpix,No
+37,Alolan Vulpix,No
+38,Ninetales,No
+38,Alolan Ninetales,No
+39,Jigglypuff,No
+40,Wigglytuff,No
+41,Zubat,Yes
+42,Golbat,Yes
+43,Oddish,No
+44,Gloom,Yes
+45,Vileplume,Yes
+46,Paras,No
+47,Parasect,No
+48,Venonat,No
+49,Venomoth,No
+50,Diglett,No
+50,Alolan Diglett,No
+51,Dugtrio,No
+51,Alolan Dugtrio,No
+52,Meowth,No
+52,Alolan Meowth,No
+52,Galarian Meowth,No
+52,Gigantamax Meowth,No
+53,Persian,No
+53,Alolan Persian,No
+54,Psyduck,No
+55,Golduck,No
+56,Mankey,No
+57,Primeape,No
+58,Growlithe,No
+58,Hisuian Growlithe,No
+59,Arcanine,No
+59,Hisuian Arcanine,No
+60,Poliwag,No
+61,Poliwhirl,No
+62,Poliwrath,No
+63,Abra,No
+64,Kadabra,Yes
+65,Alakazam,Yes
+65,Mega Alakazam,No
+66,Machop,No
+67,Machoke,No
+68,Machamp,No
+68,Gigantamax Machamp,No
+69,Bellsprout,No
+70,Weepinbell,No
+71,Victreebel,No
+72,Tentacool,No
+73,Tentacruel,No
+74,Geodude,No
+74,Alolan Geodude,No
+75,Graveler,No
+75,Alolan Graveler,No
+76,Golem,No
+76,Alolan Golem,No
+77,Ponyta,No
+77,Galarian Ponyta,No
+78,Rapidash,No
+78,Galarian Rapidash,No
+79,Slowpoke,No
+79,Galarian Slowpoke,No
+80,Slowbro,No
+80,Mega Slowbro,No
+80,Galarian Slowbro,No
+81,Magnemite,No
+82,Magneton,No
+83,Farfetch'd,No
+83,Galarian Farfetch'd,No
+84,Doduo,Yes
+85,Dodrio,Yes
+86,Seel,No
+87,Dewgong,No
+88,Grimer,No
+88,Alolan Grimer,No
+89,Muk,No
+89,Alolan Muk,No
+90,Shellder,No
+91,Cloyster,No
+92,Gastly,No
+93,Haunter,No
+94,Gengar,No
+94,Mega Gengar,No
+94,Gigantamax Gengar,No
+95,Onix,No
+96,Drowzee,No
+97,Hypno,Yes
+98,Krabby,No
+99,Kingler,No
+99,Gigantamax Kingler,No
+100,Voltorb,No
+100,Hisuian Voltorb,No
+101,Electrode,No
+101,Hisuian Electrode,No
+102,Exeggcute,No
+103,Exeggutor,No
+103,Alolan Exeggutor,No
+104,Cubone,No
+105,Marowak,No
+105,Alolan Marowak,No
+106,Hitmonlee,No
+107,Hitmonchan,No
+108,Lickitung,No
+109,Koffing,No
+110,Weezing,No
+110,Galarian Weezing,No
+111,Rhyhorn,Yes
+112,Rhydon,Yes
+113,Chansey,No
+114,Tangela,No
+115,Kangaskhan,No
+115,Mega Kangaskhan,No
+116,Horsea,No
+117,Seadra,No
+118,Goldeen,Yes
+119,Seaking,Yes
+120,Staryu,No
+121,Starmie,No
+122,Mr. Mime,No
+122,Galarian Mr. Mime,No
+123,Scyther,Yes
+124,Jynx,No
+125,Electabuzz,No
+126,Magmar,No
+127,Pinsir,No
+127,Mega Pinsir,No
+128,Tauros,No
+128,Combat Breed Tauros,No
+128,Blaze Breed Tauros,No
+128,Aqua Breed Tauros,No
+129,Magikarp,Yes
+130,Gyarados,Yes
+130,Mega Gyarados,No
+131,Lapras,No
+131,Gigantamax Lapras,No
+132,Ditto,No
+133,Eevee,Yes
+133,Gigantamax Eevee,No
+133,Partner Eevee,No
+134,Vaporeon,No
+135,Jolteon,No
+136,Flareon,No
+137,Porygon,No
+138,Omanyte,No
+139,Omastar,No
+140,Kabuto,No
+141,Kabutops,No
+142,Aerodactyl,No
+142,Mega Aerodactyl,No
+143,Snorlax,No
+143,Gigantamax Snorlax,No
+144,Articuno,No
+144,Galarian Articuno,No
+145,Zapdos,No
+145,Galarian Zapdos,No
+146,Moltres,No
+146,Galarian Moltres,No
+147,Dratini,No
+148,Dragonair,No
+149,Dragonite,No
+150,Mewtwo,No
+150,Mega Mewtwo X,No
+150,Mega Mewtwo Y,No
+151,Mew,No
+152,Chikorita,No
+153,Bayleef,No
+154,Meganium,Yes
+155,Cyndaquil,No
+156,Quilava,No
+157,Typhlosion,No
+157,Hisuian Typhlosion,No
+158,Totodile,No
+159,Croconaw,No
+160,Feraligatr,No
+161,Sentret,No
+162,Furret,No
+163,Hoothoot,No
+164,Noctowl,No
+165,Ledyba,Yes
+166,Ledian,Yes
+167,Spinarak,No
+168,Ariados,No
+169,Crobat,No
+170,Chinchou,No
+171,Lanturn,No
+172,Pichu,No
+172,Spiky-eared Pichu,No
+173,Cleffa,No
+174,Igglybuff,No
+175,Togepi,No
+176,Togetic,No
+177,Natu,No
+178,Xatu,Yes
+179,Mareep,No
+180,Flaaffy,No
+181,Ampharos,No
+181,Mega Ampharos,No
+182,Bellossom,No
+183,Marill,No
+184,Azumarill,No
+185,Sudowoodo,Yes
+186,Politoed,Yes
+187,Hoppip,No
+188,Skiploom,No
+189,Jumpluff,No
+190,Aipom,Yes
+191,Sunkern,No
+192,Sunflora,No
+193,Yanma,No
+194,Wooper,Yes
+194,Paldean Wooper,No
+195,Quagsire,Yes
+196,Espeon,No
+197,Umbreon,No
+198,Murkrow,Yes
+199,Slowking,No
+199,Galarian Slowking,No
+200,Misdreavus,No
+201,Unown,No
+201,Unown A,No
+201,Unown B,No
+201,Unown C,No
+201,Unown D,No
+201,Unown E,No
+201,Unown G,No
+201,Unown H,No
+201,Unown I,No
+201,Unown J,No
+201,Unown K,No
+201,Unown L,No
+201,Unown M,No
+201,Unown N,No
+201,Unown O,No
+201,Unown P,No
+201,Unown Q,No
+201,Unown R,No
+201,Unown S,No
+201,Unown T,No
+201,Unown U,No
+201,Unown V,No
+201,Unown W,No
+201,Unown X,No
+201,Unown Y,No
+201,Unown Z,No
+201,Unown Exclamation,No
+201,Unown Question,No
+202,Wobbuffet,Yes
+203,Girafarig,Yes
+204,Pineco,No
+205,Forretress,No
+206,Dunsparce,No
+207,Gligar,Yes
+208,Steelix,Yes
+208,Mega Steelix,No
+209,Snubbull,No
+210,Granbull,No
+211,Qwilfish,No
+211,Hisuian Qwilfish,No
+212,Scizor,Yes
+212,Mega Scizor,No
+213,Shuckle,No
+214,Heracross,Yes
+214,Mega Heracross,No
+215,Sneasel,Yes
+215,Hisuian Sneasel,Yes
+216,Teddiursa,No
+217,Ursaring,Yes
+218,Slugma,No
+219,Magcargo,No
+220,Swinub,No
+221,Piloswine,Yes
+222,Corsola,No
+222,Galarian Corsola,No
+223,Remoraid,No
+224,Octillery,Yes
+225,Delibird,No
+226,Mantine,No
+227,Skarmory,No
+228,Houndour,No
+229,Houndoom,Yes
+229,Mega Houndoom,No
+230,Kingdra,No
+231,Phanpy,No
+232,Donphan,Yes
+233,Porygon2,No
+234,Stantler,No
+235,Smeargle,No
+236,Tyrogue,No
+237,Hitmontop,No
+238,Smoochum,No
+239,Elekid,No
+240,Magby,No
+241,Miltank,No
+242,Blissey,No
+243,Raikou,No
+244,Entei,No
+245,Suicune,No
+246,Larvitar,No
+247,Pupitar,No
+248,Tyranitar,No
+248,Mega Tyranitar,No
+249,Lugia,No
+250,Ho-Oh,No
+251,Celebi,No
+252,Treecko,No
+253,Grovyle,No
+254,Sceptile,No
+254,Mega Sceptile,No
+255,Torchic,Yes
+256,Combusken,Yes
+257,Blaziken,Yes
+257,Mega Blaziken,No
+258,Mudkip,No
+259,Marshtomp,No
+260,Swampert,No
+260,Mega Swampert,No
+261,Poochyena,No
+262,Mightyena,No
+263,Zigzagoon,No
+263,Galarian Zigzagoon,No
+264,Linoone,No
+264,Galarian Linoone,No
+265,Wurmple,No
+266,Silcoon,No
+267,Beautifly,Yes
+268,Cascoon,No
+269,Dustox,Yes
+270,Lotad,No
+271,Lombre,No
+272,Ludicolo,Yes
+273,Seedot,No
+274,Nuzleaf,Yes
+275,Shiftry,Yes
+276,Taillow,No
+277,Swellow,No
+278,Wingull,No
+279,Pelipper,No
+280,Ralts,No
+281,Kirlia,No
+282,Gardevoir,No
+282,Mega Gardevoir,No
+283,Surskit,No
+284,Masquerain,No
+285,Shroomish,No
+286,Breloom,No
+287,Slakoth,No
+288,Vigoroth,No
+289,Slaking,No
+290,Nincada,No
+291,Ninjask,No
+292,Shedinja,No
+293,Whismur,No
+294,Loudred,No
+295,Exploud,No
+296,Makuhita,No
+297,Hariyama,No
+298,Azurill,No
+299,Nosepass,No
+300,Skitty,No
+301,Delcatty,No
+302,Sableye,No
+302,Mega Sableye,No
+303,Mawile,No
+303,Mega Mawile,No
+304,Aron,No
+305,Lairon,No
+306,Aggron,No
+306,Mega Aggron,No
+307,Meditite,Yes
+308,Medicham,Yes
+308,Mega Medicham,No
+309,Electrike,No
+310,Manectric,No
+310,Mega Manectric,No
+311,Plusle,No
+312,Minun,No
+313,Volbeat,No
+314,Illumise,No
+315,Roselia,Yes
+316,Gulpin,Yes
+317,Swalot,Yes
+318,Carvanha,No
+319,Sharpedo,No
+319,Mega Sharpedo,No
+320,Wailmer,No
+321,Wailord,No
+322,Numel,Yes
+323,Camerupt,Yes
+323,Mega Camerupt,No
+324,Torkoal,No
+325,Spoink,No
+326,Grumpig,No
+327,Spinda,No
+328,Trapinch,No
+329,Vibrava,No
+330,Flygon,No
+331,Cacnea,No
+332,Cacturne,Yes
+333,Swablu,No
+334,Altaria,No
+334,Mega Altaria,No
+335,Zangoose,No
+336,Seviper,No
+337,Lunatone,No
+338,Solrock,No
+339,Barboach,No
+340,Whiscash,No
+341,Corphish,No
+342,Crawdaunt,No
+343,Baltoy,No
+344,Claydol,No
+345,Lileep,No
+346,Cradily,No
+347,Anorith,No
+348,Armaldo,No
+349,Feebas,No
+350,Milotic,Yes
+351,Castform,No
+351,Sunny Castform,No
+351,Rainy Castform,No
+351,Snowy Castform,No
+352,Kecleon,No
+353,Shuppet,No
+354,Banette,No
+354,Mega Banette,No
+355,Duskull,No
+356,Dusclops,No
+357,Tropius,No
+358,Chimecho,No
+359,Absol,No
+359,Mega Absol,No
+360,Wynaut,No
+361,Snorunt,No
+362,Glalie,No
+362,Mega Glalie,No
+363,Spheal,No
+364,Sealeo,No
+365,Walrein,No
+366,Clamperl,No
+367,Huntail,No
+368,Gorebyss,No
+369,Relicanth,Yes
+370,Luvdisc,No
+371,Bagon,No
+372,Shelgon,No
+373,Salamence,No
+373,Mega Salamence,No
+374,Beldum,No
+375,Metang,No
+376,Metagross,No
+376,Mega Metagross,No
+377,Regirock,No
+378,Regice,No
+379,Registeel,No
+380,Latias,No
+380,Mega Latias,No
+381,Latios,No
+381,Mega Latios,No
+382,Kyogre,No
+382,Primal Kyogre,No
+383,Groudon,No
+383,Primal Groudon,No
+384,Rayquaza,No
+384,Mega Rayquaza,No
+385,Jirachi,No
+386,Deoxys,No
+386,Speed Deoxys,No
+386,Attack Deoxys,No
+386,Defense Deoxys,No
+387,Turtwig,No
+388,Grotle,No
+389,Torterra,No
+390,Chimchar,No
+391,Monferno,No
+392,Infernape,No
+393,Piplup,No
+394,Prinplup,No
+395,Empoleon,No
+396,Starly,Yes
+397,Staravia,Yes
+398,Staraptor,Yes
+399,Bidoof,Yes
+400,Bibarel,Yes
+401,Kricketot,Yes
+402,Kricketune,Yes
+403,Shinx,Yes
+404,Luxio,Yes
+405,Luxray,Yes
+406,Budew,No
+407,Roserade,Yes
+408,Cranidos,No
+409,Rampardos,No
+410,Shieldon,No
+411,Bastiodon,No
+412,Burmy,No
+412,Sandy Burmy,No
+412,Trash Burmy,No
+413,Wormadam,No
+413,Sandy Wormadam,No
+413,Trash Wormadam,No
+414,Mothim,No
+415,Combee,Yes
+416,Vespiquen,No
+417,Pachirisu,Yes
+418,Buizel,Yes
+419,Floatzel,Yes
+420,Cherubi,No
+421,Cherrim,No
+421,Sunshine Cherrim,No
+422,Shellos,No
+422,East Sea Shellos,No
+423,Gastrodon,No
+423,East Sea Gastrodon,No
+424,Ambipom,Yes
+425,Drifloon,No
+426,Drifblim,No
+427,Buneary,No
+428,Lopunny,No
+428,Mega Lopunny,No
+429,Mismagius,No
+430,Honchkrow,No
+431,Glameow,No
+432,Purugly,No
+433,Chingling,No
+434,Stunky,No
+435,Skuntank,No
+436,Bronzor,No
+437,Bronzong,No
+438,Bonsly,No
+439,Mime Jr.,No
+440,Happiny,No
+441,Chatot,No
+442,Spiritomb,No
+443,Gible,Yes
+444,Gabite,Yes
+445,Garchomp,Yes
+445,Mega Garchomp,No
+446,Munchlax,No
+447,Riolu,No
+448,Lucario,No
+448,Mega Lucario,No
+449,Hippopotas,Yes
+450,Hippowdon,Yes
+451,Skorupi,No
+452,Drapion,No
+453,Croagunk,Yes
+454,Toxicroak,Yes
+455,Carnivine,No
+456,Finneon,Yes
+457,Lumineon,Yes
+458,Mantyke,No
+459,Snover,Yes
+460,Abomasnow,Yes
+460,Mega Abomasnow,No
+461,Weavile,Yes
+462,Magnezone,No
+463,Lickilicky,No
+464,Rhyperior,Yes
+465,Tangrowth,Yes
+466,Electivire,No
+467,Magmortar,No
+468,Togekiss,No
+469,Yanmega,No
+470,Leafeon,No
+471,Glaceon,No
+472,Gliscor,No
+473,Mamoswine,Yes
+474,Porygon-Z,No
+475,Gallade,No
+475,Mega Gallade,No
+476,Probopass,No
+477,Dusknoir,No
+478,Froslass,No
+479,Rotom,No
+479,Heat Rotom,No
+479,Wash Rotom,No
+479,Frost Rotom,No
+479,Fan Rotom,No
+479,Mow Rotom,No
+479,Rotom Pokédex,No
+479,Rotom Phone,No
+479,Rotom Drone,No
+480,Uxie,No
+481,Mesprit,No
+482,Azelf,No
+483,Dialga,No
+483,Origin Dialga,No
+484,Palkia,No
+484,Origin Palkia,No
+485,Heatran,No
+486,Regigigas,No
+487,Giratina,No
+487,Origin Giratina,No
+488,Cresselia,No
+489,Phione,No
+490,Manaphy,No
+491,Darkrai,No
+492,Shaymin,No
+492,Sky Shaymin,No
+493,Arceus,No
+493,Bug Arceus,No
+493,Dark Arceus,No
+493,Dragon Arceus,No
+493,Electric Arceus,No
+493,Fighting Arceus,No
+493,Fire Arceus,No
+493,Flying Arceus,No
+493,Ghost Arceus,No
+493,Grass Arceus,No
+493,Ground Arceus,No
+493,Ice Arceus,No
+493,Poison Arceus,No
+493,Psychic Arceus,No
+493,Rock Arceus,No
+493,Steel Arceus,No
+493,Water Arceus,No
+493,Fairy Arceus,No
+494,Victini,No
+495,Snivy,No
+496,Servine,No
+497,Serperior,No
+498,Tepig,No
+499,Pignite,No
+500,Emboar,No
+501,Oshawott,No
+502,Dewott,No
+503,Samurott,No
+503,Hisuian Samurott,No
+504,Patrat,No
+505,Watchog,No
+506,Lillipup,No
+507,Herdier,No
+508,Stoutland,No
+509,Purrloin,No
+510,Liepard,No
+511,Pansage,No
+512,Simisage,No
+513,Pansear,No
+514,Simisear,No
+515,Panpour,No
+516,Simipour,No
+517,Munna,No
+518,Musharna,No
+519,Pidove,No
+520,Tranquill,No
+521,Unfezant,Yes
+522,Blitzle,No
+523,Zebstrika,No
+524,Roggenrola,No
+525,Boldore,No
+526,Gigalith,No
+527,Woobat,No
+528,Swoobat,No
+529,Drilbur,No
+530,Excadrill,No
+531,Audino,No
+531,Mega Audino,No
+532,Timburr,No
+533,Gurdurr,No
+534,Conkeldurr,No
+535,Tympole,No
+536,Palpitoad,No
+537,Seismitoad,No
+538,Throh,No
+539,Sawk,No
+540,Sewaddle,No
+541,Swadloon,No
+542,Leavanny,No
+543,Venipede,No
+544,Whirlipede,No
+545,Scolipede,No
+546,Cottonee,No
+547,Whimsicott,No
+548,Petilil,No
+549,Lilligant,No
+549,Hisuian Lilligant,No
+550,Basculin,No
+550,Blue-Striped Basculin,No
+550,White-Striped Basculin,No
+551,Sandile,No
+552,Krokorok,No
+553,Krookodile,No
+554,Darumaka,No
+554,Galarian Darumaka,No
+555,Darmanitan,No
+555,Zen Darmanitan,No
+555,Galarian Darmanitan,No
+555,Galarian Zen Darmanitan,No
+556,Maractus,No
+557,Dwebble,No
+558,Crustle,No
+559,Scraggy,No
+560,Scrafty,No
+561,Sigilyph,No
+562,Yamask,No
+562,Galarian Yamask,No
+563,Cofagrigus,No
+564,Tirtouga,No
+565,Carracosta,No
+566,Archen,No
+567,Archeops,No
+568,Trubbish,No
+569,Garbodor,No
+569,Gigantamax Garbodor,No
+570,Zorua,No
+570,Hisuian Zorua,No
+571,Zoroark,No
+571,Hisuian Zoroark,No
+572,Minccino,No
+573,Cinccino,No
+574,Gothita,No
+575,Gothorita,No
+576,Gothitelle,No
+577,Solosis,No
+578,Duosion,No
+579,Reuniclus,No
+580,Ducklett,No
+581,Swanna,No
+582,Vanillite,No
+583,Vanillish,No
+584,Vanilluxe,No
+585,Deerling,No
+585,Summer Deerling,No
+585,Autumn Deerling,No
+585,Winter Deerling,No
+586,Sawsbuck,No
+586,Summer Sawsbuck,No
+586,Autumn Sawsbuck,No
+586,Winter Sawsbuck,No
+587,Emolga,No
+588,Karrablast,No
+589,Escavalier,No
+590,Foongus,No
+591,Amoonguss,No
+592,Frillish,Yes
+593,Jellicent,Yes
+594,Alomomola,No
+595,Joltik,No
+596,Galvantula,No
+597,Ferroseed,No
+598,Ferrothorn,No
+599,Klink,No
+600,Klang,No
+601,Klinklang,No
+602,Tynamo,No
+603,Eelektrik,No
+604,Eelektross,No
+605,Elgyem,No
+606,Beheeyem,No
+607,Litwick,No
+608,Lampent,No
+609,Chandelure,No
+610,Axew,No
+611,Fraxure,No
+612,Haxorus,No
+613,Cubchoo,No
+614,Beartic,No
+615,Cryogonal,No
+616,Shelmet,No
+617,Accelgor,No
+618,Stunfisk,No
+618,Galarian Stunfisk,No
+619,Mienfoo,No
+620,Mienshao,No
+621,Druddigon,No
+622,Golett,No
+623,Golurk,No
+624,Pawniard,No
+625,Bisharp,No
+626,Bouffalant,No
+627,Rufflet,No
+628,Braviary,No
+628,Hisuian Braviary,No
+629,Vullaby,No
+630,Mandibuzz,No
+631,Heatmor,No
+632,Durant,No
+633,Deino,No
+634,Zweilous,No
+635,Hydreigon,No
+636,Larvesta,No
+637,Volcarona,No
+638,Cobalion,No
+639,Terrakion,No
+640,Virizion,No
+641,Tornadus,No
+641,Therian Tornadus,No
+642,Thundurus,No
+642,Therian Thundurus,No
+643,Reshiram,No
+644,Zekrom,No
+645,Landorus,No
+645,Therian Landorus,No
+646,Kyurem,No
+646,Black Kyurem,No
+646,White Kyurem,No
+647,Keldeo,No
+647,Resolute Keldeo,No
+648,Meloetta,No
+648,Pirouette Meloetta,No
+649,Genesect,No
+649,High-speed Flight Configuration Genesect,No
+650,Chespin,No
+651,Quilladin,No
+652,Chesnaught,No
+653,Fennekin,No
+654,Braixen,No
+655,Delphox,No
+656,Froakie,No
+657,Frogadier,No
+658,Greninja,No
+659,Bunnelby,No
+660,Diggersby,No
+661,Fletchling,No
+662,Fletchinder,No
+663,Talonflame,No
+664,Scatterbug,No
+665,Spewpa,No
+666,Vivillon,No
+666,Icy Snow Vivillon,No
+666,Polar Vivillon,No
+666,Tundra Vivillon,No
+666,Continental Vivillon,No
+666,Garden Vivillon,No
+666,Elegant Vivillon,No
+666,Modern Vivillon,No
+666,Marine Vivillon,No
+666,Archipelago Vivillon,No
+666,High Plain Vivillon,No
+666,Sandstorm Vivillon,No
+666,River Vivillon,No
+666,Monsoon Vivillon,No
+666,Savanna Vivillon,No
+666,Sun Vivillon,No
+666,Ocean Vivillon,No
+666,Jungle Vivillon,No
+666,Fancy Vivillon,No
+666,Poké Ball Vivillon,No
+667,Litleo,No
+668,Pyroar,Yes
+669,Flabébé,No
+669,Yellow Flower Flabébé,No
+669,Orange Flower Flabébé,No
+669,Blue Flower Flabébé,No
+669,White Flower Flabébé,No
+670,Floette,No
+670,Yellow Flower Floette,No
+670,Orange Flower Floette,No
+670,Blue Flower Floette,No
+670,White Flower Floette,No
+671,Florges,No
+671,Yellow Flower Florges,No
+671,Orange Flower Florges,No
+671,Blue Flower Florges,No
+671,White Flower Florges,No
+672,Skiddo,No
+673,Gogoat,No
+674,Pancham,No
+675,Pangoro,No
+676,Furfrou,No
+676,Heart Trim Furfrou,No
+676,Star Trim Furfrou,No
+676,Diamond Trim Furfrou,No
+676,Debutante Trim Furfrou,No
+676,Matron Trim Furfrou,No
+676,Dandy Trim Furfrou,No
+676,La Reine Trim Furfrou,No
+676,Kabuki Trim Furfrou,No
+676,Pharaoh Trim Furfrou,No
+677,Espurr,No
+678,Meowstic,Yes
+679,Honedge,No
+680,Doublade,No
+681,Aegislash,No
+681,Blade Aegislash,No
+682,Spritzee,No
+683,Aromatisse,No
+684,Swirlix,No
+685,Slurpuff,No
+686,Inkay,No
+687,Malamar,No
+688,Binacle,No
+689,Barbaracle,No
+690,Skrelp,No
+691,Dragalge,No
+692,Clauncher,No
+693,Clawitzer,No
+694,Helioptile,No
+695,Heliolisk,No
+696,Tyrunt,No
+697,Tyrantrum,No
+698,Amaura,No
+699,Aurorus,No
+700,Sylveon,No
+701,Hawlucha,No
+702,Dedenne,No
+703,Carbink,No
+704,Goomy,No
+705,Sliggoo,No
+705,Hisuian Sliggoo,No
+706,Goodra,No
+706,Hisuian Goodra,No
+707,Klefki,No
+708,Phantump,No
+709,Trevenant,No
+710,Pumpkaboo,No
+711,Gourgeist,No
+712,Bergmite,No
+713,Avalugg,No
+713,Hisuian Avalugg,No
+714,Noibat,No
+715,Noivern,No
+716,Xerneas,No
+716,Neutral Xerneas,No
+717,Yveltal,No
+718,Zygarde,No
+718,10% Zygarde,No
+718,Complete Zygarde,No
+718,Zygarde Cell,No
+718,Zygarde Core,No
+719,Diancie,No
+719,Mega Diancie,No
+720,Hoopa,No
+720,Hoopa Unbound,No
+721,Volcanion,No
+722,Rowlet,No
+723,Dartrix,No
+724,Decidueye,No
+724,Hisuian Decidueye,No
+725,Litten,No
+726,Torracat,No
+727,Incineroar,No
+728,Popplio,No
+729,Brionne,No
+730,Primarina,No
+731,Pikipek,No
+732,Trumbeak,No
+733,Toucannon,No
+734,Yungoos,No
+735,Gumshoos,No
+736,Grubbin,No
+737,Charjabug,No
+738,Vikavolt,No
+739,Crabrawler,No
+740,Crabominable,No
+741,Oricorio,No
+741,Pom-pom Oricorio,No
+741,Pa'u Oricorio,No
+741,Sensu Oricorio,No
+742,Cutiefly,No
+743,Ribombee,No
+744,Rockruff,No
+745,Lycanroc,No
+745,Midnight Lycanroc,No
+745,Dusk Lycanroc,No
+746,Wishiwashi,No
+746,School Wishiwashi,No
+747,Mareanie,No
+748,Toxapex,No
+749,Mudbray,No
+750,Mudsdale,No
+751,Dewpider,No
+752,Araquanid,No
+753,Fomantis,No
+754,Lurantis,No
+755,Morelull,No
+756,Shiinotic,No
+757,Salandit,No
+758,Salazzle,No
+759,Stufful,No
+760,Bewear,No
+761,Bounsweet,No
+762,Steenee,No
+763,Tsareena,No
+764,Comfey,No
+765,Oranguru,No
+766,Passimian,No
+767,Wimpod,No
+768,Golisopod,No
+769,Sandygast,No
+770,Palossand,No
+771,Pyukumuku,No
+772,Type: Null,No
+773,Silvally,No
+773,Bug Silvally,No
+773,Dark Silvally,No
+773,Dragon Silvally,No
+773,Electric Silvally,No
+773,Fighting Silvally,No
+773,Fire Silvally,No
+773,Flying Silvally,No
+773,Ghost Silvally,No
+773,Grass Silvally,No
+773,Ground Silvally,No
+773,Ice Silvally,No
+773,Poison Silvally,No
+773,Psychic Silvally,No
+773,Rock Silvally,No
+773,Steel Silvally,No
+773,Water Silvally,No
+773,Fairy Silvally,No
+774,Minior,No
+774,Red Meteor Minior,No
+774,Orange Meteor Minior,No
+774,Yellow Meteor Minior,No
+774,Green Meteor Minior,No
+774,Blue Meteor Minior,No
+774,Indigo Meteor Minior,No
+774,Violet Meteor Minior,No
+774,Red Core Minior,No
+774,Orange Core Minior,No
+774,Yellow Core Minior,No
+774,Green Core Minior,No
+774,Blue Core Minior,No
+774,Indigo Core Minior,No
+774,Violet Core Minior,No
+775,Komala,No
+776,Turtonator,No
+777,Togedemaru,No
+778,Mimikyu,No
+779,Bruxish,No
+780,Drampa,No
+781,Dhelmise,No
+782,Jangmo-o,No
+783,Hakamo-o,No
+784,Kommo-o,No
+785,Tapu Koko,No
+786,Tapu Lele,No
+787,Tapu Bulu,No
+788,Tapu Fini,No
+789,Cosmog,No
+790,Cosmoem,No
+791,Solgaleo,No
+792,Lunala,No
+793,Nihilego,No
+794,Buzzwole,No
+795,Pheromosa,No
+796,Xurkitree,No
+797,Celesteela,No
+798,Kartana,No
+799,Guzzlord,No
+800,Necrozma,No
+800,Dusk Mane Necrozma,No
+800,Dawn Wings Necrozma,No
+800,Ultra Necrozma,No
+801,Magearna,No
+801,Original Magearna,No
+802,Marshadow,No
+802,Zenith Marshadow,No
+803,Poipole,No
+804,Naganadel,No
+805,Stakataka,No
+806,Blacephalon,No
+807,Zeraora,No
+808,Meltan,No
+809,Melmetal,No
+809,Gigantamax Melmetal,No
+810,Grookey,No
+811,Thwackey,No
+812,Rillaboom,No
+812,Gigantamax Rillaboom,No
+813,Scorbunny,No
+814,Raboot,No
+815,Cinderace,No
+815,Gigantamax Cinderace,No
+816,Sobble,No
+817,Drizzile,No
+818,Inteleon,No
+818,Gigantamax Inteleon,No
+819,Skwovet,No
+820,Greedent,No
+821,Rookidee,No
+822,Corvisquire,No
+823,Corviknight,No
+823,Gigantamax Corviknight,No
+824,Blipbug,No
+825,Dottler,No
+826,Orbeetle,No
+826,Gigantamax Orbeetle,No
+827,Nickit,No
+828,Thievul,No
+829,Gossifleur,No
+830,Eldegoss,No
+831,Wooloo,No
+832,Dubwool,No
+833,Chewtle,No
+834,Drednaw,No
+834,Gigantamax Drednaw,No
+835,Yamper,No
+836,Boltund,No
+837,Rolycoly,No
+838,Carkol,No
+839,Coalossal,No
+839,Gigantamax Coalossal,No
+840,Applin,No
+841,Flapple,No
+841,Gigantamax Flapple,No
+842,Appletun,No
+842,Gigantamax Appletun,No
+843,Silicobra,No
+844,Sandaconda,No
+844,Gigantamax Sandaconda,No
+845,Cramorant,No
+845,Gulping Cramorant,No
+845,Gorging Cramorant,No
+846,Arrokuda,No
+847,Barraskewda,No
+848,Toxel,No
+849,Amped Toxtricity,No
+849,Low Key Toxtricity,No
+849,Gigantamax Amped Toxtricity,No
+849,Gigantamax Low Key Toxtricity,No
+850,Sizzlipede,No
+851,Centiskorch,No
+851,Gigantamax Centiskorch,No
+852,Clobbopus,No
+853,Grapploct,No
+854,Sinistea,No
+855,Polteageist,No
+856,Hatenna,No
+857,Hattrem,No
+858,Hatterene,No
+858,Gigantamax Hatterene,No
+859,Impidimp,No
+860,Morgrem,No
+861,Grimmsnarl,No
+861,Gigantamax Grimmsnarl,No
+862,Obstagoon,No
+863,Perrserker,No
+864,Cursola,No
+865,Sirfetch'd,No
+866,Mr. Rime,No
+867,Runerigus,No
+868,Milcery,No
+869,Alcremie,No
+869,Gigantamax Alcremie,No
+869,Vanilla Cream Berry Sweet Alcremie,No
+869,Vanilla Cream Love Sweet Alcremie,No
+869,Vanilla Cream Star Sweet Alcremie,No
+869,Vanilla Cream Clover Sweet Alcremie,No
+869,Vanilla Cream Flower Sweet Alcremie,No
+869,Vanilla Cream Ribbon Sweet Alcremie,No
+870,Falinks,No
+871,Pincurchin,No
+872,Snom,No
+873,Frosmoth,No
+874,Stonjourner,No
+875,Eiscue,No
+875,Noice Face Eiscue,No
+876,Indeedee,Yes
+877,Morpeko,No
+877,Hangry Morpeko,No
+878,Cufant,No
+879,Copperajah,No
+879,Gigantamax Copperajah,No
+880,Dracozolt,No
+881,Arctozolt,No
+882,Dracovish,No
+883,Arctovish,No
+884,Duraludon,No
+884,Gigantamax Duraludon,No
+885,Dreepy,No
+886,Drakloak,No
+887,Dragapult,No
+888,Zacian,No
+888,Crowned Zacian,No
+889,Zamazenta,No
+889,Crowned Zamazenta,No
+890,Eternatus,No
+890,Eternamax Eternatus,No
+891,Kubfu,No
+892,Urshifu,No
+892,Rapid Strike Urshifu,No
+892,Gigantamax Single Strike Urshifu,No
+892,Gigantamax Rapid Strike Urshifu,No
+893,Zarude,No
+893,Dada Zarude,No
+894,Regieleki,No
+895,Regidrago,No
+896,Glastrier,No
+897,Spectrier,No
+898,Calyrex,No
+898,Ice Rider Calyrex,No
+898,Shadow Rider Calyrex,No
+899,Wyrdeer,No
+900,Kleavor,No
+901,Ursaluna,No
+901,Bloodmoon Ursaluna,No
+902,Basculegion,Yes
+903,Sneasler,No
+904,Overqwil,No
+905,Enamorus,No
+905,Therian Enamorus,No
+906,Sprigatito,No
+907,Floragato,No
+908,Meowscarada,No
+909,Fuecoco,No
+910,Crocalor,No
+911,Skeledirge,No
+912,Quaxly,No
+913,Quaxwell,No
+914,Quaquaval,No
+915,Lechonk,No
+916,Oinkologne,Yes
+917,Tarountula,No
+918,Spidops,No
+919,Nymble,No
+920,Lokix,No
+921,Pawmi,No
+922,Pawmo,No
+923,Pawmot,No
+924,Tandemaus,No
+925,Maushold,No
+925,Family of Three Maushold,No
+926,Fidough,No
+927,Dachsbun,No
+928,Smoliv,No
+929,Dolliv,No
+930,Arboliva,No
+931,Squawkabilly,No
+931,Blue Plumage Squawkabilly,No
+931,Yellow Plumage Squawkabilly,No
+931,White Plumage Squawkabilly,No
+932,Nacli,No
+933,Naclstack,No
+934,Garganacl,No
+935,Charcadet,No
+936,Armarouge,No
+937,Ceruledge,No
+938,Tadbulb,No
+939,Bellibolt,No
+940,Wattrel,No
+941,Kilowattrel,No
+942,Maschiff,No
+943,Mabosstiff,No
+944,Shroodle,No
+945,Grafaiai,No
+946,Bramblin,No
+947,Brambleghast,No
+948,Toedscool,No
+949,Toedscruel,No
+950,Klawf,No
+951,Capsakid,No
+952,Scovillain,No
+953,Rellor,No
+954,Rabsca,No
+955,Flittle,No
+956,Espathra,No
+957,Tinkatink,No
+958,Tinkatuff,No
+959,Tinkaton,No
+960,Wiglett,No
+961,Wugtrio,No
+962,Bombirdier,No
+963,Finizen,No
+964,Palafin,No
+964,Hero Palafin,No
+965,Varoom,No
+966,Revavroom,No
+967,Cyclizar,No
+967,Battle Cyclizar,No
+967,Ride Cyclizar,No
+968,Orthworm,No
+969,Glimmet,No
+970,Glimmora,No
+971,Greavard,No
+972,Houndstone,No
+973,Flamigo,No
+974,Cetoddle,No
+975,Cetitan,No
+976,Veluza,No
+977,Dondozo,No
+978,Tatsugiri,No
+978,Droopy Tatsugiri,No
+978,Stretchy Tatsugiri,No
+979,Annihilape,No
+980,Clodsire,No
+981,Farigiraf,No
+982,Dudunsparce,No
+982,Three-Segment Dudunsparce,No
+983,Kingambit,No
+984,Great Tusk,No
+985,Scream Tail,No
+986,Brute Bonnet,No
+987,Flutter Mane,No
+988,Slither Wing,No
+989,Sandy Shocks,No
+990,Iron Treads,No
+991,Iron Bundle,No
+992,Iron Hands,No
+993,Iron Jugulis,No
+994,Iron Moth,No
+995,Iron Thorns,No
+996,Frigibax,No
+997,Arctibax,No
+998,Baxcalibur,No
+999,Gimmighoul,No
+999,Roaming Gimmighoul,No
+1000,Gholdengo,No
+1001,Wo-Chien,No
+1002,Chien-Pao,No
+1003,Ting-Lu,No
+1004,Chi-Yu,No
+1005,Roaring Moon,No
+1006,Iron Valiant,No
+1007,Koraidon,No
+1007,Sprinting Build Koraidon,No
+1007,Gliding Build Koraidon,No
+1008,Miraidon,No
+1008,Drive Mode Miraidon,No
+1008,Glide Mode Miraidon,No
+1009,Walking Wake,No
+1010,Iron Leaves,No
+1011,Dipplin,No
+1012,Poltchageist,No
+1013,Sinistcha,No
+1014,Okidogi,No
+1015,Munkidori,No
+1016,Fezandipiti,No
+1017,Ogerpon,No
+1017,Wellspring Mask Ogerpon,No
+1017,Hearthflame Mask Ogerpon,No
+1017,Cornerstone Mask Ogerpon,No
+1018,Archaludon,No
+1019,Hydrapple,No
+1020,Gouging Fire,No
+1021,Raging Bolt,No
+1022,Iron Boulder,No
+1023,Iron Crown,No
+1024,Terapagos,No
+1024,Terastal Terapagos,No
+1025,Pecharunt,No
