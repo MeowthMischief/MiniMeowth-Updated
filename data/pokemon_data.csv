@@ -1403,7 +1403,8 @@ dex_number,name,region,type1,type2
 1023,Iron Crown,Paldea,Steel,Psychic
 1024,Terapagos,Paldea,Normal,
 1024,Terastal Terapagos,Unova,Normal,
-1025,Pecharunt,Kitakami,Poison,Ghost249,Shadow Lugia,Johto,Shadow,Flying
+1025,Pecharunt,Kitakami,Poison,Ghost
+249,Shadow Lugia,Johto,Shadow,Flying
 249,Shadow Lugia,Johto,Shadow,Flying
 185,Festive Sudowoodo,Johto,Rock,
 519,Festive Pidove,Unova,Normal,Flying
