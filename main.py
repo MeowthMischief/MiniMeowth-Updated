@@ -7,6 +7,7 @@ import signal
 import sys
 import config
 from database import db
+import re
 
 load_dotenv()
 
@@ -15,9 +16,37 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.guilds = True
 
+# Custom prefix function to handle bot mentions and strip spaces
+def get_prefix(bot, message):
+    """
+    Custom prefix handler that:
+    1. Allows bot mentions as prefix
+    2. Allows configured prefixes from config
+    3. Strips whitespace after prefix
+    """
+    # Get bot mentions as prefixes
+    mention_prefixes = [f'<@{bot.user.id}> ', f'<@!{bot.user.id}> ']
+
+    # Combine with config prefixes
+    prefixes = mention_prefixes + config.PREFIX
+
+    # Check each prefix
+    for prefix in prefixes:
+        if message.content.startswith(prefix):
+            # Find where the actual command starts (skip whitespace after prefix)
+            remaining = message.content[len(prefix):]
+            stripped = remaining.lstrip()
+            # Calculate how much whitespace was stripped
+            whitespace_len = len(remaining) - len(stripped)
+            # Return the prefix + whitespace so discord.py can parse the command
+            return prefix + ' ' * whitespace_len
+
+    # If no prefix matched, return the list for discord.py to handle
+    return prefixes
+
 # Bot setup
 bot = commands.Bot(
-    command_prefix=config.PREFIX,
+    command_prefix=get_prefix,
     intents=intents,
     help_command=None,  
     case_insensitive=True
@@ -26,7 +55,7 @@ bot = commands.Bot(
 @bot.event
 async def on_ready():
     print(f'✅ Logged in as {bot.user.name} ({bot.user.id})')
-    print(f'📝 Prefix: {config.PREFIX}')
+    print(f'📝 Prefix: {config.PREFIX} + <@{bot.user.id}>')
     print(f'🎨 Embed Color: #{config.EMBED_COLOR:06x}')
 
     # Connect to database
@@ -82,9 +111,33 @@ async def on_ready():
 
 @bot.event
 async def on_message(message):
-    """Process commands from messages"""
+    """Process commands from messages with space handling"""
     if message.author.bot:
         return
+
+    # Custom processing to handle spaces after prefix
+    content = message.content
+
+    # Check for bot mention prefix
+    mention_patterns = [f'<@{bot.user.id}>', f'<@!{bot.user.id}>']
+    for pattern in mention_patterns:
+        if content.startswith(pattern):
+            # Remove mention and strip spaces
+            remaining = content[len(pattern):].lstrip()
+            if remaining:
+                # Reconstruct message content with single space after mention
+                message.content = f'{pattern} {remaining}'
+            break
+    else:
+        # Check for regular prefixes
+        for prefix in config.PREFIX:
+            if content.startswith(prefix):
+                # Remove prefix and strip spaces
+                remaining = content[len(prefix):].lstrip()
+                if remaining:
+                    # Reconstruct message content with no space after prefix
+                    message.content = f'{prefix}{remaining}'
+                break
 
     await bot.process_commands(message)
 
@@ -96,6 +149,24 @@ async def on_message_edit(before, after):
 
     # Only process if the content actually changed
     if before.content != after.content:
+        # Apply same space handling as on_message
+        content = after.content
+
+        mention_patterns = [f'<@{bot.user.id}>', f'<@!{bot.user.id}>']
+        for pattern in mention_patterns:
+            if content.startswith(pattern):
+                remaining = content[len(pattern):].lstrip()
+                if remaining:
+                    after.content = f'{pattern} {remaining}'
+                break
+        else:
+            for prefix in config.PREFIX:
+                if content.startswith(prefix):
+                    remaining = content[len(prefix):].lstrip()
+                    if remaining:
+                        after.content = f'{prefix}{remaining}'
+                    break
+
         await bot.process_commands(after)
 
 @bot.event
