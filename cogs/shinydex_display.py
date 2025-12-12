@@ -98,7 +98,7 @@ class ShinyDexDisplay(commands.Cog):
         args = filter_string.lower().split()
 
         valid_regions = ['kanto', 'johto', 'hoenn', 'sinnoh', 'unova', 'kalos', 
-                         'alola', 'galar', 'hisui', 'paldea', 'unknown', 'kitakami']
+                         'alola', 'galar', 'hisui', 'paldea', 'unknown', 'missing', 'kitakami']
         valid_types = ['normal', 'fire', 'water', 'grass', 'electric', 'ice',
                        'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug',
                        'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy', 'missing']
