@@ -25,8 +25,9 @@ FILTERS = {
         "Gender New Mega Pokémons",
         "aliases": ["newmega", "new-megas", "mega2", "mega-2"],
         "pokemon": [
-            "Stretchy Tatsugiri","Original Magearna","Droopy Tatsugiri","Crabominable","Victreebel","Feraligatr","Eelektross","Chandelure","Chesnaught","Barbaracle","Scovillain","Baxcalibur","Dragonite","Staraptor","Excadrill","Scolipede","Golisopod","Tatsugiri","Clefable","Meganium","Skarmory","Chimecho","Garchomp","Froslass","Greninja","Meowstic","Dragalge","Hawlucha","Magearna","Glimmora","Starmie","Lucario","Heatran","Darkrai","Scrafty","Delphox","Floette","Malamar","Zygarde","Zeraora","Falinks","Raichu","Emboar","Golurk","Pyroar","Drampa","Absol" 
+         "Stretchy Tatsugiri","Original Magearna","Droopy Tatsugiri","Crabominable","Victreebel","Feraligatr","Eelektross","Chandelure","Chesnaught","Barbaracle","Scovillain","Baxcalibur","Dragonite","Staraptor","Excadrill","Scolipede","Golisopod","Tatsugiri","Clefable","Meganium","Skarmory","Chimecho","Garchomp","Froslass","Greninja","Meowstic","Dragalge","Hawlucha","Magearna","Glimmora","Starmie","Lucario","Heatran","Darkrai","Scrafty","Delphox","Floette","Malamar","Zygarde","Zeraora","Falinks","Raichu","Emboar","Golurk","Pyroar","Drampa","Absol"  ]
     },
+
     "starters": {
         "name":
         "Starter Pokémon",
