@@ -533,13 +533,16 @@ class ShinyDexManagement(commands.Cog):
             inline=True
         )
 
-        # IV Statistics field
+        # IV Statistics field - only show "Lowest Non-Zero" if different from "Lowest"
+        iv_stats_text = f"**Average:** {avg_iv:.2f}%\n> **Highest:** {max_iv:.2f}%\n> **Lowest:** {min_iv:.2f}%"
+
+        # Only add "Lowest Non-Zero" if it's different from the regular lowest
+        if min_non_zero_iv != min_iv:
+            iv_stats_text += f"\n> **Lowest Non-Zero:** {min_non_zero_iv:.2f}%"
+
         embed.add_field(
             name="📈 IV Statistics",
-            value=f"**Average:** {avg_iv:.2f}%\n"
-                  f"> **Highest:** {max_iv:.2f}%\n"
-                  f"> **Lowest:** {min_iv:.2f}%\n"
-                  f"> **Lowest Non-Zero:** {min_non_zero_iv:.2f}%",
+            value=iv_stats_text,
             inline=True
         )
 
