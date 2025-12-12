@@ -44,8 +44,7 @@ GENDER_FEMALE = "<:female_sign:1445995032749277285>"
 GENDER_UNKNOWN = "<:grey_question:1445995074847510609>"
 
 # Poketwo id
-POKETWO_BOT_ID = ["716390085896962058","1399071436643242024"]
-
+POKETWO_BOT_ID = 716390085896962058
 # Add this to config.py
 
 # Pokemon with visible gender differences that should be tracked separately in full dex
