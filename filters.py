@@ -20,6 +20,13 @@ FILTERS = {
             "Hisuian Sneasel","Basculegion","Butterfree","Kricketune","Hippopotas","Oinkologne","Vileplume","Sudowoodo","Wobbuffet","Girafarig","Heracross","Piloswine","Octillery","Combusken","Beautifly","Relicanth","Staraptor","Kricketot","Pachirisu","Hippowdon","Toxicroak","Abomasnow","Rhyperior","Tangrowth","Mamoswine","Jellicent","Venusaur","Raticate","Alakazam","Magikarp","Gyarados","Meganium","Politoed","Quagsire","Ursaring","Houndoom","Blaziken","Ludicolo","Meditite","Medicham","Camerupt","Cacturne","Staravia","Roserade","Floatzel","Garchomp","Croagunk","Lumineon","Unfezant","Frillish","Meowstic","Indeedee","Rattata","Pikachu","Kadabra","Rhyhorn","Goldeen","Seaking","Scyther","Murkrow","Steelix","Sneasel","Donphan","Torchic","Nuzleaf","Shiftry","Roselia","Milotic","Bibarel","Ambipom","Finneon","Weavile","Raichu","Golbat","Dodrio","Rhydon","Ledyba","Ledian","Wooper","Gligar","Scizor","Dustox","Gulpin","Swalot","Starly","Bidoof","Luxray","Combee","Buizel","Gabite","Snover","Pyroar","Zubat","Gloom","Doduo","Hypno","Eevee","Aipom","Numel","Shinx","Luxio","Gible","Xatu"
         ]
     },
+    "newmegas": {
+        "name":
+        "Gender New Mega Pokémons",
+        "aliases": ["newmega", "new-megas", "mega2", "mega-2"],
+        "pokemon": [
+            "Stretchy Tatsugiri","Original Magearna","Droopy Tatsugiri","Crabominable","Victreebel","Feraligatr","Eelektross","Chandelure","Chesnaught","Barbaracle","Scovillain","Baxcalibur","Dragonite","Staraptor","Excadrill","Scolipede","Golisopod","Tatsugiri","Clefable","Meganium","Skarmory","Chimecho","Garchomp","Froslass","Greninja","Meowstic","Dragalge","Hawlucha","Magearna","Glimmora","Starmie","Lucario","Heatran","Darkrai","Scrafty","Delphox","Floette","Malamar","Zygarde","Zeraora","Falinks","Raichu","Emboar","Golurk","Pyroar","Drampa","Absol" 
+    },
     "starters": {
         "name":
         "Starter Pokémon",
