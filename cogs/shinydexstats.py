@@ -117,18 +117,18 @@ class ShinyDexStats(commands.Cog):
 
         # Region emojis mapping
         self.region_emojis = {
-            'Kanto': '<:kanto:1449352367756542002>',
-            'Johto': '<:johto:1449352435674906625>',
-            'Hoenn': '<:hoenn:1449352573810376744>',
-            'Sinnoh': '<:sinnoh:1449352646086361300>',
-            'Unova': '<:unova:1449352763891912714>',
-            'Kalos': '<:kalos:1449356394712010847>',
-            'Alola': '<:alola:1449352883987288195>',
-            'Galar': '<:galar:1449353475476422726>',
-            'Hisui': '<:hisui:1449353533475520572>',
-            'Paldea': '<:paldea:1449353594343129128>',
-            'Kitakami': '<:kitakami:1449353760206884904>',
-            'Unknown': '<:ShinyMissingno:1422092867895033887>',
+            'Kanto': '<:black_small_square:1449352367756542002>',
+            'Johto': '<:black_small_square:1449352435674906625>',
+            'Hoenn': '<:black_small_square:1449352573810376744>',
+            'Sinnoh': '<:black_small_square:1449352646086361300>',
+            'Unova': '<:black_small_square:1449352763891912714>',
+            'Kalos': '<:black_small_square:1449356394712010847>',
+            'Alola': '<:black_small_square:1449352883987288195>',
+            'Galar': '<:black_small_square:1449353475476422726>',
+            'Hisui': '<:black_small_square:1449353533475520572>',
+            'Paldea': '<:black_small_square:1449353594343129128>',
+            'Kitakami': '<:black_small_square:1449353760206884904>',
+            'Unknown': '<:question:1449363513595400332>',
             'Missing': '❓'
         }
 
