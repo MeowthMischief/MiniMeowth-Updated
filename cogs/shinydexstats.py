@@ -94,25 +94,25 @@ class ShinyDexStats(commands.Cog):
 
         # Type emojis mapping (update these with your actual emoji IDs)
         self.type_emojis = {
-            'Normal': '<:normal:1449350772759330886>',
+            'Normal': '<:white_circle:1449350772759330886>',
             'Fire': '<:fire:1449350556958068736>',
-            'Water': '<:water:1449350601401045015>',
-            'Grass': '<:grass:1449350615548301332>',
-            'Electric': '<:electric:1449350683449888989>',
-            'Ice': '<:ice:1449350748033781841>',
-            'Fighting': '<:fighting:1449350710083850324>',
-            'Poison': '<:poison:1449350785279332372>',
-            'Ground': '<:ground:1449350761052901457>',
-            'Flying': '<:flying:1449350735664779345>',
-            'Psychic': '<:psychic:1449350572737171588>',
+            'Water': '<:droplet:1449350601401045015>',
+            'Grass': '<:herb:1449350615548301332>',
+            'Electric': '<:zap:1449350683449888989>',
+            'Ice': '<:snowflake:1449350748033781841>',
+            'Fighting': '<:boxing_glove:1449350710083850324>',
+            'Poison': '<:skull_crossbones:1449350785279332372>',
+            'Ground': '<:earth_africa:1449350761052901457>',
+            'Flying': '<:dove:1449350735664779345>',
+            'Psychic': '<:crystal_ball:1449350572737171588>',
             'Bug': '<:bug:1449350643134369792>',
             'Rock': '<:rock:1449350797170053182>',
             'Ghost': '<:ghost:1449350722490728489>',
             'Dragon': '<:dragon:1449350657944457308>',
-            'Dark': '<:dark:1449350670380437737>',
-            'Steel': '<:steel:1449350583982100530>',
+            'Dark': '<:crescent_moon:1449350670380437737>',
+            'Steel': '<:gear:1449350583982100530>',
             'Fairy': '<:fairy:1449350697794408559>',
-            'Missing': '<:ShinyMissingno:1422092867895033887>'
+            'Missing': '<:question:1449363513595400332>'
         }
 
         # Region emojis mapping
