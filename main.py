@@ -64,6 +64,7 @@ async def on_ready():
     # Load cogs
     cogs = [
         'cogs.utils',
+        'cogs.shinydexstats',
         'cogs.shinydex_display',
         'cogs.shinydex_management',
         'cogs.event_display',
