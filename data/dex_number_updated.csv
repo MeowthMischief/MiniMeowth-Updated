@@ -41,8 +41,6 @@ Number,Name,HasGenderDifference
 25,Partner Pikachu,No
 26,Raichu,Yes
 26,Alolan Raichu,No
-26,Mega Raichu X,No
-26,Mega Raichu Y,No
 27,Sandshrew,No
 27,Alolan Sandshrew,No
 28,Sandslash,No
@@ -55,7 +53,6 @@ Number,Name,HasGenderDifference
 34,Nidoking,No
 35,Clefairy,No
 36,Clefable,No
-36,Mega Clefable,No
 37,Vulpix,No
 37,Alolan Vulpix,No
 38,Ninetales,No
@@ -103,7 +100,6 @@ Number,Name,HasGenderDifference
 69,Bellsprout,No
 70,Weepinbell,No
 71,Victreebel,No
-71,Mega Victreebel,No
 72,Tentacool,No
 73,Tentacruel,No
 74,Geodude,No
@@ -174,7 +170,6 @@ Number,Name,HasGenderDifference
 119,Seaking,Yes
 120,Staryu,No
 121,Starmie,No
-121,Mega Starmie,No
 122,Mr. Mime,No
 122,Galarian Mr. Mime,No
 123,Scyther,Yes
@@ -217,7 +212,6 @@ Number,Name,HasGenderDifference
 147,Dratini,No
 148,Dragonair,No
 149,Dragonite,No
-149,Mega Dragonite,No
 150,Mewtwo,No
 150,Mega Mewtwo X,No
 150,Mega Mewtwo Y,No
@@ -225,7 +219,6 @@ Number,Name,HasGenderDifference
 152,Chikorita,No
 153,Bayleef,No
 154,Meganium,Yes
-154,Mega Meganium,No
 155,Cyndaquil,No
 156,Quilava,No
 157,Typhlosion,No
@@ -233,7 +226,6 @@ Number,Name,HasGenderDifference
 158,Totodile,No
 159,Croconaw,No
 160,Feraligatr,No
-160,Mega Feraligatr,No
 161,Sentret,No
 162,Furret,No
 163,Hoothoot,No
@@ -338,7 +330,6 @@ Number,Name,HasGenderDifference
 225,Delibird,No
 226,Mantine,No
 227,Skarmory,No
-227,Mega Skarmory,No
 228,Houndour,No
 229,Houndoom,Yes
 229,Mega Houndoom,No
@@ -490,10 +481,8 @@ Number,Name,HasGenderDifference
 356,Dusclops,No
 357,Tropius,No
 358,Chimecho,No
-358,Mega Chimecho,No
 359,Absol,No
 359,Mega Absol,No
-359,Mega Absol Z,No
 360,Wynaut,No
 361,Snorunt,No
 362,Glalie,No
@@ -544,7 +533,6 @@ Number,Name,HasGenderDifference
 396,Starly,Yes
 397,Staravia,Yes
 398,Staraptor,Yes
-398,Mega Staraptor,No
 399,Bidoof,Yes
 400,Bibarel,Yes
 401,Kricketot,Yes
@@ -601,12 +589,10 @@ Number,Name,HasGenderDifference
 444,Gabite,Yes
 445,Garchomp,Yes
 445,Mega Garchomp,No
-445,Mega Garchomp Z,No
 446,Munchlax,No
 447,Riolu,No
 448,Lucario,No
 448,Mega Lucario,No
-448,Mega Lucario Z,No
 449,Hippopotas,Yes
 450,Hippowdon,Yes
 451,Skorupi,No
@@ -639,7 +625,6 @@ Number,Name,HasGenderDifference
 476,Probopass,No
 477,Dusknoir,No
 478,Froslass,No
-478,Mega Froslass,No
 479,Rotom,No
 479,Heat Rotom,No
 479,Wash Rotom,No
@@ -657,7 +642,6 @@ Number,Name,HasGenderDifference
 484,Palkia,No
 484,Origin Palkia,No
 485,Heatran,No
-485,Mega Heatran,No
 486,Regigigas,No
 487,Giratina,No
 487,Origin Giratina,No
@@ -665,7 +649,6 @@ Number,Name,HasGenderDifference
 489,Phione,No
 490,Manaphy,No
 491,Darkrai,No
-491,Mega Darkrai,No
 492,Shaymin,No
 492,Sky Shaymin,No
 493,Arceus,No
@@ -693,7 +676,6 @@ Number,Name,HasGenderDifference
 498,Tepig,No
 499,Pignite,No
 500,Emboar,No
-500,Mega Emboar,No
 501,Oshawott,No
 502,Dewott,No
 503,Samurott,No
@@ -725,7 +707,6 @@ Number,Name,HasGenderDifference
 528,Swoobat,No
 529,Drilbur,No
 530,Excadrill,No
-530,Mega Excadrill,No
 531,Audino,No
 531,Mega Audino,No
 532,Timburr,No
@@ -742,7 +723,6 @@ Number,Name,HasGenderDifference
 543,Venipede,No
 544,Whirlipede,No
 545,Scolipede,No
-545,Mega Scolipede,No
 546,Cottonee,No
 547,Whimsicott,No
 548,Petilil,No
@@ -765,7 +745,6 @@ Number,Name,HasGenderDifference
 558,Crustle,No
 559,Scraggy,No
 560,Scrafty,No
-560,Mega Scrafty,No
 561,Sigilyph,No
 562,Yamask,No
 562,Galarian Yamask,No
@@ -820,13 +799,11 @@ Number,Name,HasGenderDifference
 602,Tynamo,No
 603,Eelektrik,No
 604,Eelektross,No
-604,Mega Eelektross,No
 605,Elgyem,No
 606,Beheeyem,No
 607,Litwick,No
 608,Lampent,No
 609,Chandelure,No
-609,Mega Chandelure,No
 610,Axew,No
 611,Fraxure,No
 612,Haxorus,No
@@ -842,7 +819,6 @@ Number,Name,HasGenderDifference
 621,Druddigon,No
 622,Golett,No
 623,Golurk,No
-623,Mega Golurk,No
 624,Pawniard,No
 625,Bisharp,No
 626,Bouffalant,No
@@ -881,15 +857,12 @@ Number,Name,HasGenderDifference
 650,Chespin,No
 651,Quilladin,No
 652,Chesnaught,No
-652,Mega Chesnaught,No
 653,Fennekin,No
 654,Braixen,No
 655,Delphox,No
-655,Mega Delphox,No
 656,Froakie,No
 657,Frogadier,No
 658,Greninja,No
-658,Mega Greninja,No
 659,Bunnelby,No
 660,Diggersby,No
 661,Fletchling,No
@@ -919,7 +892,6 @@ Number,Name,HasGenderDifference
 666,Poké Ball Vivillon,No
 667,Litleo,No
 668,Pyroar,Yes
-668,Mega Pyroar,No
 669,Flabébé,No
 669,Yellow Flower Flabébé,No
 669,Orange Flower Flabébé,No
@@ -930,7 +902,6 @@ Number,Name,HasGenderDifference
 670,Orange Flower Floette,No
 670,Blue Flower Floette,No
 670,White Flower Floette,No
-670,Mega Floette,No
 671,Florges,No
 671,Yellow Flower Florges,No
 671,Orange Flower Florges,No
@@ -952,7 +923,6 @@ Number,Name,HasGenderDifference
 676,Pharaoh Trim Furfrou,No
 677,Espurr,No
 678,Meowstic,Yes
-678,Mega Meowstic,No
 679,Honedge,No
 680,Doublade,No
 681,Aegislash,No
@@ -963,13 +933,10 @@ Number,Name,HasGenderDifference
 685,Slurpuff,No
 686,Inkay,No
 687,Malamar,No
-687,Mega Malamar,No
 688,Binacle,No
 689,Barbaracle,No
-689,Mega Barbaracle,No
 690,Skrelp,No
 691,Dragalge,No
-691,Mega Dragalge,No
 692,Clauncher,No
 693,Clawitzer,No
 694,Helioptile,No
@@ -980,7 +947,6 @@ Number,Name,HasGenderDifference
 699,Aurorus,No
 700,Sylveon,No
 701,Hawlucha,No
-701,Mega Hawlucha,No
 702,Dedenne,No
 703,Carbink,No
 704,Goomy,No
@@ -1006,7 +972,6 @@ Number,Name,HasGenderDifference
 718,Complete Zygarde,No
 718,Zygarde Cell,No
 718,Zygarde Core,No
-718,Mega Zygarde,No
 719,Diancie,No
 719,Mega Diancie,No
 720,Hoopa,No
@@ -1032,7 +997,6 @@ Number,Name,HasGenderDifference
 738,Vikavolt,No
 739,Crabrawler,No
 740,Crabominable,No
-740,Mega Crabominable,No
 741,Oricorio,No
 741,Pom-pom Oricorio,No
 741,Pa'u Oricorio,No
@@ -1067,7 +1031,6 @@ Number,Name,HasGenderDifference
 766,Passimian,No
 767,Wimpod,No
 768,Golisopod,No
-768,Mega Golisopod,No
 769,Sandygast,No
 770,Palossand,No
 771,Pyukumuku,No
@@ -1111,7 +1074,6 @@ Number,Name,HasGenderDifference
 778,Mimikyu,No
 779,Bruxish,No
 780,Drampa,No
-780,Mega Drampa,No
 781,Dhelmise,No
 782,Jangmo-o,No
 783,Hakamo-o,No
@@ -1137,8 +1099,6 @@ Number,Name,HasGenderDifference
 800,Ultra Necrozma,No
 801,Magearna,No
 801,Original Magearna,No
-801,Mega Original Magearna,No
-801,Mega Magearna,No
 802,Marshadow,No
 802,Zenith Marshadow,No
 803,Poipole,No
@@ -1146,7 +1106,6 @@ Number,Name,HasGenderDifference
 805,Stakataka,No
 806,Blacephalon,No
 807,Zeraora,No
-807,Mega Zeraora,No
 808,Meltan,No
 809,Melmetal,No
 809,Gigantamax Melmetal,No
@@ -1236,7 +1195,6 @@ Number,Name,HasGenderDifference
 869,Vanilla Cream Flower Sweet Alcremie,No
 869,Vanilla Cream Ribbon Sweet Alcremie,No
 870,Falinks,No
-870,Mega Falinks,No
 871,Pincurchin,No
 872,Snom,No
 873,Frosmoth,No
@@ -1338,7 +1296,6 @@ Number,Name,HasGenderDifference
 950,Klawf,No
 951,Capsakid,No
 952,Scovillain,No
-952,Mega Scovillain,No
 953,Rellor,No
 954,Rabsca,No
 955,Flittle,No
@@ -1360,7 +1317,6 @@ Number,Name,HasGenderDifference
 968,Orthworm,No
 969,Glimmet,No
 970,Glimmora,No
-970,Mega Glimmora,No
 971,Greavard,No
 972,Houndstone,No
 973,Flamigo,No
@@ -1371,9 +1327,6 @@ Number,Name,HasGenderDifference
 978,Tatsugiri,No
 978,Droopy Tatsugiri,No
 978,Stretchy Tatsugiri,No
-978,Mega Stretchy Tatsugiri,No
-978,Mega Droopy Tatsugiri,No
-978,Mega Tatsugiri,No
 979,Annihilape,No
 980,Clodsire,No
 981,Farigiraf,No
@@ -1395,7 +1348,6 @@ Number,Name,HasGenderDifference
 996,Frigibax,No
 997,Arctibax,No
 998,Baxcalibur,No
-998,Mega Baxcalibur,No
 999,Gimmighoul,No
 999,Roaming Gimmighoul,No
 1000,Gholdengo,No
