@@ -134,9 +134,9 @@ class ShinyDexStats(commands.Cog):
 
         # Progress bar emojis (Pokétwo style)
         # When quest is COMPLETE (100%)
-        self.progress_complete_first = '<:white_check_mark:1449344144156659802>'
-        self.progress_complete_middle = '<:white_check_mark:1449341980248113256>'
-        self.progress_complete_end = '<:white_check_mark:1449341970639097907>'
+        self.progress_complete_first = '<:green_square:1449344144156659802>'
+        self.progress_complete_middle = '<:green_square:1449341980248113256>'
+        self.progress_complete_end = '<:green_square:1449341970639097907>'
 
         # When quest is INCOMPLETE (<100%)
         self.progress_incomplete_first = '<:black_large_square:1449341999735111690>'
