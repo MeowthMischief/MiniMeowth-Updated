@@ -497,8 +497,7 @@ class PokedexView(discord.ui.View):
         # This will be awaited when the embed is created
         shiny_count = await self.get_shiny_count(user_id, pokemon_name, gender_filter)
 
-        if shiny_count > 0:
-            footer_parts.append(f"You have {shiny_count} shiny of this pokémon!")
+        footer_parts.append(f"You have {shiny_count} shiny of this pokémon!")
 
         if footer_parts:
             embed.set_footer(text=" • ".join(footer_parts))
