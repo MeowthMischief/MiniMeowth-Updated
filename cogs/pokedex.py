@@ -117,6 +117,7 @@ class PokedexView(discord.ui.View):
     def create_male_button(self):
         """Create male button"""
         button = discord.ui.Button(
+            label="Male",
             style=discord.ButtonStyle.primary if not self.is_female else discord.ButtonStyle.secondary,
             emoji="♂",
             custom_id="select_male"
@@ -127,6 +128,7 @@ class PokedexView(discord.ui.View):
     def create_female_button(self):
         """Create female button"""
         button = discord.ui.Button(
+            label="Female",
             style=discord.ButtonStyle.primary if self.is_female else discord.ButtonStyle.secondary,
             emoji="♀",
             custom_id="select_female"
@@ -215,7 +217,7 @@ class PokedexView(discord.ui.View):
                     self.current_dropdown_page = 0
 
                     self.build_view()
-                    embed = self.create_embed()
+                    embed = await self.create_embed()
                     await interaction.response.edit_message(embed=embed, view=self)
                     return
         except (ValueError, IndexError):
@@ -258,7 +260,7 @@ class PokedexView(discord.ui.View):
                     self.current_dropdown_page = 0
 
                     self.build_view()
-                    embed = self.create_embed()
+                    embed = await self.create_embed()
                     await interaction.response.edit_message(embed=embed, view=self)
                     return
         except (ValueError, IndexError):
@@ -274,7 +276,7 @@ class PokedexView(discord.ui.View):
 
         self.is_shiny = not self.is_shiny
         self.build_view()
-        embed = self.create_embed()
+        embed = await self.create_embed()
         await interaction.response.edit_message(embed=embed, view=self)
 
     async def select_male_callback(self, interaction: discord.Interaction):
@@ -286,7 +288,7 @@ class PokedexView(discord.ui.View):
         if self.is_female:  # Only update if currently showing female
             self.is_female = False
             self.build_view()
-            embed = self.create_embed()
+            embed = await self.create_embed()
             await interaction.response.edit_message(embed=embed, view=self)
         else:
             await interaction.response.defer()
@@ -300,7 +302,7 @@ class PokedexView(discord.ui.View):
         if not self.is_female:  # Only update if currently showing male
             self.is_female = True
             self.build_view()
-            embed = self.create_embed()
+            embed = await self.create_embed()
             await interaction.response.edit_message(embed=embed, view=self)
         else:
             await interaction.response.defer()
@@ -325,7 +327,7 @@ class PokedexView(discord.ui.View):
         if self.current_dropdown_page > 0:
             self.current_dropdown_page -= 1
             self.build_view()
-            embed = self.create_embed()
+            embed = await self.create_embed()
             await interaction.response.edit_message(embed=embed, view=self)
         else:
             await interaction.response.defer()
@@ -340,7 +342,7 @@ class PokedexView(discord.ui.View):
         if self.current_dropdown_page < total_pages - 1:
             self.current_dropdown_page += 1
             self.build_view()
-            embed = self.create_embed()
+            embed = await self.create_embed()
             await interaction.response.edit_message(embed=embed, view=self)
         else:
             await interaction.response.defer()
@@ -376,10 +378,10 @@ class PokedexView(discord.ui.View):
                 break
 
         self.build_view()
-        embed = self.create_embed()
+        embed = await self.create_embed()
         await interaction.response.edit_message(embed=embed, view=self)
 
-    def create_embed(self):
+    async def create_embed(self):
         """Create embed for current Pokemon form"""
         data = self.pokemon_data[self.current_form_key]
 
@@ -483,10 +485,48 @@ class PokedexView(discord.ui.View):
         elif self.has_gender_diff:
             footer_parts.append("♂ Male")
 
+        # Get shiny count for this specific Pokemon (await the coroutine)
+        pokemon_name = data.get('name', '')
+        user_id = self.ctx.author.id
+
+        # Pass gender info if this Pokemon has gender difference
+        gender_filter = None
+        if self.has_gender_diff:
+            gender_filter = 'female' if self.is_female else 'male'
+
+        # This will be awaited when the embed is created
+        shiny_count = await self.get_shiny_count(user_id, pokemon_name, gender_filter)
+
+        if shiny_count > 0:
+            footer_parts.append(f"You have {shiny_count} shiny of this pokémon!")
+
         if footer_parts:
             embed.set_footer(text=" • ".join(footer_parts))
 
         return embed
+
+    async def get_shiny_count(self, user_id, pokemon_name, gender_filter=None):
+        """Get the count of shinies for a specific Pokemon name (and gender if applicable)"""
+        try:
+            # Import db here to avoid circular imports
+            from database import db
+
+            # Get all user's shinies
+            all_shinies = await db.get_all_shinies(user_id)
+
+            # Count shinies matching this exact Pokemon name
+            if gender_filter:
+                # For gender difference Pokemon, count only matching gender
+                count = sum(1 for shiny in all_shinies 
+                           if shiny['name'] == pokemon_name and shiny['gender'] == gender_filter)
+            else:
+                # For non-gender difference Pokemon, count all
+                count = sum(1 for shiny in all_shinies if shiny['name'] == pokemon_name)
+
+            return count
+        except Exception as e:
+            print(f"Error getting shiny count: {e}")
+            return 0
 
     def format_evolution(self, data):
         """Format evolution information from fields"""
@@ -610,7 +650,7 @@ class Pokedex(commands.Cog):
             print(f"✅ Indexed {len(self.name_index)} Pokemon names")
             print(f"✅ Mapped {len(self.dex_number_forms)} unique dex numbers")
         except Exception as e:
-            print(f"❌ Error loading data/pokemon_data.json: {e}")
+            print(f"❌ Error loading alldata/pokemon_data.json: {e}")
 
     @commands.hybrid_command(name='dex', aliases=['d', 'pokedex'])
     @app_commands.describe(pokemon="Name of the Pokemon to look up")
@@ -656,7 +696,7 @@ class Pokedex(commands.Cog):
 
         # Create view with buttons and dropdowns
         view = PokedexView(ctx, self.pokemon_data, all_forms, form_key, has_gender_diff, all_dex_numbers)
-        embed = view.create_embed()
+        embed = await view.create_embed()
 
         message = await ctx.send(embed=embed, view=view, reference=ctx.message, mention_author=False)
         view.message = message
