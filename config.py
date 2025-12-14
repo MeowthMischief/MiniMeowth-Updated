@@ -43,6 +43,12 @@ GENDER_MALE = "<:male_sign:1449750028536250420>"
 GENDER_FEMALE = "<:female_sign:1449750041035145407>"
 GENDER_UNKNOWN = "<:grey_question:1449750016481562787>"
 
+# Tick/Cross display
+TICK = "<:white_check_mark:1449749985057964094>"
+CROSS = "<:cross_mark:1449750002388959377>"
+
+
+
 # Poketwo id
 POKETWO_BOT_ID = 716390085896962058
 # Add this to config.py
