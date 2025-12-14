@@ -2,7 +2,7 @@
   "0_MissingNo.": {
     "dex_number": "0",
     "name": "MissingNo.",
-    "description": "A Glitched Pokemon",
+    "description": "A Glitched Pokémon",
     "image_url": "https://cdn.poketwo.net/images/0.png",
     "timestamp": "2025-12-14T10:10:38.698414",
     "fields": {
@@ -38,8 +38,8 @@
       ]
     },
     "appearance": {
-      "height_m": null,
-      "weight_kg": null
+      "height_m": "???",
+      "weight_kg": "???"
     },
     "gender_ratio": "Genderless",
     "egg_groups": "Undiscovered",
