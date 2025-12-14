@@ -1,4 +1,50 @@
 {
+  "0_MissingNo.": {
+    "dex_number": "0",
+    "name": "MissingNo.",
+    "description": "A Glitched Pokemon",
+    "image_url": "https://cdn.poketwo.net/images/0.png",
+    "timestamp": "2025-12-14T10:10:38.698414",
+    "fields": {
+      "Evolution": "???"
+    },
+    "types": [
+      "???",
+      "???"
+    ],
+    "region": "???",
+    "catchable": "Yes",
+    "base_stats": {
+      "HP": 0,
+      "Attack": 0,
+      "Defense": 0,
+      "Sp. Atk": 0,
+      "Sp. Def": 0,
+      "Speed": 0
+    },
+    "names": {
+      "ja": [
+        "???",
+        "???"
+      ],
+      "en": [
+        "MissingNo"
+      ],
+      "de": [
+        "???"
+      ],
+      "fr": [
+        "???"
+      ]
+    },
+    "appearance": {
+      "height_m": 0,
+      "weight_kg": 0
+    },
+    "gender_ratio": "Genderless",
+    "egg_groups": "Undiscovered",
+    "hatch_time": "??? cycles"
+  },
   "1_Bulbasaur": {
     "dex_number": "1",
     "name": "Bulbasaur",
