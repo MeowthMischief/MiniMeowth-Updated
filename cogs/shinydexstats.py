@@ -134,15 +134,15 @@ class ShinyDexStats(commands.Cog):
 
         # Progress bar emojis (Pokétwo style)
         # When quest is COMPLETE (100%)
-        self.progress_complete_first = '<:green_square:1449344144156659802>'
-        self.progress_complete_middle = '<:green_square:1449341980248113256>'
-        self.progress_complete_end = '<:green_square:1449341970639097907>'
+        self.progress_complete_first = '<:1_:1449747195157811210>'
+        self.progress_complete_middle = '<:2_:1449748705807958140>'
+        self.progress_complete_end = '<:3_:1449748986574536804>'
 
         # When quest is INCOMPLETE (<100%)
-        self.progress_incomplete_first = '<:black_large_square:1449341999735111690>'
-        self.progress_incomplete_middle = '<:black_large_square:1449342009272696903>'
-        self.progress_incomplete_empty = '<:black_large_square:1449342009272696903>'
-        self.progress_incomplete_end = '<:black_large_square:1449342830777733163>'
+        self.progress_incomplete_first = '<:01:1449748723742801931>'
+        self.progress_incomplete_middle = '<:02:1449748741560074281>'
+        self.progress_incomplete_empty = '<:02:1449748741560074281>'
+        self.progress_incomplete_end = '<:03:1449748900301902036>'
 
     def create_progress_bar(self, current: int, total: int, length: int = 10) -> str:
         """Create a Pokétwo-style progress bar"""
