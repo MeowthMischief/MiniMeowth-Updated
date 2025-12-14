@@ -288,7 +288,7 @@ class EventDexDisplay(commands.Cog):
         # Create pages
         lines = []
         for name, gender_key, count in filtered_entries:
-            icon = "{config.TICK}" if count > 0 else "{config.CROSS}"
+            icon = f"{config.TICK}" if count > 0 else f"{config.CROSS}"
             sparkles = f"{count} ✨" if count > 0 else "0"
 
             # Add gender emoji if applicable
