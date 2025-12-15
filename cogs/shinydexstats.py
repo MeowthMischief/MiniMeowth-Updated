@@ -94,25 +94,25 @@ class ShinyDexStats(commands.Cog):
 
         # Type emojis mapping (update these with your actual emoji IDs)
         self.type_emojis = {
-            'Normal': '<:white_circle:1449350772759330886>',
-            'Fire': '<:fire:1449350556958068736>',
-            'Water': '<:droplet:1449350601401045015>',
-            'Grass': '<:herb:1449350615548301332>',
-            'Electric': '<:zap:1449350683449888989>',
-            'Ice': '<:snowflake:1449350748033781841>',
-            'Fighting': '<:boxing_glove:1449350710083850324>',
-            'Poison': '<:skull_crossbones:1449350785279332372>',
-            'Ground': '<:earth_africa:1449350761052901457>',
-            'Flying': '<:dove:1449350735664779345>',
-            'Psychic': '<:crystal_ball:1449350572737171588>',
-            'Bug': '<:bug:1449350643134369792>',
-            'Rock': '<:rock:1449350797170053182>',
-            'Ghost': '<:ghost:1449350722490728489>',
-            'Dragon': '<:dragon:1449350657944457308>',
-            'Dark': '<:crescent_moon:1449350670380437737>',
-            'Steel': '<:gear:1449350583982100530>',
-            'Fairy': '<:fairy:1449350697794408559>',
-            'Missing': '<:question:1449363513595400332>'
+            'Normal': '<:normal:1449985443641819318>',
+            'Fire': '<:fire:1449985539829792798>',
+            'Water': '<:water:1449985546545004595>',
+            'Grass': '<:grass:1449985549229097001>',
+            'Electric': '<:electric:1449985424222195752>',
+            'Ice': '<:ice:1449985438306795690>',
+            'Fighting': '<:fighting:1449985430236954735>',
+            'Poison': '<:poison:1449985498050203648>',
+            'Ground': '<:ground:1449985440861130823>',
+            'Flying': '<:flying:1449985435689291888>',
+            'Psychic': '<:psychic:1449985542057099324>',
+            'Bug': '<:bug:1449985551624175759>',
+            'Rock': '<:rock:1449985500541878332>',
+            'Ghost': '<:ghost:1449985433000743055>',
+            'Dragon': '<:dragon:1449985554396610601>',
+            'Dark': '<:dark:1449985421730775130>',
+            'Steel': '<:steel:1449985544192004189>',
+            'Fairy': '<:fairy:1449985426986369117>',
+            'Missing': '<:missing:1449985536709230756>'
         }
 
         # Region emojis mapping
@@ -128,8 +128,8 @@ class ShinyDexStats(commands.Cog):
             'Hisui': '<:white_small_square:1449353533475520572>',
             'Paldea': '<:white_small_square:1449353594343129128>',
             'Kitakami': '<:white_small_square:1449353760206884904>',
-            'Unknown': '<:question:1449363513595400332>',
-            'Missing': '❓'
+            'Unknown': '<:grey_question:1449750016481562787>',
+            'Missing': '<:missing:1449985536709230756>'
         }
 
         # Progress bar emojis (Pokétwo style)
