@@ -235,9 +235,9 @@ class ShinyDexDisplay(commands.Cog):
     async def send_pokemon_list_simple(self, ctx, pokemon_names: list):
         """Send simple Pokemon names as --n formatted list (text or file)"""
         formatted_list = " ".join([f"--n {name}" for name in pokemon_names])
-
+        
         total_count = len(pokemon_names)
-        list_text = f"**Total Pokemon: {total_count}** 🆕Use --smartlist to generate a better list!\n\n{formatted_list}"
+        list_text = f"**Total Pokemon: {total_count}**\n\n{formatted_list}"
 
         # If list is short enough, send as message
         if len(list_text) <= 1900:
@@ -268,7 +268,7 @@ class ShinyDexDisplay(commands.Cog):
 
         for name, gender_key, has_it in pokemon_data:
             has_gender_diff = utils.has_gender_difference(name)
-
+            
             if has_gender_diff:
                 gender_diff_pokemon_names.add(name)
                 if gender_key == 'male' and not has_it:
@@ -292,9 +292,9 @@ class ShinyDexDisplay(commands.Cog):
         total_with_gender = len(gender_diff_pokemon_names) * 2  # Each counts twice (male + female)
         total_count = total_no_gender + total_with_gender
         gender_diff_count = len(gender_diff_pokemon_names)
-
+        
         # Header
-        sections.append(f"**Total Pokemon: {total_count}**)\n")
+        sections.append(f"**Total Pokemon: {total_count}** ({gender_diff_count} species with gender differences)\n")
 
         # Regular Pokemon (no gender difference)
         if regular:
