@@ -86,7 +86,7 @@ class ShinyDexDisplay(commands.Cog):
 
     def parse_filters(self, filter_string: str):
         """Parse filter string to extract options
-        Returns: (show_caught, show_uncaught, order, region, types, name_searches, page, show_list)
+        Returns: (show_caught, show_uncaught, order, region, types, name_searches, page, show_list, show_smartlist)
         """
         show_caught = True
         show_uncaught = True
@@ -96,9 +96,10 @@ class ShinyDexDisplay(commands.Cog):
         name_searches = []
         page = None
         show_list = False
+        show_smartlist = False
 
         if not filter_string:
-            return show_caught, show_uncaught, order, region, types, name_searches, page, show_list
+            return show_caught, show_uncaught, order, region, types, name_searches, page, show_list, show_smartlist
 
         args = filter_string.lower().split()
 
@@ -126,6 +127,9 @@ class ShinyDexDisplay(commands.Cog):
                 i += 1
             elif arg == '--list':
                 show_list = True
+                i += 1
+            elif arg in ['--smartlist', '--slist']:
+                show_smartlist = True
                 i += 1
             elif arg in ['--region', '--r']:
                 if i + 1 < len(args) and args[i + 1] in valid_regions:
@@ -184,7 +188,7 @@ class ShinyDexDisplay(commands.Cog):
             else:
                 i += 1
 
-        return show_caught, show_uncaught, order, region, types, name_searches, page, show_list
+        return show_caught, show_uncaught, order, region, types, name_searches, page, show_list, show_smartlist
 
     def matches_filters(self, pokemon_name: str, utils, region_filter: str, type_filters: list):
         """Check if a Pokemon matches region and type filters"""
@@ -228,29 +232,103 @@ class ShinyDexDisplay(commands.Cog):
 
         return regular, rare, gigantamax
 
-    async def send_pokemon_list(self, ctx, pokemon_names: list):
-        """Send Pokemon names as --n formatted list (text or file) with categories"""
-        # Categorize Pokemon
-        regular, rare, gigantamax = self.categorize_pokemon(pokemon_names)
+    async def send_pokemon_list_simple(self, ctx, pokemon_names: list):
+        """Send simple Pokemon names as --n formatted list (text or file)"""
+        formatted_list = " ".join([f"--n {name}" for name in pokemon_names])
+
+        total_count = len(pokemon_names)
+        list_text = f"**Total Pokemon: {total_count}** 🆕Use --smartlist to generate a better list!\n\n{formatted_list}"
+
+        # If list is short enough, send as message
+        if len(list_text) <= 1900:
+            await ctx.send(list_text, reference=ctx.message, mention_author=False)
+        else:
+            # Create a text file
+            file = discord.File(
+                io.BytesIO(formatted_list.encode('utf-8')),
+                filename='pokemon_list.txt'
+            )
+            await ctx.send(
+                f"**Total: {total_count} Pokemon**\n📝 List is too long! Here's a file:",
+                file=file,
+                reference=ctx.message,
+                mention_author=False
+            )
+
+    async def send_pokemon_smartlist(self, ctx, pokemon_data: list, utils):
+        """Send Pokemon names as smartlist with gender differences and categories
+        pokemon_data: list of tuples (name, gender_key, has_it)
+        """
+        # Separate by gender difference status
+        no_gender_diff = []
+        male_gender_diff = []
+        female_gender_diff = []
+
+        gender_diff_pokemon_names = set()  # Track unique pokemon with gender differences
+
+        for name, gender_key, has_it in pokemon_data:
+            has_gender_diff = utils.has_gender_difference(name)
+
+            if has_gender_diff:
+                gender_diff_pokemon_names.add(name)
+                if gender_key == 'male' and not has_it:
+                    male_gender_diff.append(name)
+                elif gender_key == 'female' and not has_it:
+                    female_gender_diff.append(name)
+            else:
+                if not has_it:
+                    no_gender_diff.append(name)
+
+        # Categorize each group
+        regular, rare, gigantamax = self.categorize_pokemon(no_gender_diff)
+        male_regular, male_rare, male_gmax = self.categorize_pokemon(male_gender_diff)
+        female_regular, female_rare, female_gmax = self.categorize_pokemon(female_gender_diff)
 
         # Build the formatted output
         sections = []
 
-        # Header
-        total_count = len(pokemon_names)
-        sections.append(f"**Total Pokemon: {total_count}**\n")
+        # Calculate total count (gender diff pokemon count as 2 each)
+        total_no_gender = len(set(no_gender_diff))
+        total_with_gender = len(gender_diff_pokemon_names) * 2  # Each counts twice (male + female)
+        total_count = total_no_gender + total_with_gender
+        gender_diff_count = len(gender_diff_pokemon_names)
 
-        # Regular Pokemon
+        # Header
+        sections.append(f"**Total Pokemon: {total_count}**)\n")
+
+        # Regular Pokemon (no gender difference)
         if regular:
             formatted_regular = " ".join([f"--n {name}" for name in regular])
             sections.append(formatted_regular)
 
-        # Rare Pokemon
+        # Male Gender Difference Pokemon
+        if male_regular or male_rare or male_gmax:
+            male_parts = []
+            if male_regular:
+                male_parts.append(" ".join([f"--n {name}" for name in male_regular]))
+            if male_rare:
+                male_parts.append(" ".join([f"--n {name}" for name in male_rare]))
+            if male_gmax:
+                male_parts.append(" ".join([f"--n {name}" for name in male_gmax]))
+            sections.append(" ".join(male_parts) + " --g male")
+
+        # Female Gender Difference Pokemon
+        if female_regular or female_rare or female_gmax:
+            female_parts = []
+            if female_regular:
+                female_parts.append(" ".join([f"--n {name}" for name in female_regular]))
+            if female_rare:
+                female_parts.append(" ".join([f"--n {name}" for name in female_rare]))
+            if female_gmax:
+                female_parts.append(" ".join([f"--n {name}" for name in female_gmax]))
+            sections.append(" ".join(female_parts) + " --g female")
+
+        # Rare Pokemon (no gender difference)
         if rare:
             formatted_rare = " ".join([f"--n {name}" for name in rare])
             sections.append(formatted_rare)
 
-        # Gigantamax Pokemon
+        # Gigantamax Pokemon (no gender difference)
         if gigantamax:
             formatted_gmax = " ".join([f"--n {name}" for name in gigantamax])
             sections.append(formatted_gmax)
@@ -265,17 +343,17 @@ class ShinyDexDisplay(commands.Cog):
             # Create a text file
             file = discord.File(
                 io.BytesIO(list_text.encode('utf-8')),
-                filename='pokemon_list.txt'
+                filename='pokemon_smartlist.txt'
             )
             await ctx.send(
-                f"**Total: {total_count} Pokemon**\n📝 List is too long! Here's a file:",
+                f"**Total: {total_count} Pokemon** ({gender_diff_count} species with gender differences)\n📝 List is too long! Here's a file:",
                 file=file,
                 reference=ctx.message,
                 mention_author=False
             )
 
     @commands.hybrid_command(name='shinydex', aliases=['sd'])
-    @app_commands.describe(filters="Filters: --caught, --uncaught, --orderd, --ordera, --region, --type, --name, --page, --list")
+    @app_commands.describe(filters="Filters: --caught, --uncaught, --orderd, --ordera, --region, --type, --name, --page, --list, --smartlist")
     async def shiny_dex(self, ctx, *, filters: str = None):
         """View your basic shiny dex (one Pokemon per dex number, counts all forms)"""
         utils = self.bot.get_cog('Utils')
@@ -286,7 +364,7 @@ class ShinyDexDisplay(commands.Cog):
         user_id = ctx.author.id
 
         # Parse filters
-        show_caught, show_uncaught, order, region_filter, type_filters, name_searches, page, show_list = self.parse_filters(filters)
+        show_caught, show_uncaught, order, region_filter, type_filters, name_searches, page, show_list, show_smartlist = self.parse_filters(filters)
 
         # Get user's shinies
         user_shinies = await db.get_all_shinies(user_id)
@@ -338,10 +416,17 @@ class ShinyDexDisplay(commands.Cog):
             await ctx.send("❌ No shinies match your filters!", reference=ctx.message, mention_author=False)
             return
 
-        # If --list flag is set, send list format
+        # If --list flag is set, send simple list format
         if show_list:
             pokemon_names = [name for _, name, _ in filtered_entries]
-            await self.send_pokemon_list(ctx, pokemon_names)
+            await self.send_pokemon_list_simple(ctx, pokemon_names)
+            return
+
+        # If --smartlist flag is set, send smartlist format
+        if show_smartlist:
+            # For basic dex, we don't track gender, so just mark all as no gender diff
+            pokemon_data = [(name, None, count == 0) for _, name, count in filtered_entries]
+            await self.send_pokemon_smartlist(ctx, pokemon_data, utils)
             return
 
         # Calculate stats
@@ -385,7 +470,7 @@ class ShinyDexDisplay(commands.Cog):
         view.message = message
 
     @commands.hybrid_command(name='shinydexfull', aliases=['sdf'])
-    @app_commands.describe(filters="Filters: --caught, --unc, --orderd, --ordera, --region, --type, --name, --page, --list")
+    @app_commands.describe(filters="Filters: --caught, --unc, --orderd, --ordera, --region, --type, --name, --page, --list, --smartlist")
     async def shiny_dex_full(self, ctx, *, filters: str = None):
         """View your full shiny dex (all forms, includes gender differences)"""
         utils = self.bot.get_cog('Utils')
@@ -396,7 +481,7 @@ class ShinyDexDisplay(commands.Cog):
         user_id = ctx.author.id
 
         # Parse filters
-        show_caught, show_uncaught, order, region_filter, type_filters, name_searches, page, show_list = self.parse_filters(filters)
+        show_caught, show_uncaught, order, region_filter, type_filters, name_searches, page, show_list, show_smartlist = self.parse_filters(filters)
 
         # Get user's shinies
         user_shinies = await db.get_all_shinies(user_id)
@@ -469,7 +554,7 @@ class ShinyDexDisplay(commands.Cog):
             await ctx.send("❌ No shinies match your filters!", reference=ctx.message, mention_author=False)
             return
 
-        # If --list flag is set, send list format
+        # If --list flag is set, send simple list format
         if show_list:
             pokemon_names = [name for _, name, _, _ in filtered_entries]
             # Remove duplicates while preserving order
@@ -479,7 +564,13 @@ class ShinyDexDisplay(commands.Cog):
                 if name not in seen:
                     seen.add(name)
                     unique_names.append(name)
-            await self.send_pokemon_list(ctx, unique_names)
+            await self.send_pokemon_list_simple(ctx, unique_names)
+            return
+
+        # If --smartlist flag is set, send smartlist format
+        if show_smartlist:
+            pokemon_data = [(name, gender_key, count == 0) for _, name, gender_key, count in filtered_entries]
+            await self.send_pokemon_smartlist(ctx, pokemon_data, utils)
             return
 
         # Calculate stats
@@ -533,7 +624,7 @@ class ShinyDexDisplay(commands.Cog):
     @commands.hybrid_command(name='filter', aliases=['f'])
     @app_commands.describe(
         filter_name="Filter name (e.g., eevos, starters, legendaries)",
-        options="Options: --caught, --uncaught, --orderd, --ordera, --page, --list"
+        options="Options: --caught, --uncaught, --orderd, --ordera, --page, --list, --smartlist"
     )
     async def filter_dex(self, ctx, filter_name: str = None, *, options: str = None):
         """View your shiny dex with custom filters"""
@@ -568,7 +659,7 @@ class ShinyDexDisplay(commands.Cog):
         user_id = ctx.author.id
 
         # Parse options
-        show_caught, show_uncaught, order, _, _, _, page, show_list = self.parse_filters(options)
+        show_caught, show_uncaught, order, _, _, _, page, show_list, show_smartlist = self.parse_filters(options)
 
         # Get user's shinies
         user_shinies = await db.get_all_shinies(user_id)
@@ -640,7 +731,7 @@ class ShinyDexDisplay(commands.Cog):
             await ctx.send("❌ No shinies match your filters!", reference=ctx.message, mention_author=False)
             return
 
-        # If --list flag is set, send list format
+        # If --list flag is set, send simple list format
         if show_list:
             pokemon_names = [name for _, name, _, _ in filtered_entries]
             # Remove duplicates while preserving order
@@ -650,7 +741,13 @@ class ShinyDexDisplay(commands.Cog):
                 if name not in seen:
                     seen.add(name)
                     unique_names.append(name)
-            await self.send_pokemon_list(ctx, unique_names)
+            await self.send_pokemon_list_simple(ctx, unique_names)
+            return
+
+        # If --smartlist flag is set, send smartlist format
+        if show_smartlist:
+            pokemon_data = [(name, gender_key, count == 0) for _, name, gender_key, count in filtered_entries]
+            await self.send_pokemon_smartlist(ctx, pokemon_data, utils)
             return
 
         # Calculate stats
