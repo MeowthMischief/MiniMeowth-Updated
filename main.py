@@ -74,6 +74,7 @@ async def on_ready():
         'cogs.breeding',
         'cogs.cooldown',
         'cogs.help',
+        'cogs.utility_commands',
         'cogs.inventory',
         'cogs.settings'
     ]
