@@ -83,6 +83,35 @@ class Database:
 
     # ===== POKEMON OPERATIONS (BREEDING BOT) =====
 
+    # Add this method to the Database class in database.py
+
+    async def get_pokemon_optimized(self, user_id: int, filters: dict = None, category: str = None, projection: dict = None):
+        """
+        Get Pokemon with optional filters, category, and field projection - OPTIMIZED
+
+        Args:
+            user_id: User ID
+            filters: Additional MongoDB filters
+            category: Category to filter by
+            projection: Dictionary of fields to include/exclude (MongoDB projection)
+                       Example: {'pokemon_id': 1, 'name': 1, 'iv_percent': 1}
+        """
+        query = {"user_id": user_id}
+
+        if category:
+            query["categories"] = category
+
+        if filters:
+            query.update(filters)
+
+        # Use projection if provided to reduce data transfer
+        if projection:
+            cursor = self.pokemon.find(query, projection)
+        else:
+            cursor = self.pokemon.find(query)
+
+        return await cursor.to_list(length=None)
+
     async def add_pokemon(self, user_id: int, pokemon_data: dict, category: str = "normal"):
         """Add a single Pokemon to inventory with category and dex number (ignore if duplicate user_id+pokemon_id)"""
         try:
