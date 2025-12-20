@@ -319,127 +319,40 @@ class Cooldown(commands.Cog):
         await ctx.send(embed=embed, reference=ctx.message, mention_author=False)
 
     async def list_cooldowns(self, ctx):
-        """List all Pokemon on cooldown - loads in batches for speed"""
+        """List all Pokemon on cooldown - optimized single query"""
         user_id = ctx.author.id
 
-        # Defer if slash command to prevent timeout
         if ctx.interaction:
             await ctx.defer()
 
         cooldowns = await db.get_cooldowns(user_id)
 
         if not cooldowns:
-            await ctx.send("✅ No Pokemon are currently on cooldown", reference=ctx.message, mention_author=False)
+            await ctx.send("✅ No Pokemon are currently on cooldown", 
+                          reference=ctx.message, mention_author=False)
             return
 
-        # OPTIMIZED: Load first batch (20) immediately, rest in background
-        per_page = 10
-        first_batch_size = 20  # Load 2 pages worth initially
-
-        cooldown_items = list(cooldowns.items())
-
-        # Load first batch
+        # Load ALL Pokemon data at once (single DB query)
         pokemon_on_cd = []
-        for pid, expiry in cooldown_items[:first_batch_size]:
+        for pid, expiry in cooldowns.items():
             pokemon = await db.get_pokemon_by_id(user_id, pid)
             if pokemon:
                 pokemon['expiry'] = expiry
                 pokemon_on_cd.append(pokemon)
 
-        # Sort by expiry time (soonest first)
+        # Sort by expiry
         pokemon_on_cd.sort(key=lambda x: x['expiry'])
 
-        # If there are more cooldowns, load them in background
-        remaining_items = cooldown_items[first_batch_size:]
-        if remaining_items:
-            # Load remaining in background
-            async def load_remaining():
-                remaining_pokemon = []
-                for pid, expiry in remaining_items:
-                    pokemon = await db.get_pokemon_by_id(user_id, pid)
-                    if pokemon:
-                        pokemon['expiry'] = expiry
-                        remaining_pokemon.append(pokemon)
-                return remaining_pokemon
-
-            # Start loading remaining in background
-            remaining_task = asyncio.create_task(load_remaining())
-        else:
-            remaining_task = None
-
-        # Paginate (10 per page)
+        # Paginate
         per_page = 10
+        pages = [pokemon_on_cd[i:i + per_page] 
+                 for i in range(0, len(pokemon_on_cd), per_page)]
 
-        if len(pokemon_on_cd) <= per_page:
-            # Wait for remaining if needed
-            if remaining_task:
-                remaining_pokemon = await remaining_task
-                remaining_pokemon.sort(key=lambda x: x['expiry'])
-                pokemon_on_cd.extend(remaining_pokemon)
-
-            # Single page - no buttons needed
-            embed = discord.Embed(
-                title="🔒 Pokemon on Cooldown",
-                color=config.EMBED_COLOR
-            )
-
-            description_lines = []
-            now = datetime.utcnow()
-
-            for p in pokemon_on_cd:
-                time_left = p['expiry'] - now
-                days = time_left.days
-                hours = time_left.seconds // 3600
-                minutes = (time_left.seconds % 3600) // 60
-
-                time_str = []
-                if days > 0:
-                    time_str.append(f"{days}d")
-                if hours > 0:
-                    time_str.append(f"{hours}h")
-                if minutes > 0 or (days == 0 and hours == 0):
-                    time_str.append(f"{minutes}m")
-
-                gender_icon = (
-                    config.GENDER_MALE if p['gender'] == 'male' else 
-                    config.GENDER_FEMALE if p['gender'] == 'female' else 
-                    config.GENDER_UNKNOWN
-                )
-
-                description_lines.append(
-                    f"`{p['pokemon_id']}` **{p['name']}** {gender_icon} • {p['iv_percent']}% IV\n"
-                    f"⏰ {' '.join(time_str)} remaining"
-                )
-
-            embed.description = "\n\n".join(description_lines)
-            embed.set_footer(text=f"Total: {len(cooldowns)} Pokemon on cooldown")
-
-            await ctx.send(embed=embed, reference=ctx.message, mention_author=False)
-        else:
-            # Multi-page - send first pages immediately, load rest in background
-            pages = [pokemon_on_cd[i:i + per_page] for i in range(0, len(pokemon_on_cd), per_page)]
-
-            view = CooldownView(ctx, pokemon_on_cd, pages)
-            message = await ctx.send(embed=view.create_embed(), view=view, reference=ctx.message, mention_author=False)
-            view.message = message
-
-            # If there's remaining data, load it in background
-            if remaining_task:
-                remaining_pokemon = await remaining_task
-                remaining_pokemon.sort(key=lambda x: x['expiry'])
-                pokemon_on_cd.extend(remaining_pokemon)
-
-                # Update pages with all data
-                all_pages = [pokemon_on_cd[i:i + per_page] for i in range(0, len(pokemon_on_cd), per_page)]
-                view.pages = all_pages
-                view.pokemon_on_cd = pokemon_on_cd
-                view.update_buttons()
-
-                # Update the message with complete data
-                try:
-                    await message.edit(embed=view.create_embed(), view=view)
-                except:
-                    pass  # Message might have been deleted
+        # Create view and send
+        view = CooldownView(ctx, pokemon_on_cd, pages)
+        message = await ctx.send(embed=view.create_embed(), view=view,
+                                reference=ctx.message, mention_author=False)
+        view.message = message
 
 async def setup(bot):
     await bot.add_cog(Cooldown(bot))
