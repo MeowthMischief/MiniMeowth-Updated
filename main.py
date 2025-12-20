@@ -52,11 +52,67 @@ bot = commands.Bot(
     case_insensitive=True
 )
 
+# Command Logger Configuration
+LOG_CHANNEL_ID = 1367051039181901885  # Set this to your log channel ID (e.g., 1234567890123456789)
+
+async def log_command_usage(interaction_or_ctx, command_name: str, command_type: str):
+    """Log command usage to the designated log channel"""
+    if not LOG_CHANNEL_ID:
+        return  # Logging disabled if no channel set
+
+    log_channel = bot.get_channel(LOG_CHANNEL_ID)
+    if not log_channel:
+        return
+
+    # Determine if it's an interaction or context
+    if isinstance(interaction_or_ctx, discord.Interaction):
+        user = interaction_or_ctx.user
+        guild = interaction_or_ctx.guild
+        channel = interaction_or_ctx.channel
+    else:  # commands.Context
+        user = interaction_or_ctx.author
+        guild = interaction_or_ctx.guild
+        channel = interaction_or_ctx.channel
+
+    # Determine location
+    if guild is None:
+        location = "DM"
+        location_detail = f"Direct Message"
+    else:
+        location = f"Server: {guild.name}"
+        location_detail = f"{guild.name} (ID: {guild.id}) in #{channel.name}"
+
+    # Create embed
+    embed = discord.Embed(
+        title="📝 Command Used",
+        color=config.EMBED_COLOR,
+        timestamp=discord.utils.utcnow()
+    )
+
+    embed.add_field(name="User", value=f"{user.mention} ({user.name})", inline=True)
+    embed.add_field(name="User ID", value=f"`{user.id}`", inline=True)
+    embed.add_field(name="Command Type", value=f"`{command_type}`", inline=True)
+    embed.add_field(name="Command", value=f"`{command_name}`", inline=True)
+    embed.add_field(name="Location", value=location, inline=True)
+    embed.add_field(name="Details", value=location_detail, inline=False)
+
+    embed.set_footer(text="Command Logger")
+
+    try:
+        await log_channel.send(embed=embed)
+    except Exception as e:
+        print(f"❌ Error sending command log: {e}")
+
 @bot.event
 async def on_ready():
     print(f'✅ Logged in as {bot.user.name} ({bot.user.id})')
     print(f'📝 Prefix: {config.PREFIX} + <@{bot.user.id}>')
     print(f'🎨 Embed Color: #{config.EMBED_COLOR:06x}')
+
+    if LOG_CHANNEL_ID:
+        print(f'📊 Command logging enabled (Channel ID: {LOG_CHANNEL_ID})')
+    else:
+        print(f'⚠️ Command logging disabled (set LOG_CHANNEL_ID to enable)')
 
     # Connect to database
     await db.connect()
@@ -173,6 +229,24 @@ async def on_message_edit(before, after):
                     break
 
         await bot.process_commands(after)
+
+# Command logging listeners
+@bot.event
+async def on_command_completion(ctx):
+    """Log prefix/hybrid commands"""
+    await log_command_usage(ctx, ctx.command.name, "Prefix Command")
+
+@bot.event
+async def on_app_command_completion(interaction: discord.Interaction, command):
+    """Log slash commands"""
+    await log_command_usage(interaction, command.name, "Slash Command")
+
+@bot.tree.error
+async def on_app_command_error(interaction: discord.Interaction, error):
+    """Handle slash command errors (still log the attempt)"""
+    # Log the command even if it errored
+    if interaction.command:
+        await log_command_usage(interaction, interaction.command.name, "Slash Command (Error)")
 
 @bot.event
 async def on_disconnect():
