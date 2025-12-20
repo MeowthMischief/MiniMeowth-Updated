@@ -7,45 +7,83 @@ import config
 from database import db
 
 class CooldownView(discord.ui.View):
-    """View for cooldown list pagination with buttons"""
+    """View for cooldown list pagination with lazy loading"""
 
-    def __init__(self, ctx, pokemon_on_cd, pages, timeout=180):
+    def __init__(self, ctx, cooldowns_dict, timeout=180):
         super().__init__(timeout=timeout)
         self.ctx = ctx
-        self.pokemon_on_cd = pokemon_on_cd
-        self.pages = pages
+        self.cooldowns_dict = cooldowns_dict  # {pokemon_id: expiry_datetime}
+        self.pokemon_ids = list(cooldowns_dict.keys())
         self.current_page = 0
+        self.per_page = 10
+        self.total_pages = (len(self.pokemon_ids) + self.per_page - 1) // self.per_page
         self.message = None
+        
+        # Cache loaded Pokemon data by page
+        self.page_cache = {}
+        
         self.update_buttons()
 
     def update_buttons(self):
         """Enable/disable buttons based on current page"""
         self.previous_button.disabled = (self.current_page == 0)
-        self.next_button.disabled = (self.current_page >= len(self.pages) - 1)
+        self.next_button.disabled = (self.current_page >= self.total_pages - 1)
 
-    def create_embed(self):
+    async def load_page_data(self, page_num):
+        """Lazy load Pokemon data for a specific page"""
+        if page_num in self.page_cache:
+            return self.page_cache[page_num]
+        
+        # Calculate which Pokemon IDs are on this page
+        start_idx = page_num * self.per_page
+        end_idx = min(start_idx + self.per_page, len(self.pokemon_ids))
+        page_pokemon_ids = self.pokemon_ids[start_idx:end_idx]
+        
+        # Load only these Pokemon from database
+        pokemon_list = []
+        for pid in page_pokemon_ids:
+            pokemon = await db.get_pokemon_by_id(self.ctx.author.id, pid)
+            if pokemon:
+                pokemon['expiry'] = self.cooldowns_dict[pid]
+                pokemon_list.append(pokemon)
+        
+        # Cache this page
+        self.page_cache[page_num] = pokemon_list
+        return pokemon_list
+
+    async def create_embed(self):
         """Create embed for current page"""
         embed = discord.Embed(
             title="🔒 Pokemon on Cooldown",
             color=config.EMBED_COLOR
         )
 
+        # Load current page data
+        pokemon_list = await self.load_page_data(self.current_page)
+        
         description_lines = []
         now = datetime.utcnow()
 
-        for p in self.pages[self.current_page]:
+        for p in pokemon_list:
             time_left = p['expiry'] - now
-            days = time_left.days
-            hours = time_left.seconds // 3600
-            minutes = (time_left.seconds % 3600) // 60
+            
+            # Handle expired cooldowns
+            if time_left.total_seconds() <= 0:
+                time_display = "**Expired**"
+            else:
+                days = time_left.days
+                hours = time_left.seconds // 3600
+                minutes = (time_left.seconds % 3600) // 60
 
-            time_str = []
-            if days > 0:
-                time_str.append(f"{days}d")
-            if hours > 0:
-                time_str.append(f"{hours}h")
-            if minutes > 0 or (days == 0 and hours == 0):
-                time_str.append(f"{minutes}m")
+                time_str = []
+                if days > 0:
+                    time_str.append(f"{days}d")
+                if hours > 0:
+                    time_str.append(f"{hours}h")
+                if minutes > 0 or (days == 0 and hours == 0):
+                    time_str.append(f"{minutes}m")
+                
+                time_display = ' '.join(time_str)
 
             gender_icon = (
                 config.GENDER_MALE if p['gender'] == 'male' else 
@@ -55,11 +93,11 @@ class CooldownView(discord.ui.View):
 
             description_lines.append(
                 f"`{p['pokemon_id']}` **{p['name']}** {gender_icon} • {p['iv_percent']}% IV\n"
-                f"⏰ {' '.join(time_str)} remaining"
+                f"⏰ {time_display} remaining"
             )
 
-        embed.description = "\n\n".join(description_lines)
-        embed.set_footer(text=f"Page {self.current_page + 1}/{len(self.pages)} • Total: {len(self.pokemon_on_cd)} Pokemon")
+        embed.description = "\n\n".join(description_lines) if description_lines else "No Pokemon data available"
+        embed.set_footer(text=f"Page {self.current_page + 1}/{self.total_pages} • Total: {len(self.pokemon_ids)} Pokemon")
 
         return embed
 
@@ -73,7 +111,10 @@ class CooldownView(discord.ui.View):
         if self.current_page > 0:
             self.current_page -= 1
             self.update_buttons()
-            await interaction.response.edit_message(embed=self.create_embed(), view=self)
+            # Defer first to show "loading" state
+            await interaction.response.defer()
+            embed = await self.create_embed()
+            await interaction.edit_original_response(embed=embed, view=self)
         else:
             await interaction.response.defer()
 
@@ -84,10 +125,13 @@ class CooldownView(discord.ui.View):
             await interaction.response.send_message("❌ This is not your cooldown list!", ephemeral=True)
             return
 
-        if self.current_page < len(self.pages) - 1:
+        if self.current_page < self.total_pages - 1:
             self.current_page += 1
             self.update_buttons()
-            await interaction.response.edit_message(embed=self.create_embed(), view=self)
+            # Defer first to show "loading" state
+            await interaction.response.defer()
+            embed = await self.create_embed()
+            await interaction.edit_original_response(embed=embed, view=self)
         else:
             await interaction.response.defer()
 
@@ -319,12 +363,13 @@ class Cooldown(commands.Cog):
         await ctx.send(embed=embed, reference=ctx.message, mention_author=False)
 
     async def list_cooldowns(self, ctx):
-        """List all Pokemon on cooldown - optimized single query"""
+        """List all Pokemon on cooldown with lazy loading"""
         user_id = ctx.author.id
 
         if ctx.interaction:
             await ctx.defer()
 
+        # Only get the cooldown dictionary (pokemon_id -> expiry)
         cooldowns = await db.get_cooldowns(user_id)
 
         if not cooldowns:
@@ -332,25 +377,12 @@ class Cooldown(commands.Cog):
                           reference=ctx.message, mention_author=False)
             return
 
-        # Load ALL Pokemon data at once (single DB query)
-        pokemon_on_cd = []
-        for pid, expiry in cooldowns.items():
-            pokemon = await db.get_pokemon_by_id(user_id, pid)
-            if pokemon:
-                pokemon['expiry'] = expiry
-                pokemon_on_cd.append(pokemon)
-
-        # Sort by expiry
-        pokemon_on_cd.sort(key=lambda x: x['expiry'])
-
-        # Paginate
-        per_page = 10
-        pages = [pokemon_on_cd[i:i + per_page] 
-                 for i in range(0, len(pokemon_on_cd), per_page)]
-
-        # Create view and send
-        view = CooldownView(ctx, pokemon_on_cd, pages)
-        message = await ctx.send(embed=view.create_embed(), view=view,
+        # Create view with lazy loading (no Pokemon data loaded yet)
+        view = CooldownView(ctx, cooldowns)
+        
+        # Load and display first page
+        embed = await view.create_embed()
+        message = await ctx.send(embed=embed, view=view,
                                 reference=ctx.message, mention_author=False)
         view.message = message
 
