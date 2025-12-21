@@ -368,7 +368,7 @@ class ShinyDexDisplay(commands.Cog):
         user_id = ctx.author.id
 
         # Parse filters
-        show_caught, show_uncaught, order, region_filter, type_filters, name_searches, page, show_list, show_smartlist = self.parse_filters(filters)
+        show_caught, show_uncaught, order, region_filter, type_filters, name_searches, page, show_list, show_smartlist, ignore_gender = self.parse_filters(filters)
 
         # Get user's shinies
         user_shinies = await db.get_all_shinies(user_id)
@@ -485,7 +485,7 @@ class ShinyDexDisplay(commands.Cog):
         user_id = ctx.author.id
 
         # Parse filters
-        show_caught, show_uncaught, order, region_filter, type_filters, name_searches, page, show_list, show_smartlist = self.parse_filters(filters)
+        show_caught, show_uncaught, order, region_filter, type_filters, name_searches, page, show_list, show_smartlist, ignore_gender = self.parse_filters(filters)
 
         # Get user's shinies
         user_shinies = await db.get_all_shinies(user_id)
