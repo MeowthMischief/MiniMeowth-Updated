@@ -192,8 +192,8 @@ class Settings(commands.Cog):
         show_info = settings.get('show_info', 'detailed')
         info_display = {
             "detailed": "> Detailed (Full embed)",
-            "simple": "> Simple (Basic embed)",
-            "compact": "> Compact (Non-embed)",
+            "simple": "> Simple (Non-embed)",
+            "compact": "> Compact (Basic embed)",
             "off": "> Off (Command only)"
         }
 
@@ -377,15 +377,15 @@ class Settings(commands.Cog):
                 "> - Expected compatibility\n"
                 "> - Pairing reasons (Gmax, regional, high IV, etc.)"
             ),
-            'simple': (
-                "# Simple Mode (Embed)\n"
+            'compact': (
+                "# Compact Mode (Embed)\n"
                 "> Shows basic pair information:\n"
                 "> - Pokemon names and IDs\n"
                 "> - Expected compatibility only\n"
                 "> - No IV details or pairing reasons"
             ),
-            'compact': (
-                "# Compact Mode (Non-embed)\n"
+            'simple': (
+                "# Simple Mode (Non-embed)\n"
                 "> Shows command with compatibility only:\n"
                 "> - Breeding command in code block\n"
                 "> - Expected compatibility per pair\n"
