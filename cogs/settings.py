@@ -155,10 +155,11 @@ class Settings(commands.Cog):
 
         # ===== INFO DISPLAY MODE =====
         show_info = settings.get('show_info', 'detailed')
-        info_icons = {"detailed": "📋", "simple": "📄", "off": "🚫"}
+        info_icons = {"detailed": "📋", "simple": "📄", "compact": "📦", "off": "🚫"}
         info_descs = {
-            "detailed": "Shows full pair info (IVs, compatibility, reasons)",
-            "simple": "Shows basic info (names, compatibility only)",
+            "detailed": "Shows full pair info (IVs, compatibility, reasons) - Embed",
+            "simple": "Shows basic info (names, compatibility only) - Embed",
+            "compact": "Shows command + compatibility only - Non-embed",
             "off": "Shows only the breeding command"
         }
 
