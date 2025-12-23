@@ -9355,6 +9355,42 @@
     "egg_groups": "Undiscovered",
     "hatch_time": "80 cycles"
   },
+  "146_Olympic Flame Moltres": {
+    "dex_number": "146",
+    "name": "Olympic Flame Moltres",
+    "description": "Known as the legendary bird of fire. Moltres is the perfect Pokémon to carry the Olympic Flame into the stadium.",
+    "image_url": "https://cdn.poketwo.net/images/50182.png",
+    "timestamp": "2025-12-14T10:56:25.069232",
+    "fields": {},
+    "rarity": "Legendary, Event",
+    "types": [
+      "Fire",
+      "Flying"
+    ],
+    "region": "Kanto",
+    "catchable": "No",
+    "base_stats": {
+      "HP": 90,
+      "Attack": 100,
+      "Defense": 90,
+      "Sp. Atk": 125,
+      "Sp. Def": 85,
+      "Speed": 90
+    },
+    "names": {
+      "en": [
+        "Olympic Flame Moltres",
+        "Summer Moltres"
+      ]
+    },
+    "appearance": {
+      "height_m": 2.0,
+      "weight_kg": 60.0
+    },
+    "gender_ratio": "Genderless",
+    "egg_groups": "Undiscovered",
+    "hatch_time": "80 cycles"
+  },
   "147_Dratini": {
     "dex_number": "147",
     "name": "Dratini",
@@ -9634,6 +9670,87 @@
     "egg_groups": "Undiscovered",
     "hatch_time": "120 cycles"
   },
+  "150_Shadow Mewtwo": {
+    "dex_number": "150",
+    "name": "Shadow Mewtwo",
+    "description": "",
+    "image_url": "https://cdn.poketwo.net/images/50014.png",
+    "timestamp": "2025-12-14T10:46:41.522016",
+    "fields": {},
+    "rarity": "Legendary, Event",
+    "types": [
+      "Shadow",
+      "Psychic"
+    ],
+    "region": "Kanto",
+    "catchable": "No",
+    "base_stats": {
+      "HP": 106,
+      "Attack": 110,
+      "Defense": 90,
+      "Sp. Atk": 154,
+      "Sp. Def": 90,
+      "Speed": 130
+    },
+    "names": {
+      "ja": [
+        "ダークミュウツー",
+        "Dākumyūtsū",
+        "Dark Mewtwo"
+      ],
+      "en": [
+        "Shadow Mewtwo"
+      ],
+      "de": [
+        "Crypto-Mewtwo"
+      ],
+      "fr": [
+        "Mewtwo Obscur"
+      ]
+    },
+    "appearance": {
+      "height_m": 2.0,
+      "weight_kg": 122.0
+    },
+    "gender_ratio": "Genderless",
+    "egg_groups": "Undiscovered",
+    "hatch_time": "120 cycles"
+  },
+  "151_Lights Mew": {
+    "dex_number": "151",
+    "name": "Lights Mew",
+    "description": "",
+    "image_url": "https://cdn.poketwo.net/images/50082.png",
+    "timestamp": "2025-12-14T10:50:36.512771",
+    "fields": {},
+    "rarity": "Mythical, Event",
+    "types": [
+      "Psychic"
+    ],
+    "region": "Kanto",
+    "catchable": "No",
+    "base_stats": {
+      "HP": 100,
+      "Attack": 100,
+      "Defense": 100,
+      "Sp. Atk": 100,
+      "Sp. Def": 100,
+      "Speed": 100
+    },
+    "names": {
+      "en": [
+        "Lights Mew",
+        "Christmas Mew"
+      ]
+    },
+    "appearance": {
+      "height_m": 0.4,
+      "weight_kg": 4.0
+    },
+    "gender_ratio": "Genderless",
+    "egg_groups": "Undiscovered",
+    "hatch_time": "120 cycles"
+  },
   "151_Mew": {
     "dex_number": "151",
     "name": "Mew",
@@ -9669,6 +9786,41 @@
       ],
       "fr": [
         "Mew"
+      ]
+    },
+    "appearance": {
+      "height_m": 0.4,
+      "weight_kg": 4.0
+    },
+    "gender_ratio": "Genderless",
+    "egg_groups": "Undiscovered",
+    "hatch_time": "120 cycles"
+  },
+  "151_Pride Mew": {
+    "dex_number": "151",
+    "name": "Pride Mew",
+    "description": "Its DNA is said to contain the genetic codes of all Pokémon and being neither male nor female at heart.",
+    "image_url": "https://cdn.poketwo.net/images/50103.png",
+    "timestamp": "2025-12-14T10:51:49.891350",
+    "fields": {},
+    "rarity": "Mythical, Event",
+    "types": [
+      "Psychic"
+    ],
+    "region": "Kanto",
+    "catchable": "No",
+    "base_stats": {
+      "HP": 100,
+      "Attack": 100,
+      "Defense": 100,
+      "Sp. Atk": 100,
+      "Sp. Def": 100,
+      "Speed": 100
+    },
+    "names": {
+      "en": [
+        "Pride Mew",
+        "Non-binary Pride Mew"
       ]
     },
     "appearance": {
@@ -15841,6 +15993,52 @@
       ],
       "fr": [
         "Lugia"
+      ]
+    },
+    "appearance": {
+      "height_m": 5.2,
+      "weight_kg": 216.0
+    },
+    "gender_ratio": "Genderless",
+    "egg_groups": "Undiscovered",
+    "hatch_time": "120 cycles"
+  },
+  "249_Shadow Lugia": {
+    "dex_number": "249",
+    "name": "Shadow Lugia",
+    "description": "",
+    "image_url": "https://cdn.poketwo.net/images/50001.png",
+    "timestamp": "2025-12-14T10:45:53.952206",
+    "fields": {},
+    "rarity": "Legendary, Event",
+    "types": [
+      "Shadow",
+      "Flying"
+    ],
+    "region": "Johto",
+    "catchable": "No",
+    "base_stats": {
+      "HP": 106,
+      "Attack": 90,
+      "Defense": 130,
+      "Sp. Atk": 90,
+      "Sp. Def": 154,
+      "Speed": 110
+    },
+    "names": {
+      "ja": [
+        "ダークルギア",
+        "Dākurugia",
+        "Dark Lugia"
+      ],
+      "en": [
+        "Shadow Lugia"
+      ],
+      "de": [
+        "Crypto-Lugia"
+      ],
+      "fr": [
+        "Lugia Obscur"
       ]
     },
     "appearance": {
@@ -29341,6 +29539,77 @@
     "egg_groups": "Undiscovered",
     "hatch_time": "120 cycles"
   },
+  "491_Error Darkrai": {
+    "dex_number": "491",
+    "name": "Error Darkrai",
+    "description": "In a world dominated by AI, a powerful Darkrai is trapped in a decaying virtual Pokémon battle system. Twisted by data corruption, it moves between reality and broken digital realms, dragging victims into a fractured dreamscape.",
+    "image_url": "https://cdn.poketwo.net/images/50222.png",
+    "timestamp": "2025-12-14T10:58:46.955159",
+    "fields": {},
+    "rarity": "Mythical, Event",
+    "types": [
+      "Dark",
+      "Electric"
+    ],
+    "region": "Sinnoh",
+    "catchable": "No",
+    "base_stats": {
+      "HP": 70,
+      "Attack": 90,
+      "Defense": 90,
+      "Sp. Atk": 135,
+      "Sp. Def": 90,
+      "Speed": 125
+    },
+    "names": {
+      "en": [
+        "Error Darkrai",
+        "April Fool's Day Darkrai"
+      ]
+    },
+    "appearance": {
+      "height_m": 1.5,
+      "weight_kg": 50.5
+    },
+    "gender_ratio": "Genderless",
+    "egg_groups": "Undiscovered",
+    "hatch_time": "120 cycles"
+  },
+  "492_Bouquet Shaymin": {
+    "dex_number": "492",
+    "name": "Bouquet Shaymin",
+    "description": "",
+    "image_url": "https://cdn.poketwo.net/images/50060.png",
+    "timestamp": "2025-12-14T10:49:19.814282",
+    "fields": {},
+    "rarity": "Mythical, Event",
+    "types": [
+      "Grass"
+    ],
+    "region": "Sinnoh",
+    "catchable": "No",
+    "base_stats": {
+      "HP": 100,
+      "Attack": 100,
+      "Defense": 100,
+      "Sp. Atk": 100,
+      "Sp. Def": 100,
+      "Speed": 100
+    },
+    "names": {
+      "en": [
+        "Bouquet Shaymin",
+        "Spring Shaymin"
+      ]
+    },
+    "appearance": {
+      "height_m": 0.2,
+      "weight_kg": 2.1
+    },
+    "gender_ratio": "Genderless",
+    "egg_groups": "Undiscovered",
+    "hatch_time": "120 cycles"
+  },
   "492_Shaymin": {
     "dex_number": "492",
     "name": "Shaymin",
@@ -29813,6 +30082,41 @@
     "egg_groups": "Undiscovered",
     "hatch_time": "120 cycles"
   },
+  "493_Glitched Beta Arceus": {
+    "dex_number": "493",
+    "name": "Glitched Beta Arceus",
+    "description": "In an alternate universe, Glitched Beta Arceus emerged from equations which it bends to shape the world in bits and bytes.",
+    "image_url": "https://cdn.poketwo.net/images/50223.png",
+    "timestamp": "2025-12-14T10:58:50.438109",
+    "fields": {},
+    "rarity": "Mythical, Event",
+    "types": [
+      "Electric"
+    ],
+    "region": "Sinnoh",
+    "catchable": "No",
+    "base_stats": {
+      "HP": 120,
+      "Attack": 120,
+      "Defense": 120,
+      "Sp. Atk": 120,
+      "Sp. Def": 120,
+      "Speed": 120
+    },
+    "names": {
+      "en": [
+        "Glitched Beta Arceus",
+        "April Fool's Day Arceus"
+      ]
+    },
+    "appearance": {
+      "height_m": 3.2,
+      "weight_kg": 320.0
+    },
+    "gender_ratio": "Genderless",
+    "egg_groups": "Undiscovered",
+    "hatch_time": "120 cycles"
+  },
   "493_Grass Arceus": {
     "dex_number": "493",
     "name": "Grass Arceus",
@@ -29951,6 +30255,40 @@
     "names": {
       "en": [
         "Poison Arceus"
+      ]
+    },
+    "appearance": {
+      "height_m": 3.2,
+      "weight_kg": 320.0
+    },
+    "gender_ratio": "Genderless",
+    "egg_groups": "Undiscovered",
+    "hatch_time": "120 cycles"
+  },
+  "493_Pride Arceus": {
+    "dex_number": "493",
+    "name": "Pride Arceus",
+    "description": "It is said to have emerged from a rainbow in a place where there was nothing, then shaped the world.",
+    "image_url": "https://cdn.poketwo.net/images/50112.png",
+    "timestamp": "2025-12-14T10:52:21.157095",
+    "fields": {},
+    "rarity": "Mythical, Event",
+    "types": [
+      "Normal"
+    ],
+    "region": "Sinnoh",
+    "catchable": "No",
+    "base_stats": {
+      "HP": 120,
+      "Attack": 120,
+      "Defense": 120,
+      "Sp. Atk": 120,
+      "Sp. Def": 120,
+      "Speed": 120
+    },
+    "names": {
+      "en": [
+        "Pride Arceus"
       ]
     },
     "appearance": {
@@ -33260,6 +33598,51 @@
     "appearance": {
       "height_m": 1.7,
       "weight_kg": 120.0
+    },
+    "gender_ratio": "<:male:1207734081585152101> 50% - <:female:1207734084210532483> 50%",
+    "egg_groups": "Field",
+    "hatch_time": "20 cycles"
+  },
+  "555_Zen Darmanitan": {
+    "dex_number": "555",
+    "name": "Zen Darmanitan",
+    "description": "When wounded, it stops moving. It goes as still as stone to meditate, sharpening its mind and spirit.",
+    "image_url": "https://cdn.poketwo.net/images/10017.png",
+    "timestamp": "2025-12-14T10:54:19.919819",
+    "fields": {
+      "‎": "‎"
+    },
+    "types": [
+      "Psychic",
+      "Fire"
+    ],
+    "region": "Unova",
+    "catchable": "Yes",
+    "base_stats": {
+      "HP": 105,
+      "Attack": 30,
+      "Defense": 105,
+      "Sp. Atk": 140,
+      "Sp. Def": 105,
+      "Speed": 55
+    },
+    "names": {
+        "ja": [
+          "ダルマモード",
+          "Darumamōdo"
+        ],
+        "en": [
+          "Zen Darmanitan"
+        ],
+        "de": [
+          "Trance-Modus"
+        ],
+        "fr": [
+          "Mode Transe"
+    },
+    "appearance": {
+      "height_m": 1.3,
+      "weight_kg": 92.9
     },
     "gender_ratio": "<:male:1207734081585152101> 50% - <:female:1207734084210532483> 50%",
     "egg_groups": "Field",
@@ -43152,6 +43535,42 @@
     "egg_groups": "Undiscovered",
     "hatch_time": "120 cycles"
   },
+  "716_Shadow Xerneas": {
+    "dex_number": "716",
+    "name": "Shadow Xerneas",
+    "description": "",
+    "image_url": "https://cdn.poketwo.net/images/50029.png",
+    "timestamp": "2025-12-14T10:47:34.156205",
+    "fields": {},
+    "rarity": "Legendary, Event",
+    "types": [
+      "Shadow",
+      "Fairy"
+    ],
+    "region": "Kalos",
+    "catchable": "No",
+    "base_stats": {
+      "HP": 126,
+      "Attack": 131,
+      "Defense": 95,
+      "Sp. Atk": 131,
+      "Sp. Def": 98,
+      "Speed": 99
+    },
+    "names": {
+      "en": [
+        "Shadow Xerneas",
+        "Halloween Xerneas"
+      ]
+    },
+    "appearance": {
+      "height_m": 3.0,
+      "weight_kg": 215.0
+    },
+    "gender_ratio": "Genderless",
+    "egg_groups": "Undiscovered",
+    "hatch_time": "120 cycles"
+  },
   "716_Xerneas": {
     "dex_number": "716",
     "name": "Xerneas",
@@ -43193,6 +43612,42 @@
     "appearance": {
       "height_m": 3.0,
       "weight_kg": 215.0
+    },
+    "gender_ratio": "Genderless",
+    "egg_groups": "Undiscovered",
+    "hatch_time": "120 cycles"
+  },
+  "717_Ice Yveltal": {
+    "dex_number": "717",
+    "name": "Ice Yveltal",
+    "description": "",
+    "image_url": "https://cdn.poketwo.net/images/50088.png",
+    "timestamp": "2025-12-14T10:50:57.618869",
+    "fields": {},
+    "rarity": "Legendary, Event",
+    "types": [
+      "Ice",
+      "Flying"
+    ],
+    "region": "Kalos",
+    "catchable": "No",
+    "base_stats": {
+      "HP": 126,
+      "Attack": 131,
+      "Defense": 95,
+      "Sp. Atk": 131,
+      "Sp. Def": 98,
+      "Speed": 99
+    },
+    "names": {
+      "en": [
+        "Ice Yveltal",
+        "Christmas Yveltal"
+      ]
+    },
+    "appearance": {
+      "height_m": 5.8,
+      "weight_kg": 203.0
     },
     "gender_ratio": "Genderless",
     "egg_groups": "Undiscovered",
@@ -43543,6 +43998,88 @@
     "gender_ratio": "Genderless",
     "egg_groups": "Undiscovered",
     "hatch_time": "25 cycles"
+  },
+  "719_Spring Blooming Diancie": {
+    "dex_number": "719",
+    "name": "Spring Blooming Diancie",
+    "description": "It can instantly create many flowers by shaking its head to throw out seeds from the big flower on its head.",
+    "image_url": "https://cdn.poketwo.net/images/50097.png",
+    "timestamp": "2025-12-14T10:51:29.257681",
+    "fields": {},
+    "rarity": "Mythical, Event",
+    "types": [
+      "Rock",
+      "Fairy"
+    ],
+    "region": "Kalos",
+    "catchable": "No",
+    "base_stats": {
+      "HP": 50,
+      "Attack": 100,
+      "Defense": 150,
+      "Sp. Atk": 100,
+      "Sp. Def": 150,
+      "Speed": 50
+    },
+    "names": {
+      "en": [
+        "Spring Blooming Diancie",
+        "Spring Diancie"
+      ]
+    },
+    "appearance": {
+      "height_m": 0.7,
+      "weight_kg": 8.8
+    },
+    "gender_ratio": "Genderless",
+    "egg_groups": "Undiscovered",
+    "hatch_time": "25 cycles"
+  },
+  "720_Festive Hoopa": {
+    "dex_number": "720",
+    "name": "Festive Hoopa",
+    "description": "",
+    "image_url": "https://cdn.poketwo.net/images/50006.png",
+    "timestamp": "2025-12-14T10:46:12.054147",
+    "fields": {},
+    "rarity": "Mythical, Event",
+    "types": [
+      "Psychic",
+      "Ghost"
+    ],
+    "region": "Kalos",
+    "catchable": "No",
+    "base_stats": {
+      "HP": 80,
+      "Attack": 110,
+      "Defense": 60,
+      "Sp. Atk": 150,
+      "Sp. Def": 130,
+      "Speed": 70
+    },
+    "names": {
+      "ja": [
+        "クリスマスフーパ",
+        "Kurisumasufūpa",
+        "Christmas Hoopa"
+      ],
+      "en": [
+        "Festive Hoopa"
+      ],
+      "de": [
+        "Weihnachten Hoopa"
+      ],
+      "fr": [
+        "Hoopa Festif"
+      ]
+    },
+    "appearance": {
+      "height_m": 0.5,
+      "weight_kg": 9.0
+    },
+    "gender_ratio": "Genderless",
+    "egg_groups": "Undiscovered",
+    "hatch_time": "120 cycles"
   },
   "720_Hoopa": {
     "dex_number": "720",
@@ -48354,6 +48891,42 @@
     "egg_groups": "Undiscovered",
     "hatch_time": "120 cycles"
   },
+  "789_Fireworks Cosmog": {
+    "dex_number": "789",
+    "name": "Fireworks Cosmog",
+    "description": "Its body is gaseous and frail. During the Holiday celebrations, it grows fast as it collects all the firework dust from the atmosphere.",
+    "image_url": "https://cdn.poketwo.net/images/50150.png",
+    "timestamp": "2025-12-14T10:54:33.218828",
+    "fields": {},
+    "rarity": "Legendary, Event",
+    "types": [
+      "Psychic",
+      "Fire"
+    ],
+    "region": "Alola",
+    "catchable": "No",
+    "base_stats": {
+      "HP": 43,
+      "Attack": 29,
+      "Defense": 31,
+      "Sp. Atk": 29,
+      "Sp. Def": 31,
+      "Speed": 37
+    },
+    "names": {
+      "en": [
+        "Fireworks Cosmog",
+        "New Year's Eve Cosmog"
+      ]
+    },
+    "appearance": {
+      "height_m": 0.2,
+      "weight_kg": 0.1
+    },
+    "gender_ratio": "Genderless",
+    "egg_groups": "Undiscovered",
+    "hatch_time": "120 cycles"
+  },
   "790_Cosmoem": {
     "dex_number": "790",
     "name": "Cosmoem",
@@ -48587,6 +49160,42 @@
     "appearance": {
       "height_m": 2.4,
       "weight_kg": 333.6
+    },
+    "gender_ratio": "Genderless",
+    "egg_groups": "Undiscovered",
+    "hatch_time": "120 cycles"
+  },
+  "795_Flower Pheromosa": {
+    "dex_number": "795",
+    "name": "Flower Pheromosa",
+    "description": "Although it's alien to this world, It's enjoying the sunny fashion for this Spring.",
+    "image_url": "https://cdn.poketwo.net/images/50099.png",
+    "timestamp": "2025-12-14T10:51:36.595427",
+    "fields": {},
+    "rarity": "Ultra Beast, Event",
+    "types": [
+      "Bug",
+      "Fighting"
+    ],
+    "region": "Alola",
+    "catchable": "No",
+    "base_stats": {
+      "HP": 71,
+      "Attack": 137,
+      "Defense": 37,
+      "Sp. Atk": 137,
+      "Sp. Def": 37,
+      "Speed": 151
+    },
+    "names": {
+      "en": [
+        "Flower Pheromosa",
+        "Spring Pheromosa"
+      ]
+    },
+    "appearance": {
+      "height_m": 1.8,
+      "weight_kg": 25.0
     },
     "gender_ratio": "Genderless",
     "egg_groups": "Undiscovered",
@@ -49369,6 +49978,78 @@
       ],
       "fr": [
         "Pierroteknik"
+      ]
+    },
+    "appearance": {
+      "height_m": 1.8,
+      "weight_kg": 13.0
+    },
+    "gender_ratio": "Genderless",
+    "egg_groups": "Undiscovered",
+    "hatch_time": "120 cycles"
+  },
+  "806_Corrupted Blacephalon": {
+    "dex_number": "806",
+    "name": "Corrupted Blacephalon",
+    "description": "An error caused by corrupted ultra wormholes makes its explosions stronger than any before it.",
+    "image_url": "https://cdn.poketwo.net/images/50225.png",
+    "timestamp": "2025-12-14T10:58:57.663165",
+    "fields": {},
+    "rarity": "Ultra Beast, Event",
+    "types": [
+      "Fire",
+      "Ghost"
+    ],
+    "region": "Alola",
+    "catchable": "No",
+    "base_stats": {
+      "HP": 53,
+      "Attack": 127,
+      "Defense": 53,
+      "Sp. Atk": 151,
+      "Sp. Def": 79,
+      "Speed": 107
+    },
+    "names": {
+      "en": [
+        "Corrupted Blacephalon",
+        "April Fool's Day Blacephalon"
+      ]
+    },
+    "appearance": {
+      "height_m": 1.8,
+      "weight_kg": 13.0
+    },
+    "gender_ratio": "Genderless",
+    "egg_groups": "Undiscovered",
+    "hatch_time": "120 cycles"
+  },
+  "806_Ghost King Blacephalon": {
+    "dex_number": "806",
+    "name": "Ghost King Blacephalon",
+    "description": "",
+    "image_url": "https://cdn.poketwo.net/images/50031.png",
+    "timestamp": "2025-12-14T10:47:39.394569",
+    "fields": {},
+    "rarity": "Ultra Beast, Event",
+    "types": [
+      "Ghost",
+      "Fire"
+    ],
+    "region": "Alola",
+    "catchable": "No",
+    "base_stats": {
+      "HP": 53,
+      "Attack": 127,
+      "Defense": 53,
+      "Sp. Atk": 151,
+      "Sp. Def": 79,
+      "Speed": 107
+    },
+    "names": {
+      "en": [
+        "Ghost King Blacephalon",
+        "Halloween Blacephalon"
       ]
     },
     "appearance": {
@@ -54661,6 +55342,42 @@
     "egg_groups": "Undiscovered",
     "hatch_time": "120 cycles"
   },
+  "893_Druid Zarude": {
+    "dex_number": "893",
+    "name": "Druid Zarude",
+    "description": "Within dense forests, this Pokémon lives in a grove with others of its kind. It’s focused on the health of the forest and sees it as its purpose to keep the forest alive.",
+    "image_url": "https://cdn.poketwo.net/images/50238.png",
+    "timestamp": "2025-12-14T10:59:43.245043",
+    "fields": {},
+    "rarity": "Mythical, Event",
+    "types": [
+      "Dark",
+      "Grass"
+    ],
+    "region": "Galar",
+    "catchable": "No",
+    "base_stats": {
+      "HP": 105,
+      "Attack": 120,
+      "Defense": 105,
+      "Sp. Atk": 70,
+      "Sp. Def": 95,
+      "Speed": 105
+    },
+    "names": {
+      "en": [
+        "Druid Zarude",
+        "Anniversary Zarude"
+      ]
+    },
+    "appearance": {
+      "height_m": 1.8,
+      "weight_kg": 70.0
+    },
+    "gender_ratio": "Genderless",
+    "egg_groups": "Undiscovered",
+    "hatch_time": "120 cycles"
+  },
   "893_Zarude": {
     "dex_number": "893",
     "name": "Zarude",
@@ -54828,6 +55545,41 @@
       ],
       "fr": [
         "Blizzeval"
+      ]
+    },
+    "appearance": {
+      "height_m": 2.2,
+      "weight_kg": 800.0
+    },
+    "gender_ratio": "Genderless",
+    "egg_groups": "Undiscovered",
+    "hatch_time": "120 cycles"
+  },
+  "896_Primal Glastrier": {
+    "dex_number": "896",
+    "name": "Primal Glastrier",
+    "description": "",
+    "image_url": "https://cdn.poketwo.net/images/50057.png",
+    "timestamp": "2025-12-14T10:49:09.481814",
+    "fields": {},
+    "rarity": "Legendary, Event",
+    "types": [
+      "Ice"
+    ],
+    "region": "Galar",
+    "catchable": "No",
+    "base_stats": {
+      "HP": 100,
+      "Attack": 145,
+      "Defense": 130,
+      "Sp. Atk": 65,
+      "Sp. Def": 110,
+      "Speed": 30
+    },
+    "names": {
+      "en": [
+        "Primal Glastrier",
+        "Winter Glastrier"
       ]
     },
     "appearance": {
@@ -60325,6 +61077,42 @@
       ],
       "fr": [
         "Yuyu"
+      ]
+    },
+    "appearance": {
+      "height_m": 0.4,
+      "weight_kg": 4.9
+    },
+    "gender_ratio": "Genderless",
+    "egg_groups": "Undiscovered",
+    "hatch_time": "50 cycles"
+  },
+  "1004_Gradient Chi-Yu": {
+    "dex_number": "1004",
+    "name": "Gradient Chi-Yu",
+    "description": "It controls the colours of flames burning at over 3,000 degrees Celsius. It casually swims through the sea of lava it creates by melting rock and sand.",
+    "image_url": "https://cdn.poketwo.net/images/50181.png",
+    "timestamp": "2025-12-14T10:56:21.591620",
+    "fields": {},
+    "rarity": "Legendary, Event",
+    "types": [
+      "Dark",
+      "Fire"
+    ],
+    "region": "Paldea",
+    "catchable": "No",
+    "base_stats": {
+      "HP": 55,
+      "Attack": 80,
+      "Defense": 80,
+      "Sp. Atk": 135,
+      "Sp. Def": 120,
+      "Speed": 100
+    },
+    "names": {
+      "en": [
+        "Gradient Chi-Yu",
+        "Pride Chi-Yu"
       ]
     },
     "appearance": {
