@@ -130,6 +130,7 @@ async def on_ready():
         'cogs.event_management',
         'cogs.breeding',
         'cogs.cooldown',
+        'cogs.pokemonlisttools',
         'cogs.help',
         'cogs.utility_commands',
         'cogs.inventory',
