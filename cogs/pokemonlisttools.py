@@ -223,6 +223,109 @@ class PokemonListTools(commands.Cog):
         except Exception as e:
             await self._send_error(ctx, f"An error occurred: {str(e)}")
 
+    # ==================== Remove Command ====================
+
+    @commands.command(name='remove', aliases=['exclude'])
+    async def remove(self, ctx, *, pokemon_names: str):
+        """
+        Remove specific Pokemon from a list and create a new list
+        Usage: Reply to a message/file and use ?remove pikachu, charizard, mewtwo
+        
+        Creates a new list excluding the specified Pokemon.
+        Supports message content, embeds, and .txt file attachments.
+        """
+        if not ctx.message.reference:
+            return await self._send_error(ctx, "Please reply to a message containing Pokemon to remove from!")
+
+        if not self.pokemon_names:
+            return await self._send_error(ctx, "Pokemon names database not loaded! Please contact the bot admin.")
+
+        try:
+            # Fetch the replied message
+            replied_message = await ctx.channel.fetch_message(ctx.message.reference.message_id)
+
+            # Extract Pokemon from the replied message
+            found_pokemon = await self._extract_pokemon_from_message(replied_message)
+
+            if not found_pokemon:
+                return await self._send_error(ctx, "No Pokemon found in the replied message!")
+
+            # Parse the Pokemon names to remove (comma-separated)
+            pokemon_to_remove = [name.strip() for name in pokemon_names.split(',') if name.strip()]
+
+            if not pokemon_to_remove:
+                return await self._send_error(ctx, "Please provide Pokemon names to remove, separated by commas!\nExample: `?remove pikachu, charizard, mewtwo`")
+
+            # Normalize Pokemon to remove for comparison
+            remove_normalized = set(self._normalize_pokemon_name(p) for p in pokemon_to_remove)
+
+            # Filter out Pokemon that should be removed
+            remaining_pokemon = []
+            removed_pokemon = []
+
+            for pokemon in found_pokemon:
+                normalized = self._normalize_pokemon_name(pokemon)
+                if normalized in remove_normalized:
+                    removed_pokemon.append(pokemon)
+                else:
+                    remaining_pokemon.append(pokemon)
+
+            # Remove duplicates while preserving order
+            remaining_pokemon = list(dict.fromkeys(remaining_pokemon))
+            removed_pokemon = list(dict.fromkeys(removed_pokemon))
+
+            if not remaining_pokemon:
+                return await self._send_error(ctx, "No Pokemon would remain after removal! The list would be empty.")
+
+            # Build and send result
+            await self._send_remove_result(ctx, remaining_pokemon, removed_pokemon, len(found_pokemon))
+
+        except discord.NotFound:
+            await self._send_error(ctx, "Replied message not found!")
+        except Exception as e:
+            await self._send_error(ctx, f"An error occurred: {str(e)}")
+
+    async def _send_remove_result(self, ctx, remaining: List[str], removed: List[str], original_count: int):
+        """Send remove command result with new list"""
+        # Create summary embed
+        embed = discord.Embed(
+            title="🗑️ Pokemon Removed",
+            color=EMBED_COLOR
+        )
+
+        embed.add_field(
+            name="📊 Summary",
+            value=f"Original: {original_count} Pokemon\nRemoved: {len(removed)} Pokemon\nRemaining: {len(remaining)} Pokemon",
+            inline=False
+        )
+
+        if removed:
+            removed_text = ", ".join(removed)
+            embed.add_field(
+                name=f"❌ Removed ({len(removed)})",
+                value=removed_text if len(removed_text) <= 1024 else removed_text[:1021] + "...",
+                inline=False
+            )
+
+        # Build the new list
+        new_list_text = ", ".join(remaining)
+
+        # If the new list is short, send as message
+        if len(new_list_text) <= 1800:
+            await ctx.send(embed=embed, reference=ctx.message, mention_author=False)
+            await ctx.send(f"**New List ({len(remaining)} Pokemon):**\n{new_list_text}", reference=ctx.message, mention_author=False)
+        else:
+            # Create a text file for the new list
+            file = io.BytesIO(new_list_text.encode('utf-8'))
+            discord_file = discord.File(file, filename='filtered_pokemon_list.txt')
+            
+            await ctx.send(
+                embed=embed,
+                file=discord_file,
+                reference=ctx.message,
+                mention_author=False
+            )
+
     # ==================== Check Command ====================
 
     @commands.command(name='check')
