@@ -577,6 +577,9 @@ class PokemonListTools(commands.Cog):
     # Add this slash command to your PokemonListTools class
     # Place it anywhere in the class with proper indentation
 
+    # Add this slash command to your PokemonListTools class
+    # Place it anywhere in the class with proper indentation
+
     @app_commands.command(name='compareslash', description='Compare Pokemon between two lists')
     @app_commands.describe(
         list_1='First Pokemon list (paste Pokemon names in any format)',
@@ -682,29 +685,16 @@ class PokemonListTools(commands.Cog):
 
             result_text = "\n".join(sections)
 
-            # Create summary embed
-            embed = discord.Embed(
-                title="📊 Pokemon Comparison",
-                color=EMBED_COLOR
-            )
-            embed.add_field(name="List 1", value=f"{len(pokemon_1)} Pokemon", inline=True)
-            embed.add_field(name="List 2", value=f"{len(pokemon_2)} Pokemon", inline=True)
-            embed.add_field(name="\u200b", value="\u200b", inline=False)
-            embed.add_field(name="🔵 Only in List 1", value=f"{len(only_in_1)} Pokemon", inline=True)
-            embed.add_field(name="🔴 Only in List 2", value=f"{len(only_in_2)} Pokemon", inline=True)
-            embed.add_field(name="🟢 Common", value=f"{len(common)} Pokemon", inline=True)
-
-            # If result fits in message, send directly
+            # Send only plain text, no embed
             if len(result_text) <= 1900:
-                await interaction.followup.send(embed=embed)
                 await interaction.followup.send(result_text)
             else:
-                # Create a text file
+                # Create a text file if too long
                 file = discord.File(
                     io.BytesIO(result_text.encode('utf-8')),
                     filename='pokemon_comparison.txt'
                 )
-                await interaction.followup.send(embed=embed, file=file)
+                await interaction.followup.send(file=file)
 
         except Exception as e:
             embed = discord.Embed(
