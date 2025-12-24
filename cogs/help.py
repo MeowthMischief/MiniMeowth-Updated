@@ -912,7 +912,7 @@ class HelpCommands(commands.Cog):
             name=f"__🗑️ Remove Command__",
             value=(
                 f"`{HELP_PREFIX}removemons <pokemon names>`\n"
-                f"Aliases: `{HELP_PREFIX}exclude`, `{HELP_PREFIX}filter`\n"
+                f"Aliases: `{HELP_PREFIX}exclude`\n"
                 f"- Remove specific Pokemon from a list\n"
                 f"- Reply to message with Pokemon list\n"
                 f"- Creates new filtered list without specified Pokemon\n"
