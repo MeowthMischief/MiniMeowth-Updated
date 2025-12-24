@@ -426,19 +426,167 @@ class PokemonListTools(commands.Cog):
 
     # ==================== Compare Command ====================
 
-    # Add this slash command to your PokemonListTools class
-    # Place it after the regular compare command
+    @commands.command(name='compare')
+    async def compare(self, ctx, message_id_1: int, message_id_2: int):
+        """
+        Compare Pokemon between two messages
+        Usage: ?compare <message_id_1> <message_id_2>
 
-    @app_commands.command(name='compare', description='Compare Pokemon between two lists')
+        Shows Pokemon unique to each message and common Pokemon.
+        Supports message content, embeds, and .txt file attachments.
+        """
+        if not self.pokemon_names:
+            return await self._send_error(ctx, "Pokemon names database not loaded! Please contact the bot admin.")
+
+        try:
+            # Fetch both messages
+            message_1 = await ctx.channel.fetch_message(message_id_1)
+            message_2 = await ctx.channel.fetch_message(message_id_2)
+
+            # Extract Pokemon from both messages
+            pokemon_1 = await self._extract_pokemon_from_message(message_1)
+            pokemon_2 = await self._extract_pokemon_from_message(message_2)
+
+            if not pokemon_1 and not pokemon_2:
+                return await self._send_error(ctx, "No Pokemon found in either message!")
+
+            # Convert to sets for comparison (normalized names for comparison)
+            set_1 = set(self._normalize_pokemon_name(p) for p in pokemon_1)
+            set_2 = set(self._normalize_pokemon_name(p) for p in pokemon_2)
+
+            # Find unique and common Pokemon
+            only_in_1_normalized = set_1 - set_2
+            only_in_2_normalized = set_2 - set_1
+            common_normalized = set_1 & set_2
+
+            # Convert back to original names
+            only_in_1 = [p for p in pokemon_1 if self._normalize_pokemon_name(p) in only_in_1_normalized]
+            only_in_2 = [p for p in pokemon_2 if self._normalize_pokemon_name(p) in only_in_2_normalized]
+            common = [p for p in pokemon_1 if self._normalize_pokemon_name(p) in common_normalized]
+
+            # Remove duplicates while preserving order
+            only_in_1 = list(dict.fromkeys(only_in_1))
+            only_in_2 = list(dict.fromkeys(only_in_2))
+            common = list(dict.fromkeys(common))
+
+            # Build result text
+            result_text = self._build_compare_result(
+                len(pokemon_1), len(pokemon_2),
+                only_in_1, only_in_2, common
+            )
+
+            # Send result (as message or file)
+            await self._send_compare_result(ctx, result_text, 
+                                           len(pokemon_1), len(pokemon_2),
+                                           len(only_in_1), len(only_in_2), len(common))
+
+        except discord.NotFound:
+            await self._send_error(ctx, "One or both message IDs not found in this channel!")
+        except Exception as e:
+            await self._send_error(ctx, f"An error occurred: {str(e)}")
+
+    async def _extract_pokemon_from_message(self, message: discord.Message) -> List[str]:
+        """Extract Pokemon from a message (content, embeds, and files)"""
+        all_text = self._extract_all_text_from_message(message)
+
+        # Also check for .txt file attachments
+        if message.attachments:
+            for attachment in message.attachments:
+                if attachment.filename.endswith('.txt'):
+                    file_text = await self._extract_text_from_file(attachment)
+                    all_text += " " + file_text
+
+        return self._extract_pokemon_from_text(all_text)
+
+    def _build_compare_result(self, total_1: int, total_2: int,
+                              only_1: List[str], only_2: List[str], 
+                              common: List[str]) -> str:
+        """Build the comparison result text"""
+        sections = []
+
+        # Statistics
+        sections.append("**📊 Statistics:**")
+        sections.append(f"Message 1: {total_1} Pokemon")
+        sections.append(f"Message 2: {total_2} Pokemon")
+        sections.append(f"Only in Message 1: {len(only_1)} Pokemon")
+        sections.append(f"Only in Message 2: {len(only_2)} Pokemon")
+        sections.append(f"Common in Both: {len(common)} Pokemon")
+        sections.append("")
+
+        # Only in Message 1
+        if only_1:
+            sections.append("**🔵 Only in Message 1:**")
+            sections.append(", ".join(only_1))
+            sections.append("")
+        else:
+            sections.append("**🔵 Only in Message 1:** None")
+            sections.append("")
+
+        # Only in Message 2
+        if only_2:
+            sections.append("**🔴 Only in Message 2:**")
+            sections.append(", ".join(only_2))
+            sections.append("")
+        else:
+            sections.append("**🔴 Only in Message 2:** None")
+            sections.append("")
+
+        # Common Pokemon
+        if common:
+            sections.append("**🟢 Common in Both:**")
+            sections.append(", ".join(common))
+        else:
+            sections.append("**🟢 Common in Both:** None")
+
+        return "\n".join(sections)
+
+    async def _send_compare_result(self, ctx, result_text: str, 
+                                   total_1: int, total_2: int,
+                                   only_1_count: int, only_2_count: int, 
+                                   common_count: int):
+        """Send comparison result as message or file"""
+        # Create summary embed
+        embed = discord.Embed(
+            title="📊 Pokemon Comparison",
+            color=EMBED_COLOR
+        )
+        embed.add_field(name="Message 1", value=f"{total_1} Pokemon", inline=True)
+        embed.add_field(name="Message 2", value=f"{total_2} Pokemon", inline=True)
+        embed.add_field(name="\u200b", value="\u200b", inline=False)
+        embed.add_field(name="🔵 Only in Message 1", value=f"{only_1_count} Pokemon", inline=True)
+        embed.add_field(name="🔴 Only in Message 2", value=f"{only_2_count} Pokemon", inline=True)
+        embed.add_field(name="🟢 Common", value=f"{common_count} Pokemon", inline=True)
+
+        # If result fits in message, send directly
+        if len(result_text) <= 1900:
+            await ctx.send(embed=embed, reference=ctx.message, mention_author=False)
+            await ctx.send(result_text, reference=ctx.message, mention_author=False)
+        else:
+            # Create a text file
+            file = discord.File(
+                io.BytesIO(result_text.encode('utf-8')),
+                filename='pokemon_comparison.txt'
+            )
+            await ctx.send(
+                embed=embed,
+                file=file,
+                reference=ctx.message,
+                mention_author=False
+            )
+
+    # Add this slash command to your PokemonListTools class
+    # Place it anywhere in the class with proper indentation
+
+    @app_commands.command(name='compareslash', description='Compare Pokemon between two lists')
     @app_commands.describe(
-        list_1='First Pokemon list (paste Pokemon names separated by commas or spaces)',
-        list_2='Second Pokemon list (paste Pokemon names separated by commas or spaces)'
+        list_1='First Pokemon list (paste Pokemon names in any format)',
+        list_2='Second Pokemon list (paste Pokemon names in any format)'
     )
-    async def compare_slash(self, interaction: discord.Interaction, list_1: str, list_2: str):
+    async def compareslash(self, interaction: discord.Interaction, list_1: str, list_2: str):
         """
         Compare Pokemon between two lists using slash command
         Shows Pokemon unique to each list and common Pokemon.
-        Users can paste Pokemon names directly into the command.
+        Users can paste Pokemon names directly in any format.
         """
         if not self.pokemon_names:
             embed = discord.Embed(
@@ -476,7 +624,7 @@ class PokemonListTools(commands.Cog):
                 )
                 return await interaction.followup.send(embed=embed, ephemeral=True)
 
-            # Convert to sets for comparison (normalized names for comparison)
+            # Convert to sets for comparison (normalized names)
             set_1 = set(self._normalize_pokemon_name(p) for p in pokemon_1)
             set_2 = set(self._normalize_pokemon_name(p) for p in pokemon_2)
 
@@ -495,18 +643,68 @@ class PokemonListTools(commands.Cog):
             only_in_2 = list(dict.fromkeys(only_in_2))
             common = list(dict.fromkeys(common))
 
-            # Build result text
-            result_text = self._build_compare_result(
-                len(pokemon_1), len(pokemon_2),
-                only_in_1, only_in_2, common
-            )
+            # Build result sections
+            sections = []
 
-            # Send result
-            await self._send_compare_result_slash(
-                interaction, result_text,
-                len(pokemon_1), len(pokemon_2),
-                len(only_in_1), len(only_in_2), len(common)
+            # Statistics
+            sections.append("**📊 Statistics:**")
+            sections.append(f"List 1: {len(pokemon_1)} Pokemon")
+            sections.append(f"List 2: {len(pokemon_2)} Pokemon")
+            sections.append(f"Only in List 1: {len(only_in_1)} Pokemon")
+            sections.append(f"Only in List 2: {len(only_in_2)} Pokemon")
+            sections.append(f"Common in Both: {len(common)} Pokemon")
+            sections.append("")
+
+            # Only in List 1
+            if only_in_1:
+                sections.append("**🔵 Only in List 1:**")
+                sections.append(", ".join(only_in_1))
+                sections.append("")
+            else:
+                sections.append("**🔵 Only in List 1:** None")
+                sections.append("")
+
+            # Only in List 2
+            if only_in_2:
+                sections.append("**🔴 Only in List 2:**")
+                sections.append(", ".join(only_in_2))
+                sections.append("")
+            else:
+                sections.append("**🔴 Only in List 2:** None")
+                sections.append("")
+
+            # Common Pokemon
+            if common:
+                sections.append("**🟢 Common in Both:**")
+                sections.append(", ".join(common))
+            else:
+                sections.append("**🟢 Common in Both:** None")
+
+            result_text = "\n".join(sections)
+
+            # Create summary embed
+            embed = discord.Embed(
+                title="📊 Pokemon Comparison",
+                color=EMBED_COLOR
             )
+            embed.add_field(name="List 1", value=f"{len(pokemon_1)} Pokemon", inline=True)
+            embed.add_field(name="List 2", value=f"{len(pokemon_2)} Pokemon", inline=True)
+            embed.add_field(name="\u200b", value="\u200b", inline=False)
+            embed.add_field(name="🔵 Only in List 1", value=f"{len(only_in_1)} Pokemon", inline=True)
+            embed.add_field(name="🔴 Only in List 2", value=f"{len(only_in_2)} Pokemon", inline=True)
+            embed.add_field(name="🟢 Common", value=f"{len(common)} Pokemon", inline=True)
+
+            # If result fits in message, send directly
+            if len(result_text) <= 1900:
+                await interaction.followup.send(embed=embed)
+                await interaction.followup.send(result_text)
+            else:
+                # Create a text file
+                file = discord.File(
+                    io.BytesIO(result_text.encode('utf-8')),
+                    filename='pokemon_comparison.txt'
+                )
+                await interaction.followup.send(embed=embed, file=file)
 
         except Exception as e:
             embed = discord.Embed(
@@ -514,37 +712,6 @@ class PokemonListTools(commands.Cog):
                 color=EMBED_COLOR
             )
             await interaction.followup.send(embed=embed, ephemeral=True)
-
-
-    async def _send_compare_result_slash(self, interaction: discord.Interaction, 
-                                         result_text: str, 
-                                         total_1: int, total_2: int,
-                                         only_1_count: int, only_2_count: int, 
-                                         common_count: int):
-        """Send comparison result as message or file for slash command"""
-        # Create summary embed
-        embed = discord.Embed(
-            title="📊 Pokemon Comparison",
-            color=EMBED_COLOR
-        )
-        embed.add_field(name="List 1", value=f"{total_1} Pokemon", inline=True)
-        embed.add_field(name="List 2", value=f"{total_2} Pokemon", inline=True)
-        embed.add_field(name="\u200b", value="\u200b", inline=False)
-        embed.add_field(name="🔵 Only in List 1", value=f"{only_1_count} Pokemon", inline=True)
-        embed.add_field(name="🔴 Only in List 2", value=f"{only_2_count} Pokemon", inline=True)
-        embed.add_field(name="🟢 Common", value=f"{common_count} Pokemon", inline=True)
-
-        # If result fits in message, send directly
-        if len(result_text) <= 1900:
-            await interaction.followup.send(embed=embed)
-            await interaction.followup.send(result_text)
-        else:
-            # Create a text file
-            file = discord.File(
-                io.BytesIO(result_text.encode('utf-8')),
-                filename='pokemon_comparison.txt'
-            )
-            await interaction.followup.send(embed=embed, file=file)
 
     # ==================== Helper Methods for CreateList ====================
 
