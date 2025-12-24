@@ -2,10 +2,16 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 import io
+import unicodedata
 import config
 from config import EMBED_COLOR
 from database import db
 from filters import get_filter, get_all_filter_names
+
+
+def normalize_string(s):
+    """Remove accents from string for comparison"""
+    return ''.join(c for c in unicodedata.normalize('NFD', s) if unicodedata.category(c) != 'Mn')
 
 
 class ShinyDexView(discord.ui.View):
@@ -86,7 +92,7 @@ class ShinyDexDisplay(commands.Cog):
 
     def parse_filters(self, filter_string: str):
         """Parse filter string to extract options
-        Returns: (show_caught, show_uncaught, order, region, types, name_searches, page, show_list, show_smartlist, ignore_gender)
+        Returns: (show_caught, show_uncaught, order, region, types, name_searches, page, show_list, show_smartlist, ignore_gender, exclude_names)
         """
         show_caught = True
         show_uncaught = True
@@ -97,10 +103,11 @@ class ShinyDexDisplay(commands.Cog):
         page = None
         show_list = False
         show_smartlist = False
-        ignore_gender = False  # NEW: flag to ignore gender differences
+        ignore_gender = False
+        exclude_names = []  # NEW: list of names to exclude
 
         if not filter_string:
-            return show_caught, show_uncaught, order, region, types, name_searches, page, show_list, show_smartlist, ignore_gender
+            return show_caught, show_uncaught, order, region, types, name_searches, page, show_list, show_smartlist, ignore_gender, exclude_names
 
         args = filter_string.lower().split()
 
@@ -132,8 +139,24 @@ class ShinyDexDisplay(commands.Cog):
             elif arg in ['--smartlist', '--slist']:
                 show_smartlist = True
                 i += 1
-            elif arg in ['--nogender', '--ng', '--ignoregender', '--ig']:  # NEW
+            elif arg in ['--nogender', '--ng', '--ignoregender', '--ig']:
                 ignore_gender = True
+                i += 1
+            elif arg in ['--exclude', '--ex', '--exc']:  # NEW
+                if i + 1 < len(args):
+                    exclude_parts = []
+                    i += 1
+                    while i < len(args) and not args[i].startswith('--'):
+                        exclude_parts.append(args[i])
+                        i += 1
+                    if exclude_parts:
+                        exclude_names.append(' '.join(exclude_parts).title())
+                else:
+                    i += 1
+            elif arg.startswith('--exclude=') or arg.startswith('--ex=') or arg.startswith('--exc='):  # NEW
+                exclude_val = arg.split('=', 1)[1]
+                if exclude_val:
+                    exclude_names.append(exclude_val.title())
                 i += 1
             elif arg in ['--region', '--r']:
                 if i + 1 < len(args) and args[i + 1] in valid_regions:
@@ -192,7 +215,7 @@ class ShinyDexDisplay(commands.Cog):
             else:
                 i += 1
 
-        return show_caught, show_uncaught, order, region, types, name_searches, page, show_list, show_smartlist, ignore_gender
+        return show_caught, show_uncaught, order, region, types, name_searches, page, show_list, show_smartlist, ignore_gender, exclude_names
 
     def matches_filters(self, pokemon_name: str, utils, region_filter: str, type_filters: list):
         """Check if a Pokemon matches region and type filters"""
@@ -215,6 +238,24 @@ class ShinyDexDisplay(commands.Cog):
                     return False
 
         return True
+
+    def is_excluded(self, pokemon_name: str, exclude_names: list):
+        """Check if a Pokemon should be excluded based on exclude filters"""
+        if not exclude_names:
+            return False
+
+        # Normalize pokemon name for comparison
+        normalized_pokemon = normalize_string(pokemon_name.lower())
+
+        for exclude_name in exclude_names:
+            # Normalize exclude name for comparison
+            normalized_exclude = normalize_string(exclude_name.lower())
+
+            # Check if exclude name appears anywhere in pokemon name
+            if normalized_exclude in normalized_pokemon:
+                return True
+
+        return False
 
     def categorize_pokemon(self, pokemon_names: list):
         """Categorize Pokemon into regular, rare, and gigantamax"""
@@ -357,7 +398,7 @@ class ShinyDexDisplay(commands.Cog):
             )
 
     @commands.hybrid_command(name='shinydex', aliases=['sd','basicdex','bd'])
-    @app_commands.describe(filters="Filters: --caught, --uncaught, --orderd, --ordera, --region, --type, --name, --page, --list, --smartlist")
+    @app_commands.describe(filters="Filters: --caught, --uncaught, --orderd, --ordera, --region, --type, --name, --exclude, --page, --list, --smartlist")
     async def shiny_dex(self, ctx, *, filters: str = None):
         """View your basic shiny dex (one Pokemon per dex number, counts all forms)"""
         utils = self.bot.get_cog('Utils')
@@ -368,7 +409,7 @@ class ShinyDexDisplay(commands.Cog):
         user_id = ctx.author.id
 
         # Parse filters
-        show_caught, show_uncaught, order, region_filter, type_filters, name_searches, page, show_list, show_smartlist, ignore_gender = self.parse_filters(filters)
+        show_caught, show_uncaught, order, region_filter, type_filters, name_searches, page, show_list, show_smartlist, ignore_gender, exclude_names = self.parse_filters(filters)
 
         # Get user's shinies
         user_shinies = await db.get_all_shinies(user_id)
@@ -387,9 +428,14 @@ class ShinyDexDisplay(commands.Cog):
         # Build filtered list
         dex_entries = []
         for dex_num, pokemon_name in all_dex_entries:
-            # Apply name search filter
+            # Apply exclude filter first
+            if self.is_excluded(pokemon_name, exclude_names):
+                continue
+
+            # Apply name search filter with accent-insensitive matching
             if name_searches:
-                matches_any = any(search.lower() in pokemon_name.lower() for search in name_searches)
+                normalized_pokemon = normalize_string(pokemon_name.lower())
+                matches_any = any(normalize_string(search.lower()) in normalized_pokemon for search in name_searches)
                 if not matches_any:
                     continue
 
@@ -474,7 +520,7 @@ class ShinyDexDisplay(commands.Cog):
         view.message = message
 
     @commands.hybrid_command(name='shinydexfull', aliases=['sdf','fulldex','fd','fullshinydex','fsd'])
-    @app_commands.describe(filters="Filters: --caught, --unc, --orderd, --ordera, --region, --type, --name, --page, --list, --smartlist")
+    @app_commands.describe(filters="Filters: --caught, --unc, --orderd, --ordera, --region, --type, --name, --exclude, --page, --list, --smartlist")
     async def shiny_dex_full(self, ctx, *, filters: str = None):
         """View your full shiny dex (all forms, includes gender differences)"""
         utils = self.bot.get_cog('Utils')
@@ -485,7 +531,7 @@ class ShinyDexDisplay(commands.Cog):
         user_id = ctx.author.id
 
         # Parse filters
-        show_caught, show_uncaught, order, region_filter, type_filters, name_searches, page, show_list, show_smartlist, ignore_gender = self.parse_filters(filters)
+        show_caught, show_uncaught, order, region_filter, type_filters, name_searches, page, show_list, show_smartlist, ignore_gender, exclude_names = self.parse_filters(filters)
 
         # Get user's shinies
         user_shinies = await db.get_all_shinies(user_id)
@@ -515,9 +561,14 @@ class ShinyDexDisplay(commands.Cog):
         # Build filtered list
         form_entries = []
         for dex_num, pokemon_name, has_gender_diff in all_forms:
-            # Apply name search filter
+            # Apply exclude filter first
+            if self.is_excluded(pokemon_name, exclude_names):
+                continue
+
+            # Apply name search filter with accent-insensitive matching
             if name_searches:
-                matches_any = any(search.lower() in pokemon_name.lower() for search in name_searches)
+                normalized_pokemon = normalize_string(pokemon_name.lower())
+                matches_any = any(normalize_string(search.lower()) in normalized_pokemon for search in name_searches)
                 if not matches_any:
                     continue
 
@@ -628,7 +679,7 @@ class ShinyDexDisplay(commands.Cog):
     @commands.hybrid_command(name='filter', aliases=['f'])
     @app_commands.describe(
         filter_name="Filter name (e.g., eevos, starters, legendaries)",
-        options="Options: --caught, --uncaught, --orderd, --ordera, --region, --type, --nogender, --page, --list, --smartlist"
+        options="Options: --caught, --uncaught, --orderd, --ordera, --region, --type, --exclude, --nogender, --page, --list, --smartlist"
     )
     async def filter_dex(self, ctx, filter_name: str = None, *, options: str = None):
         """View your shiny dex with custom filters"""
@@ -662,15 +713,19 @@ class ShinyDexDisplay(commands.Cog):
 
         user_id = ctx.author.id
 
-        # Parse options - NOW INCLUDES ignore_gender
-        show_caught, show_uncaught, order, region_filter, type_filters, _, page, show_list, show_smartlist, ignore_gender = self.parse_filters(options)
+        # Parse options - NOW INCLUDES ignore_gender and exclude_names
+        show_caught, show_uncaught, order, region_filter, type_filters, _, page, show_list, show_smartlist, ignore_gender, exclude_names = self.parse_filters(options)
 
         # Get user's shinies
         user_shinies = await db.get_all_shinies(user_id)
 
-        # Get filter Pokemon set and apply region/type filters
+        # Get filter Pokemon set and apply region/type/exclude filters
         filter_pokemon_set = set()
         for pokemon_name in filter_data['pokemon']:
+            # Apply exclude filter first
+            if self.is_excluded(pokemon_name, exclude_names):
+                continue
+
             # Apply region/type filters
             if region_filter or type_filters:
                 if not self.matches_filters(pokemon_name, utils, region_filter, type_filters):
@@ -825,5 +880,5 @@ class ShinyDexDisplay(commands.Cog):
         view.message = message
 
 
-async def setup(bot):
-    await bot.add_cog(ShinyDexDisplay(bot))
+    async def setup(bot):
+        await bot.add_cog(ShinyDexDisplay(bot))
