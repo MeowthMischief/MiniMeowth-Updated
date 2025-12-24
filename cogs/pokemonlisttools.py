@@ -225,7 +225,7 @@ class PokemonListTools(commands.Cog):
 
     # ==================== Remove Command ====================
 
-    @commands.command(name='remove', aliases=['exclude'])
+    @commands.command(name='removemons', aliases=['exclude'])
     async def remove(self, ctx, *, pokemon_names: str):
         """
         Remove specific Pokemon from a list and create a new list
