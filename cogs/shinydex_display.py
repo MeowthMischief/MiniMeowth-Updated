@@ -7,6 +7,7 @@ import config
 from config import EMBED_COLOR
 from database import db
 from filters import get_filter, get_all_filter_names
+from smartlist_utils import build_smartlist_sections
 
 
 def normalize_string(s):
@@ -104,7 +105,7 @@ class ShinyDexDisplay(commands.Cog):
         show_list = False
         show_smartlist = False
         ignore_gender = False
-        exclude_names = []  # NEW: list of names to exclude
+        exclude_names = []
 
         if not filter_string:
             return show_caught, show_uncaught, order, region, types, name_searches, page, show_list, show_smartlist, ignore_gender, exclude_names
@@ -142,7 +143,7 @@ class ShinyDexDisplay(commands.Cog):
             elif arg in ['--nogender', '--ng', '--ignoregender', '--ig']:
                 ignore_gender = True
                 i += 1
-            elif arg in ['--exclude', '--ex', '--exc']:  # NEW
+            elif arg in ['--exclude', '--ex', '--exc']:
                 if i + 1 < len(args):
                     exclude_parts = []
                     i += 1
@@ -153,7 +154,7 @@ class ShinyDexDisplay(commands.Cog):
                         exclude_names.append(' '.join(exclude_parts).title())
                 else:
                     i += 1
-            elif arg.startswith('--exclude=') or arg.startswith('--ex=') or arg.startswith('--exc='):  # NEW
+            elif arg.startswith('--exclude=') or arg.startswith('--ex=') or arg.startswith('--exc='):
                 exclude_val = arg.split('=', 1)[1]
                 if exclude_val:
                     exclude_names.append(exclude_val.title())
@@ -244,57 +245,31 @@ class ShinyDexDisplay(commands.Cog):
         if not exclude_names:
             return False
 
-        # Normalize pokemon name for comparison
         normalized_pokemon = normalize_string(pokemon_name.lower())
 
         for exclude_name in exclude_names:
-            # Normalize exclude name for comparison
             normalized_exclude = normalize_string(exclude_name.lower())
-
-            # Check if exclude name appears anywhere in pokemon name
             if normalized_exclude in normalized_pokemon:
                 return True
 
         return False
 
-    def categorize_pokemon(self, pokemon_names: list):
-        """Categorize Pokemon into regular, rare, and gigantamax"""
-        regular = []
-        rare = []
-        gigantamax = []
-
-        rare_set = set(config.RARE_POKEMONS) if hasattr(config, 'RARE_POKEMONS') else set()
-
-        for name in pokemon_names:
-            # Check if it's a Gigantamax Pokemon (has 'gigantamax' in name, case-insensitive)
-            if 'gigantamax' in name.lower():
-                gigantamax.append(name)
-            # Check if it's a rare Pokemon
-            elif name in rare_set:
-                rare.append(name)
-            else:
-                regular.append(name)
-
-        return regular, rare, gigantamax
-
     async def send_pokemon_list_simple(self, ctx, pokemon_names: list):
         """Send simple Pokemon names as --n formatted list (text or file)"""
-        formatted_list = " ".join([f"--n {name}" for name in pokemon_names])
+        formatted_list = " ".join([f"--n {name.lower()}" for name in pokemon_names])
 
         total_count = len(pokemon_names)
-        list_text = f"**Total Pokemon: {total_count}**. Use --smartlist/--slist for better list!\n\n{formatted_list}"
+        list_text = f"**total pokemon: {total_count}**. use --smartlist/--slist for better list!\n\n{formatted_list}"
 
-        # If list is short enough, send as message
         if len(list_text) <= 1900:
             await ctx.send(list_text, reference=ctx.message, mention_author=False)
         else:
-            # Create a text file
             file = discord.File(
                 io.BytesIO(formatted_list.encode('utf-8')),
                 filename='pokemon_list.txt'
             )
             await ctx.send(
-                f"**Total: {total_count} Pokemon**\n📝 List is too long! Here's a file:",
+                f"**total: {total_count} pokemon**\n📝 list is too long! here's a file:",
                 file=file,
                 reference=ctx.message,
                 mention_author=False
@@ -304,79 +279,7 @@ class ShinyDexDisplay(commands.Cog):
         """Send Pokemon names as smartlist with gender differences and categories
         pokemon_data: list of tuples (name, gender_key, count)
         """
-        # Separate by gender difference status
-        no_gender_diff = []
-        male_gender_diff = []
-        female_gender_diff = []
-
-        for name, gender_key, count in pokemon_data:
-            has_gender_diff = utils.has_gender_difference(name)
-
-            if has_gender_diff:
-                if gender_key == 'male':
-                    male_gender_diff.append(name)
-                elif gender_key == 'female':
-                    female_gender_diff.append(name)
-            else:
-                no_gender_diff.append(name)
-
-        # Categorize each group
-        regular, rare, gigantamax = self.categorize_pokemon(no_gender_diff)
-        male_regular, male_rare, male_gmax = self.categorize_pokemon(male_gender_diff)
-        female_regular, female_rare, female_gmax = self.categorize_pokemon(female_gender_diff)
-
-        # Build the formatted output
-        sections = []
-
-        # Calculate total count based on actual entries in the list
-        total_count = len(no_gender_diff) + len(male_gender_diff) + len(female_gender_diff)
-
-        # Count unique species with gender differences that appear in this list
-        gender_diff_species = set()
-        for name, gender_key, count in pokemon_data:
-            if utils.has_gender_difference(name):
-                gender_diff_species.add(name)
-        gender_diff_count = len(gender_diff_species)
-
-        # Header
-        sections.append(f"**Total Pokemon: {total_count}** ({gender_diff_count} species with gender differences)\n")
-
-        # Regular Pokemon (no gender difference)
-        if regular:
-            formatted_regular = " ".join([f"--n {name}" for name in regular])
-            sections.append(formatted_regular)
-
-        # Male Gender Difference Pokemon
-        if male_regular or male_rare or male_gmax:
-            male_parts = []
-            if male_regular:
-                male_parts.append(" ".join([f"--n {name}" for name in male_regular]))
-            if male_rare:
-                male_parts.append(" ".join([f"--n {name}" for name in male_rare]))
-            if male_gmax:
-                male_parts.append(" ".join([f"--n {name}" for name in male_gmax]))
-            sections.append(" ".join(male_parts) + " --g male")
-
-        # Female Gender Difference Pokemon
-        if female_regular or female_rare or female_gmax:
-            female_parts = []
-            if female_regular:
-                female_parts.append(" ".join([f"--n {name}" for name in female_regular]))
-            if female_rare:
-                female_parts.append(" ".join([f"--n {name}" for name in female_rare]))
-            if female_gmax:
-                female_parts.append(" ".join([f"--n {name}" for name in female_gmax]))
-            sections.append(" ".join(female_parts) + " --g female")
-
-        # Rare Pokemon (no gender difference)
-        if rare:
-            formatted_rare = " ".join([f"--n {name}" for name in rare])
-            sections.append(formatted_rare)
-
-        # Gigantamax Pokemon (no gender difference)
-        if gigantamax:
-            formatted_gmax = " ".join([f"--n {name}" for name in gigantamax])
-            sections.append(formatted_gmax)
+        sections, total_count, gender_diff_count = build_smartlist_sections(pokemon_data, utils)
 
         # Join sections with blank lines
         list_text = "\n\n".join(sections)
@@ -391,7 +294,7 @@ class ShinyDexDisplay(commands.Cog):
                 filename='pokemon_smartlist.txt'
             )
             await ctx.send(
-                f"**Total: {total_count} Pokemon** ({gender_diff_count} species with gender differences)\n📝 List is too long! Here's a file:",
+                f"**total: {total_count} pokemon** ({gender_diff_count} species with gender differences)\n📝 list is too long! here's a file:",
                 file=file,
                 reference=ctx.message,
                 mention_author=False
@@ -537,7 +440,6 @@ class ShinyDexDisplay(commands.Cog):
         user_shinies = await db.get_all_shinies(user_id)
 
         # Build counts: (dex_num, name, gender_key) -> count
-        # gender_key is gender if Pokemon has gender difference, else None
         form_counts = {}
         for shiny in user_shinies:
             dex_num = shiny['dex_number']
@@ -713,7 +615,7 @@ class ShinyDexDisplay(commands.Cog):
 
         user_id = ctx.author.id
 
-        # Parse options - NOW INCLUDES ignore_gender and exclude_names
+        # Parse options
         show_caught, show_uncaught, order, region_filter, type_filters, _, page, show_list, show_smartlist, ignore_gender, exclude_names = self.parse_filters(options)
 
         # Get user's shinies
