@@ -690,8 +690,11 @@ class ShinyStatsImage(commands.Cog):
         all_shinies = await db.get_all_shinies(user_id)
 
         if not all_shinies:
-            await ctx.send("❌ You haven't tracked any shinies yet!\nUse `?trackshiny` to get started.", 
-                          reference=ctx.message, mention_author=False)
+            if ctx.interaction:
+                await ctx.send("❌ You haven't tracked any shinies yet!\nUse `?trackshiny` to get started.")
+            else:
+                await ctx.send("❌ You haven't tracked any shinies yet!\nUse `?trackshiny` to get started.", 
+                              reference=ctx.message, mention_author=False)
             return
 
         # Get user customization
@@ -765,9 +768,13 @@ class ShinyStatsImage(commands.Cog):
         }
 
         # Create the image
-        status_msg = await ctx.send("🎨 Generating your shiny stats card...")
-
         try:
+            # For slash commands, send a followup message; for prefix commands, send a status message
+            if ctx.interaction:
+                await ctx.send("🎨 Generating your shiny stats card...")
+            else:
+                status_msg = await ctx.send("🎨 Generating your shiny stats card...")
+
             img = await self.create_stats_image(ctx.author, stats_data, background_name, user_title)
 
             # Save to bytes
@@ -777,11 +784,19 @@ class ShinyStatsImage(commands.Cog):
 
             file = discord.File(img_bytes, filename='shinystats.png')
 
-            await status_msg.delete()
-            await ctx.send(file=file, mention_author=False)
+            # Check if it's a slash command (interaction) or prefix command
+            if ctx.interaction:
+                await ctx.send(file=file)
+            else:
+                await status_msg.delete()
+                await ctx.send(file=file, reference=ctx.message, mention_author=False)
 
         except Exception as e:
-            await status_msg.edit(content=f"❌ Error generating image: {str(e)}")
+            error_msg = f"❌ Error generating image: {str(e)}"
+            if ctx.interaction:
+                await ctx.send(error_msg)
+            else:
+                await status_msg.edit(content=error_msg)
             print(f"Error in shiny stats image: {e}")
 
     @commands.hybrid_command(name='customize')
@@ -815,7 +830,10 @@ class ShinyStatsImage(commands.Cog):
         # Create view with background selector
         view = BackgroundSelectView(user_id, backgrounds)
 
-        await ctx.send(embed=embed, view=view, reference=ctx.message, mention_author=False)
+        if ctx.interaction:
+            await ctx.send(embed=embed, view=view)
+        else:
+            await ctx.send(embed=embed, view=view, reference=ctx.message, mention_author=False)
 
     @commands.hybrid_command(name='settitle')
     @app_commands.describe(title="Your custom title (max 50 characters)")
@@ -824,13 +842,20 @@ class ShinyStatsImage(commands.Cog):
         user_id = ctx.author.id
 
         if len(title) > 50:
-            await ctx.send("❌ Title too long! Maximum 50 characters.", 
-                          reference=ctx.message, mention_author=False)
+            if ctx.interaction:
+                await ctx.send("❌ Title too long! Maximum 50 characters.")
+            else:
+                await ctx.send("❌ Title too long! Maximum 50 characters.", 
+                              reference=ctx.message, mention_author=False)
             return
 
         await db.set_user_customization(user_id, user_title=title)
-        await ctx.send(f'✅ Your title has been set to: **{title}**', 
-                      reference=ctx.message, mention_author=False)
+        
+        if ctx.interaction:
+            await ctx.send(f'✅ Your title has been set to: **{title}**')
+        else:
+            await ctx.send(f'✅ Your title has been set to: **{title}**', 
+                          reference=ctx.message, mention_author=False)
 
     @commands.hybrid_command(name='setfavorite', aliases=['setshowcase'])
     @app_commands.describe(pokemon_id="Pokemon ID to showcase", nickname="Optional nickname")
@@ -842,8 +867,11 @@ class ShinyStatsImage(commands.Cog):
         shiny = await db.get_shiny_by_id(user_id, pokemon_id)
 
         if not shiny:
-            await ctx.send("❌ Pokemon not found in your shiny collection!", 
-                          reference=ctx.message, mention_author=False)
+            if ctx.interaction:
+                await ctx.send("❌ Pokemon not found in your shiny collection!")
+            else:
+                await ctx.send("❌ Pokemon not found in your shiny collection!", 
+                              reference=ctx.message, mention_author=False)
             return
 
         # Update settings with showcase pokemon
@@ -852,16 +880,23 @@ class ShinyStatsImage(commands.Cog):
         # Set nickname if provided
         if nickname:
             if len(nickname) > 50:
-                await ctx.send("❌ Nickname too long! Maximum 50 characters.", 
-                              reference=ctx.message, mention_author=False)
+                if ctx.interaction:
+                    await ctx.send("❌ Nickname too long! Maximum 50 characters.")
+                else:
+                    await ctx.send("❌ Nickname too long! Maximum 50 characters.", 
+                                  reference=ctx.message, mention_author=False)
                 return
             await db.set_pokemon_nickname(user_id, pokemon_id, nickname)
 
         await db.update_settings(user_id, updates)
 
         nickname_msg = f' with nickname "{nickname}"' if nickname else ""
-        await ctx.send(f"✅ Set **{shiny['name']}** (ID: {pokemon_id}) as your favorite Pokemon{nickname_msg}!", 
-                      reference=ctx.message, mention_author=False)
+        
+        if ctx.interaction:
+            await ctx.send(f"✅ Set **{shiny['name']}** (ID: {pokemon_id}) as your favorite Pokemon{nickname_msg}!")
+        else:
+            await ctx.send(f"✅ Set **{shiny['name']}** (ID: {pokemon_id}) as your favorite Pokemon{nickname_msg}!", 
+                          reference=ctx.message, mention_author=False)
 
     @commands.hybrid_command(name='setnickname', aliases=['nick'])
     @app_commands.describe(pokemon_id="Pokemon ID", nickname="Nickname for your Pokemon")
@@ -873,18 +908,28 @@ class ShinyStatsImage(commands.Cog):
         shiny = await db.get_shiny_by_id(user_id, pokemon_id)
 
         if not shiny:
-            await ctx.send("❌ Pokemon not found in your shiny collection!", 
-                          reference=ctx.message, mention_author=False)
+            if ctx.interaction:
+                await ctx.send("❌ Pokemon not found in your shiny collection!")
+            else:
+                await ctx.send("❌ Pokemon not found in your shiny collection!", 
+                              reference=ctx.message, mention_author=False)
             return
 
         if len(nickname) > 50:
-            await ctx.send("❌ Nickname too long! Maximum 50 characters.", 
-                          reference=ctx.message, mention_author=False)
+            if ctx.interaction:
+                await ctx.send("❌ Nickname too long! Maximum 50 characters.")
+            else:
+                await ctx.send("❌ Nickname too long! Maximum 50 characters.", 
+                              reference=ctx.message, mention_author=False)
             return
 
         await db.set_pokemon_nickname(user_id, pokemon_id, nickname)
-        await ctx.send(f'✅ Set nickname "{nickname}" for **{shiny["name"]}** (ID: {pokemon_id})!', 
-                      reference=ctx.message, mention_author=False)
+        
+        if ctx.interaction:
+            await ctx.send(f'✅ Set nickname "{nickname}" for **{shiny["name"]}** (ID: {pokemon_id})!')
+        else:
+            await ctx.send(f'✅ Set nickname "{nickname}" for **{shiny["name"]}** (ID: {pokemon_id})!', 
+                          reference=ctx.message, mention_author=False)
 
     @commands.hybrid_command(name='refreshresources', aliases=['updateresources'])
     @commands.is_owner()
