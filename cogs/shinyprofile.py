@@ -36,7 +36,7 @@ class BackgroundSelectView(discord.ui.View):
 
         self.selected_background = select.values[0]
         await interaction.response.send_message(
-            f"✅ Background set to: **{select.values[0].replace('.png', '').replace('_', ' ').title()}**",
+            f"✅ Background set to: **{select.values[0].replace('.png', '').replace('_', ' ').title()}**. Now click confirm button to save changes.",
             ephemeral=True
         )
 
