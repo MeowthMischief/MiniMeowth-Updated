@@ -544,7 +544,7 @@ class Utils(commands.Cog):
 
     def is_rare_pokemon(self, pokemon_name: str) -> bool:
         """Check if a Pokemon is rare"""
-        return pokemon_name in config.RARE_POKEMONS
+        return pokemon_name in config.RARE
 
     def count_rare_shinies(self, shinies_list: list) -> int:
         """Count rare shinies"""
