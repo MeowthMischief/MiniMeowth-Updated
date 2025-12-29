@@ -829,7 +829,7 @@ class ShinyStatsImage(commands.Cog):
         else:
             await ctx.send(embed=embed, view=view, reference=ctx.message, mention_author=False)
 
-    @commands.hybrid_command(name='settitle')
+    @commands.hybrid_command(name='settitle', aliases=['title','ttl'])
     @app_commands.describe(title="Your custom title (max 50 characters)")
     async def set_title(self, ctx, *, title: str):
         """Set your custom title on the stats card"""
@@ -851,7 +851,7 @@ class ShinyStatsImage(commands.Cog):
             await ctx.send(f'✅ Your title has been set to: **{title}**', 
                           reference=ctx.message, mention_author=False)
 
-    @commands.hybrid_command(name='setfavorite', aliases=['setshowcase'])
+    @commands.hybrid_command(name='setfavorite', aliases=['display','setshowcase'])
     @app_commands.describe(pokemon_id="Pokemon ID to showcase", nickname="Optional nickname")
     async def set_favorite(self, ctx, pokemon_id: int, *, nickname: str = None):
         """Set your favorite Pokemon to showcase (optionally set nickname too)"""
