@@ -64,7 +64,7 @@ class ShinyStatsImage(commands.Cog):
         self.bot = bot
         self.backgrounds_folder = 'shinystats/backgrounds'
         self.fonts_folder = 'shinystats/fonts'
-        
+
         # GitHub repository details
         self.github_user = 'cynthiaofpower'
         self.github_repo = 'meowthfonts'
@@ -87,7 +87,7 @@ class ShinyStatsImage(commands.Cog):
             'black.png': '#000000',
             'gray.png': '#2F4F4F'
         }
-        
+
         # Initialize resource download on cog load
         self.bot.loop.create_task(self.initialize_resources())
 
@@ -99,16 +99,16 @@ class ShinyStatsImage(commands.Cog):
     async def download_file_from_github(self, file_path: str, save_path: str):
         """Download a single file from GitHub repository"""
         url = f"https://raw.githubusercontent.com/{self.github_user}/{self.github_repo}/{self.github_branch}/{file_path}"
-        
+
         try:
             async with aiohttp.ClientSession() as session:
                 async with session.get(url) as resp:
                     if resp.status == 200:
                         content = await resp.read()
-                        
+
                         # Create directory if it doesn't exist
                         os.makedirs(os.path.dirname(save_path), exist_ok=True)
-                        
+
                         with open(save_path, 'wb') as f:
                             f.write(content)
                         print(f"✅ Downloaded: {file_path}")
@@ -123,7 +123,7 @@ class ShinyStatsImage(commands.Cog):
     async def get_github_directory_contents(self, directory: str):
         """Get list of files in a GitHub directory"""
         url = f"https://api.github.com/repos/{self.github_user}/{self.github_repo}/contents/{directory}?ref={self.github_branch}"
-        
+
         try:
             async with aiohttp.ClientSession() as session:
                 async with session.get(url) as resp:
@@ -140,59 +140,59 @@ class ShinyStatsImage(commands.Cog):
     async def download_fonts(self):
         """Download all fonts from GitHub repository"""
         print("📥 Downloading fonts from GitHub...")
-        
+
         # Create fonts directory
         os.makedirs(self.fonts_folder, exist_ok=True)
-        
+
         # Get list of font files
         font_files = await self.get_github_directory_contents('fonts')
-        
+
         if not font_files:
             print("⚠️ No fonts found in repository")
             return
-        
+
         # Download each font
         for font_file in font_files:
             if font_file.endswith('.ttf') or font_file.endswith('.otf'):
                 github_path = f"fonts/{font_file}"
                 local_path = os.path.join(self.fonts_folder, font_file)
-                
+
                 # Skip if already exists
                 if os.path.exists(local_path):
                     print(f"⏭️ Font already exists: {font_file}")
                     continue
-                
+
                 await self.download_file_from_github(github_path, local_path)
-        
+
         print("✅ Font download complete!")
 
     async def download_backgrounds(self):
         """Download all backgrounds from GitHub repository"""
         print("📥 Downloading backgrounds from GitHub...")
-        
+
         # Create backgrounds directory
         os.makedirs(self.backgrounds_folder, exist_ok=True)
-        
+
         # Get list of background files
         background_files = await self.get_github_directory_contents('backgrounds')
-        
+
         if not background_files:
             print("⚠️ No backgrounds found in repository")
             return
-        
+
         # Download each background
         for bg_file in background_files:
             if bg_file.endswith('.png') or bg_file.endswith('.jpg') or bg_file.endswith('.jpeg'):
                 github_path = f"backgrounds/{bg_file}"
                 local_path = os.path.join(self.backgrounds_folder, bg_file)
-                
+
                 # Skip if already exists
                 if os.path.exists(local_path):
                     print(f"⏭️ Background already exists: {bg_file}")
                     continue
-                
+
                 await self.download_file_from_github(github_path, local_path)
-        
+
         print("✅ Background download complete!")
 
     def load_pokemon_mapping(self):
@@ -243,7 +243,7 @@ class ShinyStatsImage(commands.Cog):
                     backgrounds.append(file)
 
         # Add gray as default first
-        backgrounds.insert(0, 'gray.png')
+        backgrounds.insert(0, 'black.png')
 
         # Add solid color backgrounds
         for color_name in self.solid_colors.keys():
@@ -403,6 +403,9 @@ class ShinyStatsImage(commands.Cog):
         text_gold = (255, 215, 0)
         text_cyan = (100, 200, 255)
         text_gray = (180, 180, 180)
+        text_coral = (255, 123, 137)
+        text_silver = (192, 192, 192)
+        text_royalblue = (128, 0, 128)
 
         # === PANEL 1 CONTENT: Profile ===
         # Fetch and draw user avatar
@@ -464,7 +467,7 @@ class ShinyStatsImage(commands.Cog):
 
             # Add small padding (5 pixels) after the label
             value_x = col1_x + label_width + 5
-            draw.text((value_x, current_y), str(value), font=value_font, fill=text_cyan)
+            draw.text((value_x, current_y), str(value), font=value_font, fill=text_silver)
             current_y += line_height
 
         # Right column stats
@@ -483,7 +486,7 @@ class ShinyStatsImage(commands.Cog):
 
             # Add small padding after the label
             value_x = col2_x + label_width + 5
-            draw.text((value_x, current_y), value, font=value_font, fill=text_cyan)
+            draw.text((value_x, current_y), value, font=value_font, fill=text_silver)
             current_y += line_height
 
         # === TOP 5 MOST COLLECTED POKEMON ===
@@ -560,7 +563,7 @@ class ShinyStatsImage(commands.Cog):
         # === RIGHT PANEL CONTENT: Showcase Pokemon ===
         # Header: "My Favorite Shiny" (removed sparkle emoji)
         showcase_header_y = pokemon_panel_y + 20
-        showcase_text = "My Favorite Shiny"
+        showcase_text = "Display Pokémon"
 
         # Center the header text
         bbox = draw.textbbox((0, 0), showcase_text, font=header_font)
@@ -568,16 +571,7 @@ class ShinyStatsImage(commands.Cog):
         header_x = pokemon_panel_x + (pokemon_panel_width - header_width) // 2
         draw.text((header_x, showcase_header_y), showcase_text, font=header_font, fill=text_gold)
 
-        # Draw decorative star symbols on either side
-        try:
-            star_font = ImageFont.truetype(os.path.join(self.fonts_folder, 'Poppins-Bold.ttf'), 20)
-        except:
-            star_font = header_font
-
-        star_symbol = "♥"
-        star_y = showcase_header_y
-        draw.text((header_x - 25, star_y), star_symbol, font=star_font, fill=text_gold)
-        draw.text((header_x + header_width + 15, star_y), star_symbol, font=star_font, fill=text_gold)
+        
 
         # Showcase pokemon data
         showcase_data = stats_data.get('showcase_pokemon')
@@ -658,7 +652,7 @@ class ShinyStatsImage(commands.Cog):
                 stats_width = bbox[2] - bbox[0]
                 stats_x = pokemon_panel_x + (pokemon_panel_width - stats_width) // 2
                 stats_y = name_y + 35
-                draw.text((stats_x, stats_y), stats_text, font=info_font, fill=text_cyan)
+                draw.text((stats_x, stats_y), stats_text, font=info_font, fill=text_coral)
         else:
             # No showcase pokemon set - show placeholder
             placeholder_y = pokemon_panel_y + (pokemon_panel_height // 2) - 50
@@ -850,7 +844,7 @@ class ShinyStatsImage(commands.Cog):
             return
 
         await db.set_user_customization(user_id, user_title=title)
-        
+
         if ctx.interaction:
             await ctx.send(f'✅ Your title has been set to: **{title}**')
         else:
@@ -891,7 +885,7 @@ class ShinyStatsImage(commands.Cog):
         await db.update_settings(user_id, updates)
 
         nickname_msg = f' with nickname "{nickname}"' if nickname else ""
-        
+
         if ctx.interaction:
             await ctx.send(f"✅ Set **{shiny['name']}** (ID: {pokemon_id}) as your favorite Pokemon{nickname_msg}!")
         else:
@@ -924,7 +918,7 @@ class ShinyStatsImage(commands.Cog):
             return
 
         await db.set_pokemon_nickname(user_id, pokemon_id, nickname)
-        
+
         if ctx.interaction:
             await ctx.send(f'✅ Set nickname "{nickname}" for **{shiny["name"]}** (ID: {pokemon_id})!')
         else:
@@ -936,10 +930,10 @@ class ShinyStatsImage(commands.Cog):
     async def refresh_resources(self, ctx):
         """Refresh fonts and backgrounds from GitHub (Owner only)"""
         await ctx.send("🔄 Refreshing resources from GitHub...")
-        
+
         await self.download_fonts()
         await self.download_backgrounds()
-        
+
         await ctx.send("✅ Resources refreshed successfully!")
 
 
