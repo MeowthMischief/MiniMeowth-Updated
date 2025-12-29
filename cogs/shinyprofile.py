@@ -574,7 +574,7 @@ class ShinyStatsImage(commands.Cog):
         except:
             star_font = header_font
 
-        star_symbol = "*"
+        star_symbol = "♥"
         star_y = showcase_header_y
         draw.text((header_x - 25, star_y), star_symbol, font=star_font, fill=text_gold)
         draw.text((header_x + header_width + 15, star_y), star_symbol, font=star_font, fill=text_gold)
@@ -678,7 +678,7 @@ class ShinyStatsImage(commands.Cog):
 
         return bg
 
-    @commands.hybrid_command(name='shinystatsimg', aliases=['ssimg'])
+    @commands.hybrid_command(name='shinystatsimg', aliases=['ssimg','pf','profile'])
     async def shiny_stats_image(self, ctx):
         """Generate a visual card of your shiny collection statistics"""
         await ctx.defer()
@@ -691,9 +691,9 @@ class ShinyStatsImage(commands.Cog):
 
         if not all_shinies:
             if ctx.interaction:
-                await ctx.send("❌ You haven't tracked any shinies yet!\nUse `?trackshiny` to get started.")
+                await ctx.send("❌ You haven't tracked any shinies yet!\nUse `m!trackshiny` to get started.")
             else:
-                await ctx.send("❌ You haven't tracked any shinies yet!\nUse `?trackshiny` to get started.", 
+                await ctx.send("❌ You haven't tracked any shinies yet!\nUse `m!trackshiny` to get started.", 
                               reference=ctx.message, mention_author=False)
             return
 
@@ -823,7 +823,7 @@ class ShinyStatsImage(commands.Cog):
             name="How to Customize",
             value="1️⃣ Select a background from the dropdown below\n"
                   "2️⃣ Click Confirm to save\n"
-                  "3️⃣ Use `?settitle <your title>` to change your title",
+                  "3️⃣ Use `m!settitle <your title>` to change your title",
             inline=False
         )
 
