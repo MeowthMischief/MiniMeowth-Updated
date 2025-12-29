@@ -134,7 +134,7 @@ async def on_ready():
         'cogs.help',
         'cogs.utility_commands',
         'cogs.inventory',
-        'cogs.settings'
+        'cogs.settings',
         'cogs.shinyprofile'
     ]
 
