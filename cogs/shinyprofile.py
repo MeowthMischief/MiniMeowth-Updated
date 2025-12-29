@@ -778,7 +778,7 @@ class ShinyStatsImage(commands.Cog):
             file = discord.File(img_bytes, filename='shinystats.png')
 
             await status_msg.delete()
-            await ctx.send(file=file, reference=ctx.message, mention_author=False)
+            await ctx.send(file=file, mention_author=False)
 
         except Exception as e:
             await status_msg.edit(content=f"❌ Error generating image: {str(e)}")
