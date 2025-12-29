@@ -971,6 +971,40 @@ class Database:
         })
         return await cursor.to_list(length=None)
 
+    async def get_shiny_by_id(self, user_id: int, pokemon_id: int):
+        """Get a specific shiny by pokemon_id"""
+        return await self.shinies.find_one({
+            "user_id": user_id,
+            "pokemon_id": pokemon_id
+        })
+
+    async def set_pokemon_nickname(self, user_id: int, pokemon_id: int, nickname: str):
+        """Set nickname for a pokemon"""
+        await self.shinies.update_one(
+            {"user_id": user_id, "pokemon_id": pokemon_id},
+            {"$set": {"nickname": nickname}}
+        )
+
+    async def get_user_customization(self, user_id: int):
+        """Get user customization settings"""
+        user_data = await self.get_user_data(user_id)
+        settings = user_data.get('settings', {})
+        return {
+            'background': settings.get('background', 'default.png'),
+            'user_title': settings.get('user_title', 'Shiny Hunter')
+        }
+
+    async def set_user_customization(self, user_id: int, background: str = None, user_title: str = None):
+        """Set user customization settings"""
+        updates = {}
+        if background:
+            updates['background'] = background
+        if user_title:
+            updates['user_title'] = user_title
+
+        if updates:
+            await self.update_settings(user_id, updates)
+
 
     # Global database instance
 db = Database()
