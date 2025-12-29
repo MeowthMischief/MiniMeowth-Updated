@@ -445,7 +445,7 @@ class ShinyStatsImage(commands.Cog):
 
         # Header
         draw.text((col1_x, stats_y), "Collection Stats", font=header_font, fill=text_gold)
-        draw.text((col2_x, stats_y), "Pokedex Progress", font=header_font, fill=text_gold)
+        draw.text((col2_x, stats_y), "Pokédex Progress", font=header_font, fill=text_gold)
         stats_y += 40
 
         # Left column stats
@@ -656,7 +656,7 @@ class ShinyStatsImage(commands.Cog):
         else:
             # No showcase pokemon set - show placeholder
             placeholder_y = pokemon_panel_y + (pokemon_panel_height // 2) - 50
-            placeholder_text = "No Pokemon Showcased"
+            placeholder_text = "No Pokémon Showcased"
             placeholder_hint = "Use m!setfavorite <id> to set"
 
             # Center placeholder text
