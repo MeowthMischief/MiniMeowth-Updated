@@ -95,7 +95,7 @@ class ShinyDexDisplay(commands.Cog):
 
     def parse_filters(self, filter_string: str):
         """Parse filter string to extract options
-        Returns: (show_caught, show_uncaught, order, region, types, name_searches, page, show_list, show_smartlist, ignore_gender, exclude_names, show_image)
+        Returns: (show_caught, show_uncaught, order, region, types, name_searches, page, show_list, show_smartlist, ignore_gender, exclude_names, show_image, ignore_male, ignore_female)
         """
         show_caught = True
         show_uncaught = True
@@ -109,9 +109,11 @@ class ShinyDexDisplay(commands.Cog):
         ignore_gender = False
         exclude_names = []
         show_image = False
+        ignore_male = False
+        ignore_female = False
 
         if not filter_string:
-            return show_caught, show_uncaught, order, region, types, name_searches, page, show_list, show_smartlist, ignore_gender, exclude_names, show_image
+            return show_caught, show_uncaught, order, region, types, name_searches, page, show_list, show_smartlist, ignore_gender, exclude_names, show_image, ignore_male, ignore_female
 
         args = filter_string.lower().split()
 
@@ -148,6 +150,12 @@ class ShinyDexDisplay(commands.Cog):
                 i += 1
             elif arg in ['--nogender', '--ng', '--ignoregender', '--ig']:
                 ignore_gender = True
+                i += 1
+            elif arg in ['--ignoremale', '--im']:
+                ignore_male = True
+                i += 1
+            elif arg in ['--ignorefemale', '--if']:
+                ignore_female = True
                 i += 1
             elif arg in ['--exclude', '--ex', '--exc']:
                 if i + 1 < len(args):
@@ -222,7 +230,7 @@ class ShinyDexDisplay(commands.Cog):
             else:
                 i += 1
 
-        return show_caught, show_uncaught, order, region, types, name_searches, page, show_list, show_smartlist, ignore_gender, exclude_names, show_image
+        return show_caught, show_uncaught, order, region, types, name_searches, page, show_list, show_smartlist, ignore_gender, exclude_names, show_image, ignore_male, ignore_female
 
     def matches_filters(self, pokemon_name: str, utils, region_filter: str, type_filters: list):
         """Check if a Pokemon matches region and type filters"""
@@ -349,7 +357,7 @@ class ShinyDexDisplay(commands.Cog):
             print(f"Error in dex image generation: {e}")
 
     @commands.hybrid_command(name='shinydex', aliases=['sd','basicdex','bd'])
-    @app_commands.describe(filters="Filters: --caught, --uncaught, --orderd, --ordera, --region, --type, --name, --exclude, --page, --list, --smartlist, --image")
+    @app_commands.describe(filters="Filters: --caught, --uncaught, --orderd, --ordera, --region, --type, --name, --exclude, --page, --list, --smartlist, --image, --ignoremale, --ignorefemale")
     async def shiny_dex(self, ctx, *, filters: str = None):
         """View your basic shiny dex (one Pokemon per dex number, counts all forms)"""
         utils = self.bot.get_cog('Utils')
@@ -360,7 +368,7 @@ class ShinyDexDisplay(commands.Cog):
         user_id = ctx.author.id
 
         # Parse filters
-        show_caught, show_uncaught, order, region_filter, type_filters, name_searches, page, show_list, show_smartlist, ignore_gender, exclude_names, show_image = self.parse_filters(filters)
+        show_caught, show_uncaught, order, region_filter, type_filters, name_searches, page, show_list, show_smartlist, ignore_gender, exclude_names, show_image, ignore_male, ignore_female = self.parse_filters(filters)
 
         # Check conflicting flags
         if show_image and (show_list or show_smartlist):
@@ -491,7 +499,7 @@ class ShinyDexDisplay(commands.Cog):
         view.message = message
 
     @commands.hybrid_command(name='shinydexfull', aliases=['sdf','fulldex','fd','fullshinydex','fsd'])
-    @app_commands.describe(filters="Filters: --caught, --unc, --orderd, --ordera, --region, --type, --name, --exclude, --page, --list, --smartlist, --image")
+    @app_commands.describe(filters="Filters: --caught, --unc, --orderd, --ordera, --region, --type, --name, --exclude, --page, --list, --smartlist, --image, --ignoremale, --ignorefemale")
     async def shiny_dex_full(self, ctx, *, filters: str = None):
         """View your full shiny dex (all forms, includes gender differences)"""
         utils = self.bot.get_cog('Utils')
@@ -502,7 +510,7 @@ class ShinyDexDisplay(commands.Cog):
         user_id = ctx.author.id
 
         # Parse filters
-        show_caught, show_uncaught, order, region_filter, type_filters, name_searches, page, show_list, show_smartlist, ignore_gender, exclude_names, show_image = self.parse_filters(filters)
+        show_caught, show_uncaught, order, region_filter, type_filters, name_searches, page, show_list, show_smartlist, ignore_gender, exclude_names, show_image, ignore_male, ignore_female = self.parse_filters(filters)
 
         # Check conflicting flags
         if show_image and (show_list or show_smartlist):
@@ -553,12 +561,14 @@ class ShinyDexDisplay(commands.Cog):
                     continue
 
             if has_gender_diff:
-                # Add male and female entries
-                male_count = form_counts.get((dex_num, pokemon_name, 'male'), 0)
-                female_count = form_counts.get((dex_num, pokemon_name, 'female'), 0)
-
-                form_entries.append((dex_num, pokemon_name, 'male', male_count))
-                form_entries.append((dex_num, pokemon_name, 'female', female_count))
+                # Add male and female entries (unless explicitly ignored)
+                if not ignore_male:
+                    male_count = form_counts.get((dex_num, pokemon_name, 'male'), 0)
+                    form_entries.append((dex_num, pokemon_name, 'male', male_count))
+                
+                if not ignore_female:
+                    female_count = form_counts.get((dex_num, pokemon_name, 'female'), 0)
+                    form_entries.append((dex_num, pokemon_name, 'female', female_count))
             else:
                 # Add single entry
                 count = form_counts.get((dex_num, pokemon_name, None), 0)
@@ -666,7 +676,7 @@ class ShinyDexDisplay(commands.Cog):
     @commands.hybrid_command(name='filter', aliases=['f'])
     @app_commands.describe(
         filter_name="Filter name (e.g., eevos, starters, legendaries)",
-        options="Options: --caught, --uncaught, --orderd, --ordera, --region, --type, --exclude, --nogender, --page, --list, --smartlist, --image"
+        options="Options: --caught, --uncaught, --orderd, --ordera, --region, --type, --exclude, --nogender, --page, --list, --smartlist, --image, --ignoremale, --ignorefemale"
     )
     async def filter_dex(self, ctx, filter_name: str = None, *, options: str = None):
         """View your shiny dex with custom filters"""
@@ -701,7 +711,7 @@ class ShinyDexDisplay(commands.Cog):
         user_id = ctx.author.id
 
         # Parse options
-        show_caught, show_uncaught, order, region_filter, type_filters, _, page, show_list, show_smartlist, ignore_gender, exclude_names, show_image = self.parse_filters(options)
+        show_caught, show_uncaught, order, region_filter, type_filters, _, page, show_list, show_smartlist, ignore_gender, exclude_names, show_image, ignore_male, ignore_female = self.parse_filters(options)
 
         # Check conflicting flags
         if show_image and (show_list or show_smartlist):
@@ -773,11 +783,15 @@ class ShinyDexDisplay(commands.Cog):
 
                 dex_entries.append((dex_num, pokemon_name, None, total_count))
             elif has_gender_diff:
-                male_count = form_counts.get((dex_num, pokemon_name, 'male'), 0)
-                female_count = form_counts.get((dex_num, pokemon_name, 'female'), 0)
-
-                dex_entries.append((dex_num, pokemon_name, 'male', male_count))
-                dex_entries.append((dex_num, pokemon_name, 'female', female_count))
+                # Add male entry (unless ignored)
+                if not ignore_male:
+                    male_count = form_counts.get((dex_num, pokemon_name, 'male'), 0)
+                    dex_entries.append((dex_num, pokemon_name, 'male', male_count))
+                
+                # Add female entry (unless ignored)
+                if not ignore_female:
+                    female_count = form_counts.get((dex_num, pokemon_name, 'female'), 0)
+                    dex_entries.append((dex_num, pokemon_name, 'female', female_count))
             else:
                 count = form_counts.get((dex_num, pokemon_name, None), 0)
                 dex_entries.append((dex_num, pokemon_name, None, count))
