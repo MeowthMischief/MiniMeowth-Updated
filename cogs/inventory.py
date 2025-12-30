@@ -265,14 +265,23 @@ class Inventory(commands.Cog):
         args = filters.split() if filters else []
         name_filters = []
 
-        # Parse name filters
+        # Parse name filters (capture full phrases until next flag)
         i = 0
         while i < len(args):
             arg = args[i].lower()
             if arg in ['--n', '--name']:
                 if i + 1 < len(args):
-                    name_filters.append(args[i + 1])
-                    i += 2
+                    # Capture all words until the next flag
+                    name_parts = []
+                    i += 1
+                    while i < len(args) and not args[i].startswith('--'):
+                        name_parts.append(args[i])
+                        i += 1
+                    if name_parts:
+                        name_filters.append(' '.join(name_parts))
+                    else:
+                        await ctx.send("❌ `--n` requires a name", reference=ctx.message, mention_author=False)
+                        return
                 else:
                     await ctx.send("❌ `--n` requires a name", reference=ctx.message, mention_author=False)
                     return
