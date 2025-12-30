@@ -196,26 +196,27 @@ class DexImageGenerator:
         return None
 
     def make_dark_silhouette(self, img: Image.Image):
-        """Convert Pokemon image to dark silhouette for uncaught Pokemon"""
-        # Create a dark version
-        dark = Image.new('RGBA', img.size, (100, 110, 130, 255))
+        """Create silhouette using the previous background color and remove background."""
 
-        # Get alpha channel
-        alpha = img.split()[3]
+        # This was your original bg color: (100, 110, 130)
+        silhouette_color = (100, 110, 130, 255)
 
-        # Create dark silhouette (dark gray with same alpha)
+        # Start with transparent image
+        silhouette = Image.new('RGBA', img.size, (0, 0, 0, 0))
+
         pixels = img.load()
-        dark_pixels = dark.load()
+        sil_pixels = silhouette.load()
 
         for y in range(img.size[1]):
             for x in range(img.size[0]):
                 r, g, b, a = pixels[x, y]
+
+                # If the Pokemon pixel exists, color it
                 if a > 0:
-                    # Make it very dark gray
-                    dark_pixels[x, y] = (30, 30, 35, a)
+                    sil_pixels[x, y] = silhouette_color
 
-        return dark
-
+        return silhouette
+        
     def draw_header(self, draw, overlay_draw, header_info: dict, page_info: dict = None):
         """Draw header with filter information
         header_info: dict with keys 'dex_type', 'types', 'regions', 'filter_name'
