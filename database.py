@@ -621,6 +621,24 @@ class Database:
         # Convert string keys to int
         return {int(k): v for k, v in overrides.items()}
 
+    async def set_id_overrides_bulk(self, user_id: int, pokemon_ids: list, category: str):
+    """
+    OPTIMIZED: Set multiple ID overrides in a single operation
+    category: 'old' or 'new'
+    """
+    if not pokemon_ids or category not in ['old', 'new']:
+        return False
+
+    # Build update dict for all IDs at once
+    update_dict = {f"id_overrides.{pid}": category for pid in pokemon_ids}
+
+    await self.user_data.update_one(
+        {"user_id": user_id},
+        {"$set": update_dict},
+        upsert=True
+    )
+    return True
+
     async def get_id_override(self, user_id: int, pokemon_id: int):
         """
         Get override for a specific ID
